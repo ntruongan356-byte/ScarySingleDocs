@@ -147,14 +147,6 @@ def switch_tab(button):
 # Toggle button function
 def toggle_button(button):
     """Toggle button state on/off."""
-    # DIAGNOSTIC LOGGING - Remove after debugging
-    print(f"DEBUG: Button type: {type(button)}")
-    print(f"DEBUG: Button attributes containing 'class': {[attr for attr in dir(button) if 'class' in attr.lower()]}")
-    print(f"DEBUG: Has class_names: {hasattr(button, 'class_names')}")
-    if hasattr(button, 'class_names'):
-        print(f"DEBUG: class_names value: {button.class_names}")
-    print(f"DEBUG: Has _is_active: {hasattr(button, '_is_active')}")
-    
     # Use a custom attribute to track toggle state
     if not hasattr(button, '_is_active'):
         button._is_active = False
@@ -612,6 +604,67 @@ SETTINGS_KEYS = [
       'custom_file_urls'
 ]
 
+def save_toggle_button_states():
+    """Save the active states of toggle buttons."""
+    toggle_states = {}
+    
+    # Save model toggle states
+    for i, button in enumerate(model_toggle_buttons):
+        if hasattr(button, '_is_active'):
+            toggle_states[f'model_toggle_{i}'] = button._is_active
+    
+    # Save vae toggle states
+    for i, button in enumerate(vae_toggle_buttons):
+        if hasattr(button, '_is_active'):
+            toggle_states[f'vae_toggle_{i}'] = button._is_active
+            
+    # Save lora toggle states
+    for i, button in enumerate(lora_toggle_buttons):
+        if hasattr(button, '_is_active'):
+            toggle_states[f'lora_toggle_{i}'] = button._is_active
+            
+    # Save controlnet toggle states
+    for i, button in enumerate(controlnet_toggle_buttons):
+        if hasattr(button, '_is_active'):
+            toggle_states[f'controlnet_toggle_{i}'] = button._is_active
+    
+    js.save(SETTINGS_PATH, 'TOGGLE_STATES', toggle_states)
+
+def load_toggle_button_states():
+    """Load the active states of toggle buttons."""
+    if not js.key_exists(SETTINGS_PATH, 'TOGGLE_STATES'):
+        return
+        
+    toggle_states = js.read(SETTINGS_PATH, 'TOGGLE_STATES')
+    
+    # Load model toggle states
+    for i, button in enumerate(model_toggle_buttons):
+        state_key = f'model_toggle_{i}'
+        if state_key in toggle_states and toggle_states[state_key]:
+            button._is_active = True
+            button.add_class('active')
+    
+    # Load vae toggle states
+    for i, button in enumerate(vae_toggle_buttons):
+        state_key = f'vae_toggle_{i}'
+        if state_key in toggle_states and toggle_states[state_key]:
+            button._is_active = True
+            button.add_class('active')
+            
+    # Load lora toggle states
+    for i, button in enumerate(lora_toggle_buttons):
+        state_key = f'lora_toggle_{i}'
+        if state_key in toggle_states and toggle_states[state_key]:
+            button._is_active = True
+            button.add_class('active')
+            
+    # Load controlnet toggle states
+    for i, button in enumerate(controlnet_toggle_buttons):
+        state_key = f'controlnet_toggle_{i}'
+        if state_key in toggle_states and toggle_states[state_key]:
+            button._is_active = True
+            button.add_class('active')
+
 def save_settings():
     """Save widget values to settings."""
     widgets_values = {key: globals()[f"{key}_widget"].value for key in SETTINGS_KEYS}
@@ -639,12 +692,13 @@ def load_settings():
 
 def save_data(button):
     """Handle save button click."""
+    # Save toggle button states before saving settings
+    save_toggle_button_states()
     save_settings()
-    all_widgets = [
-        model_box, vae_box, additional_box, custom_download_box, save_button,   # mainContainer
-        GDrive_button, export_button, import_button, notification_popup         # sideContainer
-    ]
-    factory.close(all_widgets, class_names=['hide'], delay=0.8)
+    
+    # Close the main container (this will close all child widgets)
+    factory.close([mainContainer], class_names=['hide'], delay=0.8)
 
 load_settings()
+load_toggle_button_states()
 save_button.on_click(save_data)
