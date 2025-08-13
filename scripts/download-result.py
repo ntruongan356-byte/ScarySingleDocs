@@ -1,4 +1,4 @@
-# ~ download-result.py | by ANXETY ~
+# ~ download-result.py | by ScarySingleDocs ~
 
 from widget_factory import WidgetFactory    # WIDGETS
 import json_utils as js                     # JSON

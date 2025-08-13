@@ -221,7 +221,7 @@ a {
     overflow: hidden !important;
 }
 .container::after {
-    content: "ANXETY";
+    content: "ScarySingleDocs";
     position: absolute;
     top: 10px;
     right: 15px;

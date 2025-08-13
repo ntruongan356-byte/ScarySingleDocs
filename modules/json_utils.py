@@ -1,4 +1,4 @@
-""" JSON Utilities Module | by ANXETY """
+""" JSON Utilities Module | by ScarySingleDocs """
 
 from typing import Any, Dict, List, Optional, Union
 from functools import wraps

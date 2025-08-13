@@ -1,4 +1,4 @@
-""" WidgetFactory Module | by ANXETY """
+""" WidgetFactory Module | by ScarySingleDocs """
 
 from IPython.display import display, HTML
 import ipywidgets as widgets

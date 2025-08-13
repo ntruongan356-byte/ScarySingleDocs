@@ -347,7 +347,7 @@ class CodeGraphGenerator:
             self.repo_root / script_path,
             self.repo_root / "scripts" / script_path,
             self.repo_root / "scripts" / "en" / script_path,
-            pathlib.Path.home() / "ANXETY" / "scripts" / script_path,
+            pathlib.Path.home() / "ScarySingleDocs" / "scripts" / script_path,
         ]
         
         # Also try with .py extension
@@ -357,7 +357,7 @@ class CodeGraphGenerator:
                 self.repo_root / f"{script_path}.py",
                 self.repo_root / "scripts" / f"{script_path}.py",
                 self.repo_root / "scripts" / "en" / f"{script_path}.py",
-                pathlib.Path.home() / "ANXETY" / "scripts" / f"{script_path}.py",
+                pathlib.Path.home() / "ScarySingleDocs" / "scripts" / f"{script_path}.py",
             ])
         
         for path in possible_paths:
@@ -495,7 +495,7 @@ class CodeGraphGenerator:
 def main():
     """Main function to run the code graph generator."""
     parser = argparse.ArgumentParser(description="Code Graph Generator for sdAIgen")
-    parser.add_argument("entry_point", help="The entry point script to analyze (e.g., scripts/en/widgets-en.py or notebook/ANXETY_sdAIgen_EN.ipynb)")
+    parser.add_argument("entry_point", help="The entry point script to analyze (e.g., scripts/en/widgets-en.py or notebook/ScarySingleDocs_EN.ipynb)")
     parser.add_argument("output_file", help="The name of the output JSON file (e.g., code_graph_cell2_widgets.json)")
     args = parser.parse_args()
     

@@ -155,7 +155,7 @@ def apply_classic_fixes():
     if not cmd_args_path.exists():
         return
 
-    marker = '# Arguments added by ANXETY'
+    marker = '# Arguments added by ScarySingleDocs'
     with cmd_args_path.open('r+', encoding='utf-8') as f:
         if marker in f.read():
             return

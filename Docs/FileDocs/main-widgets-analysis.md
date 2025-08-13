@@ -1,7 +1,7 @@
 # Main-Widgets CSS and JS Analysis
 
 ## Overview
-This document provides a comprehensive analysis of the `main-widgets.css` and `main-widgets.js` files that form the frontend styling and interactive functionality for the sdAIgen widget system. These files work in conjunction with `widgets-en.py` to create a sophisticated user interface for Stable Diffusion WebUI deployment.
+This document provides a comprehensive analysis of the `main-widgets.css` and `main-widgets.js` files that form the frontend styling and interactive functionality for the ScarySingleDocs widget system. These files work in conjunction with `widgets-en.py` to create a sophisticated user interface for Stable Diffusion WebUI deployment.
 
 ## File Relationships
 - **CSS File**: `/ScarySingleDocs/CSS/main-widgets.css` (715 lines)
@@ -119,7 +119,7 @@ The CSS implements a sophisticated container hierarchy:
     overflow: hidden !important;
 }
 .container::after {
-    content: "ANXETY";
+    content: "ScarySingleDocs";
     position: absolute;
     top: 10px;
     right: 15px;
@@ -132,7 +132,7 @@ The CSS implements a sophisticated container hierarchy:
 ```
 
 **Features:**
-- **Branding**: Watermark "ANXETY" in each container
+- **Branding**: Watermark "ScarySingleDocs" in each container
 - **Responsive Layout**: Flexbox-based responsive design
 - **Visual Depth**: Multiple shadow layers for depth perception
 - **Consistent Spacing**: CSS variable-based gap system
@@ -649,10 +649,10 @@ def generate_file_list(structure: Dict, base_url: str, lang: str) -> List[Tuple[
 #### Path Management
 The setup.py script ensures proper directory structure:
 ```python
-SCR_PATH = HOME / 'ANXETY'
+SCR_PATH = HOME / 'ScarySingleDocs'
 # Creates:
-# /home/user/ANXETY/CSS/main-widgets.css
-# /home/user/ANXETY/JS/main-widgets.js
+# /home/user/ScarySingleDocs/CSS/main-widgets.css
+# /home/user/ScarySingleDocs/JS/main-widgets.js
 ```
 
 ### Integration Points

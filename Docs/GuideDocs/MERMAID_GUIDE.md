@@ -1,6 +1,6 @@
-# Mermaid Guide for sdAIgen Documentation
+# Mermaid Guide for ScarySingleDocs Documentation
 
-This guide explains how to use Mermaid syntax to create various diagrams for documenting the sdAIgen project. Mermaid is a simple markdown-like syntax for generating diagrams and flowcharts.
+This guide explains how to use Mermaid syntax to create various diagrams for documenting the ScarySingleDocs project. Mermaid is a simple markdown-like syntax for generating diagrams and flowcharts.
 
 ## What is Mermaid?
 
@@ -229,7 +229,7 @@ User journey maps show the user's experience through a system.
 journey
     title User Journey: Model Selection Process
     section Initial Access
-      User visits sdAIgen: 5: User
+      User visits ScarySingleDocs: 5: User
       System loads interface: 3: System
       User sees available models: 4: User
     
@@ -279,7 +279,7 @@ Timeline diagrams show events over time.
 #### Project Timeline
 ```mermaid
 timeline
-    title sdAIgen Interface Development Timeline
+    title ScarySingleDocs Interface Development Timeline
     section Planning
       Requirement Analysis : 2024-01-01, 3d
       Design Mockups : 2024-01-04, 5d
@@ -332,7 +332,7 @@ quadrantChart
     "Mobile App": [0.9, 0.4]
 ```
 
-## Best Practices for sdAIgen Documentation
+## Best Practices for ScarySingleDocs Documentation
 
 ### 1. Consistency
 - Use consistent styling across all diagrams
@@ -370,7 +370,7 @@ graph TD
     E --> E3[Testing]
 ```
 
-### 4. Example: Complete sdAIgen System Architecture
+### 4. Example: Complete ScarySingleDocs System Architecture
 
 ```mermaid
 graph TB
@@ -407,11 +407,11 @@ graph TB
 Mermaid diagrams integrate seamlessly with markdown files:
 
 ```markdown
-# sdAIgen Architecture
+# ScarySingleDocs Architecture
 
 ## System Overview
 
-The sdAIgen system consists of several interconnected components:
+The ScarySingleDocs system consists of several interconnected components:
 
 ```mermaid
 graph LR
@@ -497,7 +497,7 @@ graph TD
 
 ## Conclusion
 
-Mermaid is a powerful tool for creating diagrams in documentation. For the sdAIgen project, it can be used to:
+Mermaid is a powerful tool for creating diagrams in documentation. For the ScarySingleDocs project, it can be used to:
 
 - Visualize system architecture
 - Document user flows

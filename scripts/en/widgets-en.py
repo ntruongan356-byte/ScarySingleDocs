@@ -1,4 +1,4 @@
-# ~ widgets.py | by ANXETY ~
+# ~ widgets.py | by ScarySingleDocs ~
 
 from widget_factory import WidgetFactory        # WIDGETS
 from webui_utils import update_current_webui    # WEBUI
@@ -481,22 +481,26 @@ def update_XL_options(change, widget):
     new_model_options = read_model_data(f"{SCRIPTS}/{data_file}", 'model')
     new_vae_options = read_model_data(f"{SCRIPTS}/{data_file}", 'vae')
     new_controlnet_options = read_model_data(f"{SCRIPTS}/{data_file}", 'cnet')
+    new_lora_options = read_model_data(f"{SCRIPTS}/{data_file}", 'lora')
     
     # Clear existing toggle buttons
     tab_content_models.children = []
     tab_content_vae.children = []
     tab_content_controlnet.children = []
+    tab_content_lora.children = []
     
     # Create new toggle buttons with updated options
-    global model_toggle_buttons, vae_toggle_buttons, controlnet_toggle_buttons
+    global model_toggle_buttons, vae_toggle_buttons, controlnet_toggle_buttons, lora_toggle_buttons
     model_toggle_buttons = create_toggle_buttons('model', new_model_options)
     vae_toggle_buttons = create_toggle_buttons('vae', new_vae_options)
     controlnet_toggle_buttons = create_toggle_buttons('controlnet', new_controlnet_options)
+    lora_toggle_buttons = create_toggle_buttons('lora', new_lora_options)
     
     # Add new toggle buttons to tab contents
     tab_content_models.children = model_toggle_buttons
     tab_content_vae.children = vae_toggle_buttons
     tab_content_controlnet.children = controlnet_toggle_buttons
+    tab_content_lora.children = lora_toggle_buttons
     
     # Connect new toggle buttons to toggle function
     for button in model_toggle_buttons:
@@ -504,6 +508,8 @@ def update_XL_options(change, widget):
     for button in vae_toggle_buttons:
         button.on_click(toggle_button)
     for button in controlnet_toggle_buttons:
+        button.on_click(toggle_button)
+    for button in lora_toggle_buttons:
         button.on_click(toggle_button)
     
     # Disable/enable inpainting checkbox based on SDXL state

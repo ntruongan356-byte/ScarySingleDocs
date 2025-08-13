@@ -66,7 +66,7 @@ FILE_STRUCTURE = {
         'styles.csv', 'user.css', 'card-no-preview.png', 'notification.mp3',
         'gradio-tunneling.py', 'tagcomplete-tags-parser.py'
     ],
-    'notebook': ['ANXETY_sdAIgen_EN.ipynb'],
+    'notebook': ['ScarySingleDocs_EN.ipynb'],
     'Docs': {
         'Json': [
             'code_graph_cell2_widgets.json', 'code_graph_generator.py',
@@ -273,7 +273,7 @@ async def download_files_async(lang, fork_user, fork_repo, branch, log_errors):
 
 async def main_async(args=None):
     """Entry point."""
-    parser = argparse.ArgumentParser(description='ANXETY Download Manager')
+    parser = argparse.ArgumentParser(description='ScarySingleDocs Download Manager')
     parser.add_argument('--lang', default=DEFAULT_LANG, help=f"Language to be used (default: {DEFAULT_LANG})")
     parser.add_argument('--branch', default=DEFAULT_BRANCH, help=f"Branch to download files from (default: {DEFAULT_BRANCH})")
     parser.add_argument('--fork', default=None, help="Specify project fork (user or user/repo)")

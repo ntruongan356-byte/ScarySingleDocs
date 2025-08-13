@@ -1,4 +1,4 @@
-""" Season Info Module | by ANXETY """
+""" Season Info Module | by ScarySingleDocs """
 
 from IPython.display import display, HTML
 import datetime
@@ -74,9 +74,9 @@ def display_info(env, scr_folder, branch, lang='en', fork=None):
     <div class="season-container">
       <div class="text-container">
         <span>{config['icon']}</span>
-        <span>A</span><span>N</span><span>X</span><span>E</span><span>T</span><span>Y</span>
+        <span>S</span><span>C</span><span>A</span><span>R</span><span>Y</span><span>S</span><span>I</span><span>N</span><span>G</span><span>L</span><span>E</span>
         <span>&nbsp;</span>
-        <span>S</span><span>D</span><span>-</span><span>W</span><span>E</span><span>B</span><span>U</span><span>I</span>
+        <span>D</span><span>O</span><span>C</span><span>S</span>
         <span>&nbsp;</span>
         <span>V</span><span>2</span>
         <span>{config['icon']}</span>

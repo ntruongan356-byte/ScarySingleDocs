@@ -1,7 +1,7 @@
 # Cell 3: Comprehensive Analysis of Download Management and Model Acquisition System
 
 ## Overview
-This document provides a comprehensive analysis of the Cell 3 functionality in the sdAIgen project, focusing on the `downloading-en.py` script and its role in the download management and model acquisition system. Cell 3 represents the critical phase where the system prepares the environment, downloads necessary models, extensions, and resources, and sets up the complete Stable Diffusion WebUI ecosystem.
+This document provides a comprehensive analysis of the Cell 3 functionality in the ScarySingleDocs project, focusing on the `downloading-en.py` script and its role in the download management and model acquisition system. Cell 3 represents the critical phase where the system prepares the environment, downloads necessary models, extensions, and resources, and sets up the complete Stable Diffusion WebUI ecosystem.
 
 ## Table of Contents
 1. [Import Analysis](#import-analysis)
@@ -48,7 +48,7 @@ import re
 import os
 ```
 **Purpose**: Imports all necessary modules for script functionality.
-- **Project Modules (4)**: Core sdAIgen project modules for specific functionality
+- **Project Modules (4)**: Core ScarySingleDocs project modules for specific functionality
 - **IPython Components (3)**: Jupyter/Colab environment integration
 - **Standard Libraries (13)**: System operations, networking, file handling
 - **Environment Integration**: Designed specifically for notebook execution environments
@@ -533,7 +533,7 @@ mountGDrive = js.read(SETTINGS_PATH, 'mountGDrive')  # Mount/unmount flag
 
 ### Symlink Configuration (Lines 264-278)
 ```python
-GD_BASE = "/content/drive/MyDrive/sdAIgen"
+GD_BASE = "/content/drive/MyDrive/ScarySingleDocs"
 SYMLINK_CONFIG = [
     {   # model
         'local_dir': model_dir,
@@ -551,7 +551,7 @@ SYMLINK_CONFIG = [
 ```
 **Purpose**: Defines Google Drive symlink configuration for model directories.
 **Behavior**:
-- Sets base Google Drive path for sdAIgen
+- Sets base Google Drive path for ScarySingleDocs
 - Defines symlink configuration array with:
   - Local directory paths for models, VAEs, LoRAs
   - Corresponding Google Drive subdirectory names
@@ -610,7 +610,7 @@ def create_symlink(src_path, gdrive_path, log=False):
 **Usage**: Creates cloud-backed storage for model directories
 **Examples**:
 ```python
-create_symlink(Path('/content/models'), Path('/content/drive/MyDrive/sdAIgen/Checkpoints'), log=True)
+create_symlink(Path('/content/models'), Path('/content/drive/MyDrive/ScarySingleDocs/Checkpoints'), log=True)
 ```
 
 ### `handle_gdrive(mount_flag, log=False)` → None
@@ -2181,7 +2181,7 @@ handle_setup_timer(WEBUI, start_install)  # 设置计时器（用于timer扩展�
 ## json_utils.py - JSON Operations and Configuration Management
 
 ### File Overview
-The `json_utils.py` module is a critical foundation component that provides comprehensive JSON file operations with advanced features including nested key access, path parsing, validation, and robust error handling. This module serves as the primary configuration management system for the entire sdAIgen project, imported by `downloading-en.py` and used throughout all core modules for settings persistence and retrieval.
+The `json_utils.py` module is a critical foundation component that provides comprehensive JSON file operations with advanced features including nested key access, path parsing, validation, and robust error handling. This module serves as the primary configuration management system for the entire ScarySingleDocs project, imported by `downloading-en.py` and used throughout all core modules for settings persistence and retrieval.
 
 ### Function Analysis
 
@@ -3030,7 +3030,7 @@ api.save_model_info(model_data, "/path/to/save")
 ## Manager.py - Core Download Operations and Git Repository Management
 
 ### File Overview
-The `Manager.py` module serves as the core download and repository management engine for the entire sdAIgen project. This critical module is imported by `downloading-en.py` and handles all download operations (CivitAI, HuggingFace, Google Drive, GitHub) and Git repository cloning with sophisticated error handling, progress monitoring, and multi-protocol support. The module implements a unified interface for file acquisition across different platforms and protocols.
+The `Manager.py` module serves as the core download and repository management engine for the entire ScarySingleDocs project. This critical module is imported by `downloading-en.py` and handles all download operations (CivitAI, HuggingFace, Google Drive, GitHub) and Git repository cloning with sophisticated error handling, progress monitoring, and multi-protocol support. The module implements a unified interface for file acquisition across different platforms and protocols.
 
 ### Function Analysis
 
@@ -3606,12 +3606,12 @@ Cell 3 demonstrates sophisticated software engineering:
 - **Extensibility**: Configuration-driven behavior and plugin architecture
 - **Platform Adaptation**: Automatic adjustment to different environments
 
-This comprehensive analysis establishes Cell 3 as a critical, sophisticated component in the sdAIgen project, responsible for orchestrating the complete download and resource acquisition process with professional-grade reliability and user experience.
+This comprehensive analysis establishes Cell 3 as a critical, sophisticated component in the ScarySingleDocs project, responsible for orchestrating the complete download and resource acquisition process with professional-grade reliability and user experience.
 
 ## How Cell 3 Operates
 
 ### Cell 3 Execution Flow
-Cell 3 operates as the central download and resource acquisition hub in the sdAIgen project workflow. Following the environment setup (Cell 1) and WebUI installation (Cell 2), Cell 3 takes responsibility for:
+Cell 3 operates as the central download and resource acquisition hub in the ScarySingleDocs project workflow. Following the environment setup (Cell 1) and WebUI installation (Cell 2), Cell 3 takes responsibility for:
 
 1. **Environment Preparation**: Installing dependencies, setting up virtual environments, and configuring system tools
 2. **Resource Acquisition**: Downloading models, VAEs, LoRAs, embeddings, and other AI resources
@@ -4034,7 +4034,7 @@ import aiohttp
 import os
 ```
 **Purpose**: Imports all necessary modules for WebUI installation and configuration.
-- **Project Modules (2)**: Core sdAIgen project modules for downloads and JSON operations
+- **Project Modules (2)**: Core ScarySingleDocs project modules for downloads and JSON operations
 - **IPython Components (3)**: Jupyter/Colab environment integration
 - **Standard Libraries (7)**: System operations, async programming, networking, file handling
 - **Async Support**: Heavy use of asyncio for concurrent operations
@@ -4502,7 +4502,7 @@ import re
 import os
 ```
 **Purpose**: Imports all necessary modules for widget creation and file operations.
-- **Project Modules (2)**: Core sdAIgen project modules for widgets and JSON operations
+- **Project Modules (2)**: Core ScarySingleDocs project modules for widgets and JSON operations
 - **Widget Libraries (1)**: IPython widgets for interactive interface
 - **Standard Libraries (6)**: File operations, path handling, JSON, regex, time
 - **UI Focus**: Heavy emphasis on widget creation and interface building

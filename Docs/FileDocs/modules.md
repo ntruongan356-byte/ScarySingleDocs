@@ -1,7 +1,7 @@
-# sdAIgen Modules Documentation
+# ScarySingleDocs Modules Documentation
 
 ## Overview
-The `modules/` directory contains the core backend functionality modules that power the sdAIgen project. Each module serves a specific purpose and works together to provide a comprehensive Stable Diffusion WebUI management system.
+The `modules/` directory contains the core backend functionality modules that power the ScarySingleDocs project. Each module serves a specific purpose and works together to provide a comprehensive Stable Diffusion WebUI management system.
 
 ---
 

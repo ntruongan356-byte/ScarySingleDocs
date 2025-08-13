@@ -1,4 +1,4 @@
-""" Manager Module (V2) | by ANXETY """
+""" Manager Module (V2) | by ScarySingleDocs """
 
 from CivitaiAPI import CivitAiAPI    # CivitAI API
 import json_utils as js              # JSON

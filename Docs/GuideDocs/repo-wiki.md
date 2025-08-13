@@ -1,8 +1,8 @@
-# sdAIgen Repository Overview
+# ScarySingleDocs Repository Overview
 
 ## Project Overview
 
-The sdAIgen project is a comprehensive Stable Diffusion WebUI notebook designed to run on Google Colab and Kaggle platforms. Here are the key features and components:
+The ScarySingleDocs project is a comprehensive Stable Diffusion WebUI notebook designed to run on Google Colab and Kaggle platforms. Here are the key features and components:
 
 ### 🌟 Main Features
 - **Multiplatform notebook**: Google Colab, Kaggle.
@@ -56,8 +56,8 @@ The sdAIgen project is a comprehensive Stable Diffusion WebUI notebook designed 
 The repository contains several key components:
 
 #### Notebook files (`/notebook/`):
-- `ScarySingleDocs_sdAIgen_EN.ipynb` - English version
-- `ScarySingleDocs_sdAIgen_RU.ipynb` - Russian version
+- `ScarySingleDocs_EN.ipynb` - English version
+- `ScarySingleDocs_RU.ipynb` - Russian version
 
 #### Widget system (`/modules/`):
 - `widget_factory.py` - Core widget creation system
@@ -157,7 +157,7 @@ Localization scripts.
 
 #### Exclusive (Google Colab):
 - **GDrive button**: connects Google Drive to NoteBook, creating symbolic links to Models, Vae and LoRa.
-  - An sdAIgen folder will be automatically created in your Drive - Model files will be placed in it
+  - A ScarySingleDocs folder will be automatically created in your Drive - Model files will be placed in it
 - **Buttons Export and Import widget settings to JSON format.** (Saves all widget values)
 
 #### VAE Selection

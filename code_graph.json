@@ -3,29 +3,29 @@
     {
       "id": "node_1",
       "type": "File",
-      "name": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
-      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
+      "name": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
+      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
       "line_number": 0
     },
     {
       "id": "node_2",
       "type": "UnresolvedScript",
       "name": "-sLo {out} https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/scripts/setup.py",
-      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
+      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
       "line_number": 10
     },
     {
       "id": "node_3",
       "type": "UnresolvedScript",
       "name": "$out --lang=en --branch=main",
-      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
+      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
       "line_number": 12
     },
     {
       "id": "node_4",
       "type": "Script",
       "name": "/home/z/my-project/ScarySingleDocs/scripts/en/widgets-en.py",
-      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
+      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
       "line_number": 2,
       "actual_path": "/home/z/my-project/ScarySingleDocs/scripts/en/widgets-en.py"
     },
@@ -33,7 +33,7 @@
       "id": "node_5",
       "type": "Script",
       "name": "/home/z/my-project/ScarySingleDocs/scripts/en/downloading-en.py",
-      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
+      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
       "line_number": 2,
       "actual_path": "/home/z/my-project/ScarySingleDocs/scripts/en/downloading-en.py"
     },
@@ -41,7 +41,7 @@
       "id": "node_6",
       "type": "Script",
       "name": "/home/z/my-project/ScarySingleDocs/scripts/launch.py",
-      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
+      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
       "line_number": 2,
       "actual_path": "/home/z/my-project/ScarySingleDocs/scripts/launch.py"
     },
@@ -49,7 +49,7 @@
       "id": "node_7",
       "type": "Script",
       "name": "/home/z/my-project/ScarySingleDocs/scripts/auto-cleaner.py",
-      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ANXETY_sdAIgen_EN.ipynb",
+      "file_path": "/home/z/my-project/ScarySingleDocs/notebook/ScarySingleDocs_EN.ipynb",
       "line_number": 2,
       "actual_path": "/home/z/my-project/ScarySingleDocs/scripts/auto-cleaner.py"
     },
@@ -7773,6 +7773,6 @@
   "metadata": {
     "total_nodes": 650,
     "total_edges": 642,
-    "entry_point": "notebook/ANXETY_sdAIgen_EN.ipynb"
+    "entry_point": "notebook/ScarySingleDocs_EN.ipynb"
   }
 }

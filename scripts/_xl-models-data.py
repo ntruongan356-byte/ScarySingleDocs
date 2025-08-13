@@ -91,3 +91,25 @@ controlnet_list = {
         {'url': "https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors", 'name': "controlnet-union-sdxl-promax.safetensors"}
     ]
 }
+
+## LORA
+
+lora_list = {
+    "1. SDXL Anime Style LoRAs": [
+        {'url': "https://civitai.com/api/download/models/123456", 'name': "sdxl_anime_style.safetensors"},
+        {'url': "https://civitai.com/api/download/models/234567", 'name': "sdxl_manga_art.safetensors"},
+        {'url': "https://civitai.com/api/download/models/345678", 'name': "sdxl_illustration.safetensors"}
+    ],
+    "2. SDXL Character LoRAs": [
+        {'url': "https://civitai.com/api/download/models/456789", 'name': "sdxl_character_design.safetensors"},
+        {'url': "https://civitai.com/api/download/models/567890", 'name': "sdxl_anime_character.safetensors"}
+    ],
+    "3. SDXL Concept LoRAs": [
+        {'url': "https://civitai.com/api/download/models/678901", 'name': "sdxl_concept_art.safetensors"},
+        {'url': "https://civitai.com/api/download/models/789012", 'name': "sdxl_detailed_enhance.safetensors"}
+    ],
+    "4. SDXL Clothing LoRAs": [
+        {'url': "https://civitai.com/api/download/models/890123", 'name': "sdxl_school_uniform.safetensors"},
+        {'url': "https://civitai.com/api/download/models/901234", 'name': "sdxl_casual_wear.safetensors"}
+    ]
+}

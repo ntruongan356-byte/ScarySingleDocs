@@ -1,10 +1,10 @@
 # Cell 1: Setup.py Function-by-Function Guide
 
 ## Overview
-The `setup.py` script is the initial setup and file preparation script for the sdAIgen project. It handles environment detection, file downloading, module management, and configuration setup. This guide breaks down each function and its purpose.
+The `setup.py` script is the initial setup and file preparation script for the ScarySingleDocs project. It handles environment detection, file downloading, module management, and configuration setup. This guide breaks down each function and its purpose.
 
 ## Project Context
-The sdAIgen project is a comprehensive AI-powered image generation system that supports multiple Stable Diffusion interfaces including A1111, Forge, ReForge, SD-UX, and ComfyUI. The project has been restructured with proper documentation organization and contains 80+ files organized into functional categories.
+The ScarySingleDocs project is a comprehensive AI-powered image generation system that supports multiple Stable Diffusion interfaces including A1111, Forge, ReForge, SD-UX, and ComfyUI. The project has been restructured with proper documentation organization and contains 80+ files organized into functional categories.
 
 ## Documentation Structure
 The project documentation has been reorganized into the `Docs/` folder with the following structure:
@@ -30,14 +30,14 @@ The project documentation has been reorganized into the `Docs/` folder with the 
 ### Global Constants
 ```python
 HOME = Path.home()
-SCR_PATH = HOME / 'ANXETY'
+SCR_PATH = HOME / 'ScarySingleDocs'
 SETTINGS_PATH = SCR_PATH / 'settings.json'
 VENV_PATH = HOME / 'venv'
 MODULES_FOLDER = SCR_PATH / "modules"
 ```
 **Purpose**: Defines core directory paths used throughout the script.
 - `HOME`: User's home directory
-- `SCR_PATH`: Main working directory (`~/ANXETY`)
+- `SCR_PATH`: Main working directory (`~/ScarySingleDocs`)
 - `SETTINGS_PATH`: Location of settings configuration file
 - `VENV_PATH`: Virtual environment directory
 - `MODULES_FOLDER`: Location of custom modules
@@ -388,7 +388,7 @@ async def download_files_async(lang, fork_user, fork_repo, branch, log_errors):
 ```python
 async def main_async(args=None):
     """Entry point."""
-    parser = argparse.ArgumentParser(description='ANXETY Download Manager')
+    parser = argparse.ArgumentParser(description='ScarySingleDocs Download Manager')
     parser.add_argument('--lang', default=DEFAULT_LANG, help=f"Language to be used (default: {DEFAULT_LANG})")
     parser.add_argument('--branch', default=DEFAULT_BRANCH, help=f"Branch to download files from (default: {DEFAULT_BRANCH})")
     parser.add_argument('--fork', default=None, help="Specify project fork (user or user/repo)")
@@ -517,7 +517,7 @@ Enables detailed error logging during downloads.
 
 ## Module Utilization
 
-The `setup.py` script utilizes several modules from the sdAIgen project. Here's which modules are used and how:
+The `setup.py` script utilizes several modules from the ScarySingleDocs project. Here's which modules are used and how:
 
 ### Direct Module Import
 - **`_season.py`**: Imported at line 271 to use the `display_info()` function for showing setup completion information with seasonal themes.
@@ -537,14 +537,14 @@ The script includes dedicated functions for module management:
 - **`_clear_module_cache()`**: Clears Python's module cache to allow clean reloading
 - **`setup_module_folder()`**: Sets up the modules folder and adds it to sys.path for importing
 
-These modules are essential for the full functionality of the sdAIgen project and are properly managed by the setup script to ensure they are available for subsequent operations.
+These modules are essential for the full functionality of the ScarySingleDocs project and are properly managed by the setup script to ensure they are available for subsequent operations.
 
 ---
 
 ## Cell 1 Integration
 
 ### How Cell 1 Uses setup.py
-In the Jupyter notebooks (`ANXETY_sdAIgen_EN.ipynb` and `ANXETY_sdAIgen_RU.ipynb`), Cell 1 serves as the initialization cell that orchestrates the entire setup process:
+In the Jupyter notebooks (`ScarySingleDocs_EN.ipynb` and `ScarySingleDocs_RU.ipynb`), Cell 1 serves as the initialization cell that orchestrates the entire setup process:
 
 ```python
 # Cell 1 execution flow:
@@ -626,7 +626,7 @@ def detect_environment(force_env=None):
 #### Step 7: Parse Command Line Arguments
 setup.py parses the arguments passed from Cell 1:
 ```python
-parser = argparse.ArgumentParser(description='ANXETY Download Manager')
+parser = argparse.ArgumentParser(description='ScarySingleDocs Download Manager')
 parser.add_argument('--lang', default=DEFAULT_LANG)  # 'en' or 'ru'
 parser.add_argument('--branch', default=DEFAULT_BRANCH)  # 'main'
 parser.add_argument('--fork', default=None)  # Not used in this case
@@ -639,10 +639,10 @@ parser.add_argument('-e', '--force-env', default=None)  # None
 setup.py establishes the directory structure:
 ```python
 HOME = Path.home()  # e.g., /content in Colab
-SCR_PATH = HOME / 'ANXETY'  # /content/ANXETY
-SETTINGS_PATH = SCR_PATH / 'settings.json'  # /content/ANXETY/settings.json
+SCR_PATH = HOME / 'ScarySingleDocs'  # /content/ScarySingleDocs
+SETTINGS_PATH = SCR_PATH / 'settings.json'  # /content/ScarySingleDocs/settings.json
 VENV_PATH = HOME / 'venv'  # /content/venv
-MODULES_FOLDER = SCR_PATH / "modules"  # /content/ANXETY/modules
+MODULES_FOLDER = SCR_PATH / "modules"  # /content/ScarySingleDocs/modules
 
 # Set environment variables for other scripts
 os.environ.update({
@@ -731,9 +731,9 @@ env_data = {
         "branch": "main",
         "lang": "en",  # or "ru"
         "home_path": "/content",
-        "scr_path": "/content/ANXETY",
+        "scr_path": "/content/ScarySingleDocs",
         "venv_path": "/content/venv",
-        "settings_path": "/content/ANXETY/settings.json",
+        "settings_path": "/content/ScarySingleDocs/settings.json",
         "start_timer": 1234567890,  # Unix timestamp
         "public_ip": ""
     }
@@ -765,7 +765,7 @@ def save_env_to_json(data: dict, filepath: Path) -> None:
 - **Merging**: If file exists, new data is merged with existing data (no data loss)
 - **Directory Creation**: Parent directories are created if needed
 - **Initial Content**: Contains only ENVIRONMENT section after setup.py completion
-- **Location**: `/content/ANXETY/settings.json` (in Colab) or similar in Kaggle
+- **Location**: `/content/ScarySingleDocs/settings.json` (in Colab) or similar in Kaggle
 
 ### Phase 6: Completion and Display (130-135 seconds)
 
@@ -802,7 +802,7 @@ clear_output()  # Clear download progress and error messages
 - The environment is now fully configured for subsequent cells
 
 #### Step 19: Environment Ready for Use
-The sdAIgen environment is now fully set up with:
+The ScarySingleDocs environment is now fully set up with:
 - All 80+ project files downloaded and in place
 - Module system configured and ready
 - Environment variables set for all scripts
@@ -823,14 +823,14 @@ If any step fails:
 - File system errors are handled gracefully
 - The process continues where possible rather than failing completely
 
-This detailed execution flow shows how Cell 1 orchestrates the complete setup of the sdAIgen project from a single click to a fully functional environment ready for AI image generation.
+This detailed execution flow shows how Cell 1 orchestrates the complete setup of the ScarySingleDocs project from a single click to a fully functional environment ready for AI image generation.
 
 ---
 
 ## Project Architecture
 
 ### Complete Project Structure
-The sdAIgen project contains 80+ files organized into the following structure:
+The ScarySingleDocs project contains 80+ files organized into the following structure:
 
 #### Root Directory
 - `README.md` → `sdaigen-map.md` (renamed) - Complete file map
@@ -881,8 +881,8 @@ The sdAIgen project contains 80+ files organized into the following structure:
 - Additional assets: `user.css`, `styles.csv`, `notification.mp3`, `card-no-preview.png`
 
 #### notebook/ (Jupyter Notebooks)
-- `ANXETY_sdAIgen_EN.ipynb` - English notebook
-- `ANXETY_sdAIgen_RU.ipynb` - Russian notebook
+- `ScarySingleDocs_EN.ipynb` - English notebook
+- `ScarySingleDocs_RU.ipynb` - Russian notebook
 
 #### .Docs/ (Documentation Resources)
 - Images, SVG files, logos, and other documentation assets
@@ -942,4 +942,4 @@ The project uses a self-bootstrapping approach:
 - Automatic URL generation
 - Public IP detection
 
-This script serves as the foundation for the entire sdAIgen setup process, ensuring all necessary files are downloaded and the environment is properly configured for subsequent operations. The comprehensive architecture supports multiple interfaces, languages, and platforms while maintaining modularity and extensibility.
+This script serves as the foundation for the entire ScarySingleDocs setup process, ensuring all necessary files are downloaded and the environment is properly configured for subsequent operations. The comprehensive architecture supports multiple interfaces, languages, and platforms while maintaining modularity and extensibility.

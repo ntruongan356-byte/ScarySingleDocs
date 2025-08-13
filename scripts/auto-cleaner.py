@@ -1,4 +1,4 @@
-# ~ auto-cleaner.py | by ANXETY ~
+# ~ auto-cleaner.py | by ScarySingleDocs ~
 
 from widget_factory import WidgetFactory    # WIDGETS
 import json_utils as js                     # JSON

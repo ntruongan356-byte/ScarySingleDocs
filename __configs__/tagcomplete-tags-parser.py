@@ -1,4 +1,4 @@
-# ~ tagcomplete-tags-parser.py | CSV Tags Downloader for sd-webui-tagcomplete | by ANXETY ~
+# ~ tagcomplete-tags-parser.py | CSV Tags Downloader for sd-webui-tagcomplete | by ScarySingleDocs ~
 
 import json_utils as js
 

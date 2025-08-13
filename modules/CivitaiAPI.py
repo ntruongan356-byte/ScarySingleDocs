@@ -1,4 +1,4 @@
-""" CivitAi API Module (V2) | by ANXETY """
+""" CivitAi API Module (V2) | by ScarySingleDocs """
 
 from urllib.parse import urlparse, parse_qs, urlencode
 from typing import Optional, Union, Tuple, Dict, Any, List

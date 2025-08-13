@@ -1,4 +1,4 @@
-""" install-deps.py | by ANXETY """
+""" install-deps.py | by ScarySingleDocs """
 
 from importlib.metadata import distribution, PackageNotFoundError
 from pathlib import Path

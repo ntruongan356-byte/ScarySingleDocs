@@ -1,4 +1,4 @@
-## ANXETY Edits
+## ScarySingleDocs Edits
 https://github.com/ntruongan356-byte/sd-civitai-browser-plus Civitai-Browser-Plus
 https://github.com/ntruongan356-byte/sd-civitai-extension Civitai-Extension
 https://github.com/ntruongan356-byte/webui_timer timer

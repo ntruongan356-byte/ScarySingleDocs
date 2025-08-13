@@ -1,7 +1,7 @@
 # Cell 2: Comprehensive Analysis of Core Installation and Launch Scripts
 
 ## Overview
-This document provides a comprehensive analysis of the critical files that form the core installation and launch infrastructure of the sdAIgen project: `webui-installer.py`, `launch.py`, `widgets-en.py`, and `settings.json`. These files work together to create a complete system for WebUI installation, configuration, user interface management, and remote access enabling in Google Colab and Kaggle environments.
+This document provides a comprehensive analysis of the critical files that form the core installation and launch infrastructure of the ScarySingleDocs project: `webui-installer.py`, `launch.py`, `widgets-en.py`, and `settings.json`. These files work together to create a complete system for WebUI installation, configuration, user interface management, and remote access enabling in Google Colab and Kaggle environments.
 
 ## Project Context
 The `webui-installer.py` script handles the complete WebUI installation process, including downloading archives, configuring extensions, and applying variant-specific fixes. The `launch.py` script manages WebUI launching, tunneling services for remote access, and comprehensive status reporting. The `widgets-en.py` script provides the user interface for configuration, while `settings.json` serves as the central configuration storage. Together, these files create a robust, end-to-end solution for Stable Diffusion WebUI deployment in cloud environments.
@@ -2360,7 +2360,7 @@ def update_current_webui(webui_type):
 3. **Response Time**: Sub-second response for most operations
 4. **Memory Footprint**: Minimal memory usage for widget state
 
-This comprehensive analysis demonstrates the sophisticated interplay between widgets-en.py and settings.json, creating a robust, user-friendly interface for the sdAIgen project that persists user preferences and adapts to different environments.
+This comprehensive analysis demonstrates the sophisticated interplay between widgets-en.py and settings.json, creating a robust, user-friendly interface for the ScarySingleDocs project that persists user preferences and adapts to different environments.
 
 ---
 
@@ -2497,4 +2497,4 @@ The four files work together to optimize overall system performance:
 3. **Performance Optimization**: Coordinated optimization strategies across execution phases
 4. **User Experience**: Seamless user experience despite complex backend operations
 
-This integrated analysis reveals a sophisticated, well-architected system where each file plays a crucial role in the overall sdAIgen project, working together to provide a robust, user-friendly Stable Diffusion WebUI deployment solution in cloud environments.
+This integrated analysis reveals a sophisticated, well-architected system where each file plays a crucial role in the overall ScarySingleDocs project, working together to provide a robust, user-friendly Stable Diffusion WebUI deployment solution in cloud environments.

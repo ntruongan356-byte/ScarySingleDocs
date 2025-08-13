@@ -106,3 +106,25 @@ controlnet_list = {
         {'url': "https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1e_sd15_tile_fp16.yaml"}
     ]
 }
+
+## LORA
+
+lora_list = {
+    "1. Anime Style LoRAs": [
+        {'url': "https://civitai.com/api/download/models/32988", 'name': "style_of_lolicute.safetensors"},
+        {'url': "https://civitai.com/api/download/models/62816", 'name': "anime_lineart.safetensors"},
+        {'url': "https://civitai.com/api/download/models/30940", 'name': "anime_manga_style.safetensors"}
+    ],
+    "2. Character LoRAs": [
+        {'url': "https://civitai.com/api/download/models/46286", 'name': "character_design.safetensors"},
+        {'url': "https://civitai.com/api/download/models/56018", 'name': "anime_character.safetensors"}
+    ],
+    "3. Concept LoRAs": [
+        {'url': "https://civitai.com/api/download/models/32988", 'name': "concept_art.safetensors"},
+        {'url': "https://civitai.com/api/download/models/45890", 'name': "detailed_enhance.safetensors"}
+    ],
+    "4. Clothing LoRAs": [
+        {'url': "https://civitai.com/api/download/models/45832", 'name': "school_uniform.safetensors"},
+        {'url': "https://civitai.com/api/download/models/45833", 'name': "casual_wear.safetensors"}
+    ]
+}

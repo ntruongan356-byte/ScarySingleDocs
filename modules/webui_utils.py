@@ -1,4 +1,4 @@
-""" WebUI Utilities Module | by ANXETY """
+""" WebUI Utilities Module | by ScarySingleDocs """
 
 import json_utils as js
 
