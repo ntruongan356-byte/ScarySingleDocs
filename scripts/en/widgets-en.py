@@ -211,8 +211,8 @@ zrok_box = factory.create_hbox([zrok_token_widget, zrok_button])
 
 commandline_arguments_widget = factory.create_text('Arguments:', WEBUI_SELECTION['A1111'])
 
-accent_colors_options = ['anxety', 'blue', 'green', 'peach', 'pink', 'red', 'yellow']
-theme_accent_widget = factory.create_dropdown(accent_colors_options, 'Theme Accent:', 'anxety',
+accent_colors_options = ['scarysingle', 'blue', 'green', 'peach', 'pink', 'red', 'yellow']
+theme_accent_widget = factory.create_dropdown(accent_colors_options, 'Theme Accent:', 'scarysingle',
                                               layout={'width': 'auto', 'margin': '0 0 0 8px'})    # margin-left
 
 additional_footer_box = factory.create_hbox([commandline_arguments_widget, theme_accent_widget])

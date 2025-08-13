@@ -188,7 +188,7 @@ const [inpaintingEnabled, setInpaintingEnabled] = useState(false)
 const [gdriveMounted, setGdriveMounted] = useState(false)
 const [detailedDownload, setDetailedDownload] = useState("off")
 const [selectedWebUI, setSelectedWebUI] = useState("A1111")
-const [selectedTheme, setSelectedTheme] = useState("anxety")
+const [selectedTheme, setSelectedTheme] = useState("scarysingle")
 ```
 
 ## User Experience Features

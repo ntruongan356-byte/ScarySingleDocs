@@ -1,4 +1,4 @@
-# ~ download.py | by ANXETY ~
+# ~ download.py | by ScarySingleDocs ~
 
 from webui_utils import handle_setup_timer    # WEBUI
 from Manager import m_download, m_clone       # Every Download | Clone
@@ -203,7 +203,7 @@ if not os.path.exists(WEBUI):
     print(f"⌚ Unpacking Stable Diffusion... | WEBUI: {COL.B}{UI}{COL.X}", end='')
 
     ipyRun('run', f"{SCRIPTS}/webui-installer.py")
-    handle_setup_timer(WEBUI, start_timer)		# Setup timer (for timer-extensions)
+    handle_setup_timer(WEBUI, start_timer)              # Setup timer (for timer-extensions)
 
     install_time = time.time() - start_install
     minutes, seconds = divmod(int(install_time), 60)
@@ -261,7 +261,7 @@ from google.colab import drive
 mountGDrive = js.read(SETTINGS_PATH, 'mountGDrive')  # Mount/unmount flag
 
 # Configuration
-GD_BASE = "/content/drive/MyDrive/sdAIgen"
+GD_BASE = "/content/drive/MyDrive/ScarySingleDocs"
 SYMLINK_CONFIG = [
     {   # model
         'local_dir': model_dir,

@@ -20,7 +20,7 @@ The sdAIgen project is a comprehensive Stable Diffusion WebUI notebook designed 
 | Extension | A1111 | Forge | Classic | ReForge | SD-UX |
 |-----------|-------|-------|---------|---------|-------|
 | adetailer | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
-| anxety-theme | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
+| ScarySingleDocs-theme | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | Aspect-Ratio-Helper | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | Civitai-Browser-plus | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | Civitai-Extension | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
@@ -56,8 +56,8 @@ The sdAIgen project is a comprehensive Stable Diffusion WebUI notebook designed 
 The repository contains several key components:
 
 #### Notebook files (`/notebook/`):
-- `ANXETY_sdAIgen_EN.ipynb` - English version
-- `ANXETY_sdAIgen_RU.ipynb` - Russian version
+- `ScarySingleDocs_sdAIgen_EN.ipynb` - English version
+- `ScarySingleDocs_sdAIgen_RU.ipynb` - Russian version
 
 #### Widget system (`/modules/`):
 - `widget_factory.py` - Core widget creation system
@@ -217,4 +217,4 @@ Info: All links after the tag will relate to this tag until the next found tag. 
 
 ## Additional Resources
 
-- **WebUIs and Configs Repository**: https://huggingface.co/NagisaNao/ANXETY/tree/main - The repo for the webUis and their configs and the venv the notebook uses.
+- **WebUIs and Configs Repository**: https://huggingface.co/NagisaNao/ScarySingleDocs/tree/main - The repo for the webUis and their configs and the venv the notebook uses.

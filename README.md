@@ -1,6 +1,6 @@
 <div align="center">
-<img width="1080px" height="auto" src="https://raw.githubusercontent.com/anxety-solo/sdAIgen/main/.Docs/Imgs/preview.png"/></br>
-<h1>~ ANXETY | Stable Diffusion WebUI | NoteBook V2 ~</h1>
+<img width="1080px" height="auto" src="https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/.Docs/Imgs/preview.png"/></br>
+<h1>~ ScarySingleDocs | Stable Diffusion WebUI | NoteBook V2 ~</h1>
 
 English • [Русский](README-ru-RU.md)
 
@@ -10,19 +10,19 @@ English • [Русский](README-ru-RU.md)
     <a href="https://discord.gg/eemJdDusvH">
         <img src=".Docs/SVG/en/discord-en.svg" width="800" height="130" alt="discord">
     </a>
-    <a href="https://colab.research.google.com/github/anxety-solo/sdAIgen/blob/main/notebook/ANXETY_sdAIgen_EN.ipynb">
+    <a href="https://colab.research.google.com/github/ntruongan356-byte/ScarySingleDocs/blob/main/notebook/ScarySingleDocs_EN.ipynb">
         <img src=".Docs/SVG/en/colab-en.svg" width="800" height="160" alt="colab">
     </a>
-    <a href="https://www.kaggle.com/code/anxetysolo/sdaigen-en-ipynb">
+    <a href="https://www.kaggle.com/code/scarysingle/sdaigen-en-ipynb">
         <img src=".Docs/SVG/en/kaggle-en.svg" width="800" height="160" alt="kaggle">
     </a>
-    <h6>For more information about widgets, see <a href="https://github.com/anxety-solo/sdAIgen/wiki/Widgets">WiKi</a>.</h6>
+    <h6>For more information about widgets, see <a href="https://github.com/ntruongan356-byte/ScarySingleDocs/wiki/Widgets">WiKi</a>.</h6>
 </div>
 
 ## 🌟 Features:
   - Multiplatform notebook: *Google Colab, Kaggle.*
   - *Widgets* for easy interaction.
-  - Preset custom: *Settings* + *Styles* + [*UI Theme*](https://github.com/anxety-solo/anxety-theme)
+  - Preset custom: *Settings* + *Styles* + [*UI Theme*](https://github.com/ntruongan356-byte/scarysingle-theme)
   - Download previews for *models, LoRa and embedding* (CivitAi) | ***There are limitations for Kaggle.***
   - Choosing WebUI between *A1111*, *ComfyUI*, *Forge*, *Classic (Forge)*, *ReForge*, *SD-UX.*
   - _Exclusive to **Google Colab**_: Connection to GDrive and buttons to export/import widget settings~ | ***Main Widgets***
@@ -36,12 +36,12 @@ English • [Русский](README-ru-RU.md)
 | Extension | A1111 | Forge | Classic | ReForge | SD-UX |
 |-----------|-------|-------|---------|---------|-------|
 | [adetailer](https://github.com/Bing-su/adetailer) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
-| [anxety-theme](https://github.com/anxety-solo/anxety-theme) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
+| [scarysingle-theme](https://github.com/ntruongan356-byte/scarysingle-theme) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | [Aspect-Ratio-Helper](https://github.com/thomasasfk/sd-webui-aspect-ratio-helper) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
-| [Civitai-Browser-plus](https://github.com/anxety-solo/sd-civitai-browser-plus) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
-| [Civitai-Extension](https://github.com/anxety-solo/sd-civitai-extension) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
+| [Civitai-Browser-plus](https://github.com/ntruongan356-byte/sd-civitai-browser-plus) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
+| [Civitai-Extension](https://github.com/ntruongan356-byte/sd-civitai-extension) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | [ControlNet](https://github.com/Mikubill/sd-webui-controlnet) | ✔️ | 🔄 | 🔄 | 🔄 | ✔️ |
-| [Encrypt-Image](https://github.com/anxety-solo/sd-encrypt-image) | ✔️<sup>†</sup> | ✔️<sup>†</sup> | ✔️<sup>†</sup> | ✔️<sup>†</sup> | ✔️<sup>†</sup> |
+| [Encrypt-Image](https://github.com/ntruongan356-byte/sd-encrypt-image) | ✔️<sup>†</sup> | ✔️<sup>†</sup> | ✔️<sup>†</sup> | ✔️<sup>†</sup> | ✔️<sup>†</sup> |
 | [Image-Info](https://github.com/gutris1/sd-image-info) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | [Image-Viewer](https://github.com/gutris1/sd-image-viewer) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | [Infinite-Image-Browsing](https://github.com/zanllp/sd-webui-infinite-image-browsing) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
@@ -53,7 +53,7 @@ English • [Русский](README-ru-RU.md)
 | [Tag-Complete](https://github.com/DominikDoom/a1111-sd-webui-tagcomplete) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | [Umi-AI-Wildcards](https://github.com/Tsukreya/Umi-AI-Wildcards) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | [WD14-Tagger](https://github.com/picobyte/stable-diffusion-webui-wd14-tagger) | ✔️ | ✔️ | ❌ | ✔️ | ✔️ |
-| [webui_timer](https://github.com/anxety-solo/webui_timer) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
+| [webui_timer](https://github.com/ntruongan356-byte/webui_timer) | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 
 </details>
 
@@ -77,10 +77,10 @@ English • [Русский](README-ru-RU.md)
 ## 💙 Support me:
 
 <div align="center">
-    <a href="https://www.donationalerts.com/r/anxety">
+    <a href="https://www.donationalerts.com/r/scarysingle">
         <img src=".Docs/SVG/DA_Logo_Color.svg" width="250" height="100" alt="DonationAlerts">
     </a>
-    <a href="https://boosty.to/anxety/donate">
+    <a href="https://boosty.to/scarysingle/donate">
         <img src=".Docs/SVG/Boosty_Logo_Color.svg" width="250" height="100" alt="Boosty">
     </a>
 </div>

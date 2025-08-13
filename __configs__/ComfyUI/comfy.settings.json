@@ -5,11 +5,11 @@
     "Comfy.Sidebar.Size": "small",
     "Comfy.Graph.LinkMarkers": 2,
     "Comfy.NodeSuggestions.number": 15,
-    "Comfy.ColorPalette": "comfy-anxety",
+    "Comfy.ColorPalette": "comfy-scarysingle",
     "Comfy.CustomColorPalettes": {
-        "comfy-anxety": {
-            "id": "comfy-anxety",
-            "name": "Anxety-Theme",
+        "comfy-scarysingle": {
+            "id": "comfy-scarysingle",
+            "name": "ScarySingleDocs-Theme",
             "colors": {
                 "node_slot": {
                     "CLIP": "#ffd919",

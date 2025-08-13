@@ -55,8 +55,8 @@ os.environ.update({
 
 ### GitHub Configuration
 ```python
-DEFAULT_USER = 'anxety-solo'
-DEFAULT_REPO = 'sdAIgen'
+DEFAULT_USER = 'ntruongan356-byte'
+DEFAULT_REPO = 'ScarySingleDocs'
 DEFAULT_BRANCH = 'main'
 DEFAULT_LANG = 'en'
 BASE_GITHUB_URL = "https://raw.githubusercontent.com"
@@ -586,8 +586,8 @@ When the user clicks the "Run" button on Cell 1 in the Jupyter notebook:
 Cell 1 initializes key variables:
 ```python
 # Default values set in Cell 1
-user = 'anxety-solo'        # GitHub username
-repo = 'sdAIgen'           # GitHub repository
+user = 'ntruongan356-byte'        # GitHub username
+repo = 'ScarySingleDocs'           # GitHub repository
 branch = 'main'            # Git branch
 lang = 'en' or 'ru'        # Language based on notebook
 BASE_GITHUB_URL = "https://raw.githubusercontent.com"
@@ -597,7 +597,7 @@ BASE_GITHUB_URL = "https://raw.githubusercontent.com"
 The setup.py download URL is constructed:
 ```python
 out = f"{BASE_GITHUB_URL}/{user}/{repo}/{branch}/scripts/setup.py"
-# Results in: "https://raw.githubusercontent.com/anxety-solo/sdAIgen/main/scripts/setup.py"
+# Results in: "https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/scripts/setup.py"
 ```
 
 ### Phase 2: Download and Execute setup.py (2-10 seconds)
@@ -679,9 +679,9 @@ FILE_STRUCTURE = {
 For each file in the structure, setup.py creates download URLs:
 ```python
 # Example URLs generated:
-# https://raw.githubusercontent.com/anxety-solo/sdAIgen/main/CSS/main-widgets.css
-# https://raw.githubusercontent.com/anxety-solo/sdAIgen/main/modules/json_utils.py
-# https://raw.githubusercontent.com/anxety-solo/sdAIgen/main/scripts/en/widgets-en.py
+# https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/CSS/main-widgets.css
+# https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/modules/json_utils.py
+# https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/scripts/en/widgets-en.py
 ```
 
 #### Step 11: Asynchronous File Download
@@ -727,7 +727,7 @@ env_data = {
     "ENVIRONMENT": {
         "env_name": "Google Colab",  # or "Kaggle"
         "install_deps": True,  # Result of _install_deps()
-        "fork": "anxety-solo/sdAIgen",
+        "fork": "ntruongan356-byte/ScarySingleDocs",
         "branch": "main",
         "lang": "en",  # or "ru"
         "home_path": "/content",

@@ -1,9 +1,9 @@
 ## ANXETY Edits
-https://github.com/anxety-solo/sd-civitai-browser-plus Civitai-Browser-Plus
-https://github.com/anxety-solo/sd-civitai-extension Civitai-Extension
-https://github.com/anxety-solo/webui_timer timer
-https://github.com/anxety-solo/Umi-AI-Wildcards
-https://github.com/anxety-solo/anxety-theme
+https://github.com/ntruongan356-byte/sd-civitai-browser-plus Civitai-Browser-Plus
+https://github.com/ntruongan356-byte/sd-civitai-extension Civitai-Extension
+https://github.com/ntruongan356-byte/webui_timer timer
+https://github.com/ntruongan356-byte/Umi-AI-Wildcards
+https://github.com/ntruongan356-byte/scarysingle-theme
 
 ## Gutris1 Edits
 # https://github.com/gutris1/sd-civitai-browser-plus Civitai-Browser-Plus

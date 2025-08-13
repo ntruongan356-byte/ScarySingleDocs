@@ -1,4 +1,4 @@
-# ~ setup.py | by ANXETY ~
+# ~ setup.py | by ScarySingleDocs ~
 
 from IPython.display import display, HTML, clear_output
 from typing import Dict, List, Tuple, Optional, Union
@@ -20,8 +20,8 @@ nest_asyncio.apply()  # Async support for Jupyter
 
 # ======================== CONSTANTS =======================
 
-HOME = Path.home()
-SCR_PATH = HOME / 'ANXETY'
+HOME = Path('/content')
+SCR_PATH = HOME / 'ScarySingleDocs'
 SETTINGS_PATH = SCR_PATH / 'settings.json'
 VENV_PATH = HOME / 'venv'
 MODULES_FOLDER = SCR_PATH / "modules"
@@ -35,8 +35,8 @@ os.environ.update({
 })
 
 # GitHub configuration
-DEFAULT_USER = 'anxety-solo'
-DEFAULT_REPO = 'sdAIgen'
+DEFAULT_USER = 'ntruongan356-byte'
+DEFAULT_REPO = 'ScarySingleDocs'
 DEFAULT_BRANCH = 'main'
 DEFAULT_LANG = 'en'
 BASE_GITHUB_URL = "https://raw.githubusercontent.com"
@@ -59,9 +59,36 @@ FILE_STRUCTURE = {
         '{lang}': ['widgets-{lang}.py', 'downloading-{lang}.py'],
         '': [
             'webui-installer.py', 'launch.py', 'download-result.py', 'auto-cleaner.py',
-            '_models-data.py', '_xl-models-data.py'
+            '_models-data.py', '_xl-models-data.py', 'setup.py'
         ]
-    }
+    },
+    '__configs__': [
+        'styles.csv', 'user.css', 'card-no-preview.png', 'notification.mp3',
+        'gradio-tunneling.py', 'tagcomplete-tags-parser.py'
+    ],
+    'notebook': ['ANXETY_sdAIgen_EN.ipynb'],
+    'Docs': {
+        'Json': [
+            'code_graph_cell2_widgets.json', 'code_graph_generator.py',
+            'code_graph_cell4_downloading.json', 'code_graph.json',
+            'code_graph_cell6_launch.json'
+        ],
+        'FileDocs': [
+            'cell3.md', 'main-widgets-analysis.md', 'modules.md',
+            'cell1.md', 'cell2.md'
+        ],
+        'GuideDocs': [
+            'component-documentation-plan.md', 'universal-project-devlog.md',
+            'project-overview.md', 'sdaigen-map.md', 'MERMAID_GUIDE_EVOLUTION.md',
+            'repo-wiki.md', 'chain-analysisv2.md', 'MERMAID_GUIDE.md'
+        ]
+    },
+    '': [
+        'LICENSE', 'README.md', 'Load.md', 'sdAIgen_handover.md',
+        'SDAIGEN_HANDOVER_DOCUMENT.md', 'code_graph_cell2_widgets.json',
+        'code_graph_generator.py', 'code_graph_cell4_downloading.json',
+        'code_graph.json', 'code_graph_cell6_launch.json'
+    ]
 }
 
 

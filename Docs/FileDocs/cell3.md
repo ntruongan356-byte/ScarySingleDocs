@@ -180,7 +180,7 @@ def setup_venv(url):
 **Usage**: Called when virtual environment needs to be installed or reinstalled
 **Examples**:
 ```python
-setup_venv('https://huggingface.co/NagisaNao/ANXETY/resolve/main/python31018-venv-torch260-cu124-C-fca.tar.lz4')
+setup_venv('https://huggingface.co/NagisaNao/ScarySingleDocs/resolve/main/python31018-venv-torch260-cu124-C-fca.tar.lz4')
 ```
 
 ### `install_packages(install_lib)` → None
@@ -279,7 +279,7 @@ if venv_needs_reinstall:
         shutil.rmtree(VENV)
         clear_output()
 
-    HF_VENV_URL = 'https://huggingface.co/NagisaNao/ANXETY/resolve/main'
+    HF_VENV_URL = 'https://huggingface.co/NagisaNao/ScarySingleDocs/resolve/main'
     venv_config = {
         'Classic': (f"{HF_VENV_URL}/python31113-venv-torch260-cu124-C-Classic.tar.lz4", '(3.11.13)'),
         'default': (f"{HF_VENV_URL}/python31018-venv-torch260-cu124-C-fca.tar.lz4", '(3.10.18)')
@@ -372,7 +372,7 @@ if UI in ['A1111', 'SD-UX']:
         print('🚚 Unpacking ADetailer model cache...')
 
         name_zip = 'hf_cache_adetailer'
-        chache_url = 'https://huggingface.co/NagisaNao/ANXETY/resolve/main/hf_cache_adetailer.zip'
+        chache_url = 'https://huggingface.co/NagisaNao/ScarySingleDocs/resolve/main/hf_cache_adetailer.zip'
 
         zip_path = HOME / f"{name_zip}.zip"
         parent_cache_dir = os.path.dirname(cache_path)
@@ -1727,7 +1727,7 @@ def _read_json(filepath: Union[str, Path]) -> Dict[str, Any]:
 **示例**:
 ```python
 # Cell 3中的实际使用
-settings = _read_json('/content/ANXETY/settings.json')
+settings = _read_json('/content/ScarySingleDocs/settings.json')
 # 返回: {'ENVIRONMENT': {'lang': 'en'}, 'WEBUI': {'current': 'A1111'}}
 # 如果文件不存在或损坏，返回: {}
 ```
@@ -1763,7 +1763,7 @@ def _write_json(filepath: Union[str, Path], data: Dict[str, Any]):
 ```python
 # Cell 3中的实际使用
 data = {'ENVIRONMENT': {'install_deps': True}}
-_write_json('/content/ANXETY/settings.json', data)
+_write_json('/content/ScarySingleDocs/settings.json', data)
 # 将数据写入settings.json文件
 ```
 
@@ -3834,7 +3834,7 @@ Cell 3 depends on the successful completion of previous cells:
 
 #### **7.4 WebUI Archive Downloads**
 **Source**: HuggingFace repository (Line 36)
-- **Pattern**: `https://huggingface.co/NagisaNao/ANXETY/resolve/main/{UI}.zip`
+- **Pattern**: `https://huggingface.co/NagisaNao/ScarySingleDocs/resolve/main/{UI}.zip`
 
 #### **7.5 Model Cache Downloads**
 **Source**: HuggingFace repository (Lines 189-196)
@@ -4061,7 +4061,7 @@ ENV_NAME = js.read(SETTINGS_PATH, 'ENVIRONMENT.env_name')
 FORK_REPO = js.read(SETTINGS_PATH, 'ENVIRONMENT.fork')
 BRANCH = js.read(SETTINGS_PATH, 'ENVIRONMENT.branch')
 
-REPO_URL = f"https://huggingface.co/NagisaNao/ANXETY/resolve/main/{UI}.zip"
+REPO_URL = f"https://huggingface.co/NagisaNao/ScarySingleDocs/resolve/main/{UI}.zip"
 CONFIG_URL = f"https://raw.githubusercontent.com/{FORK_REPO}/{BRANCH}/__configs__"
 
 CD(HOME)
@@ -4134,7 +4134,7 @@ async def get_extensions_list():
 
     # Add environment-specific extensions
     if ENV_NAME == 'Kaggle' and UI != 'ComfyUI':
-        extensions.append('https://github.com/anxety-solo/sd-encrypt-image Encrypt-Image')
+        extensions.append('https://github.com/ntruongan356-byte/sd-encrypt-image Encrypt-Image')
 
     return extensions
 ```
@@ -4181,7 +4181,7 @@ CONFIG_MAP = {
         f"{CONFIG_URL}/{UI}/install-deps.py",
         f"{CONFIG_URL}/{UI}/comfy.settings.json, {WEBUI}/user/default",
         f"{CONFIG_URL}/{UI}/Comfy-Manager/config.ini, {WEBUI}/user/default/ComfyUI-Manager",
-        f"{CONFIG_URL}/{UI}/workflows/anxety-workflow.json, {WEBUI}/user/default/workflows",
+        f"{CONFIG_URL}/{UI}/workflows/ScarySingleDocs-workflow.json, {WEBUI}/user/default/workflows",
         # Special Scripts
         f"{CONFIG_URL}/gradio-tunneling.py, {VENV}/lib/python3.10/site-packages/gradio_tunneling, main.py"
     ],
@@ -4310,7 +4310,7 @@ def apply_classic_fixes():
     if not cmd_args_path.exists():
         return
 
-    marker = '# Arguments added by ANXETY'
+    marker = '# Arguments added by ScarySingleDocs'
     with cmd_args_path.open('r+', encoding='utf-8') as f:
         if marker in f.read():
             return
@@ -4327,7 +4327,7 @@ def apply_classic_fixes():
 - Opens file in read+write mode with UTF-8 encoding
 - Checks if fixes are already applied by looking for marker
 - If not applied:
-  - Writes marker comment to identify ANXETY modifications
+  - Writes marker comment to identify ScarySingleDocs modifications
   - Adds hypernetwork directory argument to command line parser
 **Usage**: Post-installation fixes for Classic UI compatibility
 **Key Features**:
@@ -6013,7 +6013,7 @@ factory.connect_widgets(
 - **Positioning**: Relative positioning with absolute branding
 - **Layout**: Centered with substantial margins
 - **Styling**: Dark background with border and shadow effects
-- **Branding**: "ANXETY" watermark in top-right corner
+- **Branding**: "ScarySingleDocs" watermark in top-right corner
 - **Border Radius**: 16px for modern appearance
 - **Shadow Effects**: Multiple shadow layers for depth
 
@@ -6075,7 +6075,7 @@ factory.connect_widgets(
 - **Dark Theme**: Professional dark color scheme suitable for development environments
 - **Smooth Animations**: Cubic-bezier timing for natural motion
 - **Responsive Design**: Flexbox and grid layouts for adaptability
-- **Brand Integration**: "ANXETY" watermark for product identity
+- **Brand Integration**: "ScarySingleDocs" watermark for product identity
 
 #### **Technical Implementation**:
 - **CSS Variables**: Centralized design token management

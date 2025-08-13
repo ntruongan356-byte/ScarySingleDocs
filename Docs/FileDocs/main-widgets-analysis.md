@@ -642,8 +642,8 @@ The `generate_file_list()` function in setup.py creates download URLs:
 ```python
 def generate_file_list(structure: Dict, base_url: str, lang: str) -> List[Tuple[str, Path]]:
     # ... logic to create (url, path) tuples
-    # For CSS: https://raw.githubusercontent.com/anxety-solo/sdAIgen/main/CSS/main-widgets.css
-    # For JS: https://raw.githubusercontent.com/anxety-solo/sdAIgen/main/JS/main-widgets.js
+    # For CSS: https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/CSS/main-widgets.css
+    # For JS: https://raw.githubusercontent.com/ntruongan356-byte/ScarySingleDocs/main/JS/main-widgets.js
 ```
 
 #### Path Management

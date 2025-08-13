@@ -131,7 +131,7 @@ This document provides a comprehensive map of all files in the sdAIgen project, 
 ### 📁 `__configs__/A1111/` (Automatic1111 WebUI Configuration)
 #### 📋 `_extensions.txt`
 **Purpose**: Extension list for Automatic1111 WebUI
-**Description**: Text file containing list of extensions to be installed with Automatic1111 WebUI, including URLs and local names for each extension. Organized by contributor (ANXETY, Gutris1, OTHER).
+**Description**: Text file containing list of extensions to be installed with Automatic1111 WebUI, including URLs and local names for each extension. Organized by contributor (ScarySingleDocs, Gutris1, OTHER).
 
 #### ⚙️ `config.json`
 **Purpose**: Automatic1111 WebUI configuration
@@ -173,9 +173,9 @@ This document provides a comprehensive map of all files in the sdAIgen project, 
 **Description**: Python script for installing ComfyUI dependencies, including required packages and system dependencies for proper ComfyUI operation.
 
 #### 📁 `__configs__/ComfyUI/workflows/`
-##### 🔄 `anxety-workflow.json`
+##### 🔄 `ScarySingleDocs-workflow.json`
 **Purpose**: Default ComfyUI workflow
-**Description**: JSON file containing a pre-configured ComfyUI workflow created by ANXETY, serving as a starting template for users.
+**Description**: JSON file containing a pre-configured ComfyUI workflow created by ScarySingleDocs, serving as a starting template for users.
 
 ### 📁 `__configs__/Forge/` (Forge WebUI Configuration)
 #### 📋 `_extensions.txt`
@@ -276,11 +276,11 @@ This document provides a comprehensive map of all files in the sdAIgen project, 
 
 ## 📁 `notebook/` (Jupyter Notebook Files)
 
-### 📓 `ANXETY_sdAIgen_EN.ipynb`
+### 📓 `ScarySingleDocs_sdAIgen_EN.ipynb`
 **Purpose**: English language Jupyter notebook
 **Description**: Main Jupyter notebook for English users, containing the complete sdAIgen implementation with interactive widgets, setup procedures, and WebUI management functionality optimized for Google Colab and Kaggle platforms.
 
-### 📓 `ANXETY_sdAIgen_RU.ipynb`
+### 📓 `ScarySingleDocs_sdAIgen_RU.ipynb`
 **Purpose**: Russian language Jupyter notebook
 **Description**: Russian language version of the main Jupyter notebook, providing the same functionality as the English version but with all interface elements, instructions, and documentation translated for Russian-speaking users.
 
@@ -347,8 +347,8 @@ This document provides a comprehensive map of all files in the sdAIgen project, 
 - **📚 Documentation**: Docs/ (comprehensive documentation)
 
 ### By Language Support:
-- **🇺🇸 English**: README.md, notebook/ANXETY_sdAIgen_EN.ipynb, scripts/en/
-- **🇷🇺 Russian**: README-ru-RU.md, notebook/ANXETY_sdAIgen_RU.ipynb, scripts/ru/
+- **🇺🇸 English**: README.md, notebook/ScarySingleDocs_sdAIgen_EN.ipynb, scripts/en/
+- **🇷🇺 Russian**: README-ru-RU.md, notebook/ScarySingleDocs_sdAIgen_RU.ipynb, scripts/ru/
 - **🌐 Multilingual**: .Docs/SVG/, .Docs/flags/, _season.py
 
 ### By WebUI Support:

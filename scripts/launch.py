@@ -1,4 +1,4 @@
-# ~ launch.py | by ANXETY ~
+# ~ launch.py | by ScarySingleDocs ~
 
 from TunnelHub import Tunnel    # Tunneling
 import json_utils as js         # JSON
@@ -177,9 +177,9 @@ def get_launch_command():
     if ENV_NAME == 'Kaggle':
         common_args += f" --encrypt-pass={password}"
 
-    # Accent Color For Anxety-Theme
-    if theme_accent != 'anxety':
-        common_args += f" --anxety {theme_accent}"
+    # Accent Color For ScarySingleDocs-Theme
+    if theme_accent != 'scarysingle':
+        common_args += f" --scarysingle {theme_accent}"
 
     if UI == 'ComfyUI':
         return f"python3 main.py {base_args}"

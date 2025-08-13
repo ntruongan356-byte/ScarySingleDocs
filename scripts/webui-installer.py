@@ -1,4 +1,4 @@
-# ~ webui-installer.py | by ANXETY ~
+# ~ webui-installer.py | by ScarySingleDocs ~
 
 from Manager import m_download   # Every Download
 import json_utils as js          # JSON
@@ -75,7 +75,7 @@ async def get_extensions_list():
 
     # Add environment-specific extensions
     if ENV_NAME == 'Kaggle' and UI != 'ComfyUI':
-        extensions.append('https://github.com/anxety-solo/sd-encrypt-image Encrypt-Image')
+        extensions.append('https://github.com/ntruongan356-byte/sd-encrypt-image Encrypt-Image')
 
     return extensions
 
@@ -99,7 +99,7 @@ CONFIG_MAP = {
         f"{CONFIG_URL}/{UI}/install-deps.py",
         f"{CONFIG_URL}/{UI}/comfy.settings.json, {WEBUI}/user/default",
         f"{CONFIG_URL}/{UI}/Comfy-Manager/config.ini, {WEBUI}/user/default/ComfyUI-Manager",
-        f"{CONFIG_URL}/{UI}/workflows/anxety-workflow.json, {WEBUI}/user/default/workflows",
+        f"{CONFIG_URL}/{UI}/workflows/scarysingle-workflow.json, {WEBUI}/user/default/workflows",
         # Special Scripts
         f"{CONFIG_URL}/gradio-tunneling.py, {VENV}/lib/python3.10/site-packages/gradio_tunneling, main.py"
     ],
