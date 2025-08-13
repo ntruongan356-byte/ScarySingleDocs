@@ -29,6 +29,9 @@ JS = SCR_PATH / 'JS'
 widgets_css = CSS / 'main-widgets.css'
 widgets_js = JS / 'main-widgets.js'
 
+# Global state for widget toggles
+gdrive_toggle_state = False
+
 
 # ================ WIDGETS (Main Container) ================
 
@@ -144,7 +147,7 @@ def switch_tab(button):
 # Toggle button function
 def toggle_button(button):
     """Toggle button state on/off."""
-    if 'active' in button.get_class_names():
+    if 'active' in button.class_names:
         button.remove_class('active')
     else:
         button.add_class('active')
@@ -283,19 +286,30 @@ TOOLTIPS = ("Unmount Google Drive storage", "Mount Google Drive storage")
 GD_status = js.read(SETTINGS_PATH, 'mountGDrive', False)
 GDrive_button = factory.create_button('', layout=BTN_STYLE, class_names=['sideContainer-btn', 'gdrive-btn'])
 GDrive_button.tooltip = TOOLTIPS[not GD_status]    # Invert index
-GDrive_button.toggle = GD_status
+gdrive_toggle_state = GD_status
 
 if ENV_NAME != 'Google Colab':
-    GDrive_button.layout.display = 'none'  # Hide button if not Colab
+    # Hide button if not Colab
+    if hasattr(GDrive_button, 'layout') and hasattr(GDrive_button.layout, 'display'):
+        GDrive_button.layout.display = 'none'
 else:
     if GD_status:
         GDrive_button.add_class('active')
 
     def handle_toggle(btn):
         """Toggle Google Drive button state"""
-        btn.toggle = not btn.toggle
-        btn.tooltip = TOOLTIPS[not btn.toggle]
-        btn.toggle and btn.add_class('active') or btn.remove_class('active')
+        global gdrive_toggle_state
+        gdrive_toggle_state = not gdrive_toggle_state
+        
+        # Update tooltip if the widget supports it
+        if hasattr(btn, 'tooltip'):
+            btn.tooltip = TOOLTIPS[not gdrive_toggle_state]
+        
+        # Update visual state
+        if gdrive_toggle_state:
+            btn.add_class('active')
+        else:
+            btn.remove_class('active')
 
     GDrive_button.on_click(handle_toggle)
 
@@ -309,8 +323,10 @@ import_button.tooltip = "Import settings from JSON"
 
 if ENV_NAME != 'Google Colab':
     # Hide buttons if not Colab
-    export_button.layout.display = 'none'
-    import_button.layout.display = 'none'
+    if hasattr(export_button, 'layout') and hasattr(export_button.layout, 'display'):
+        export_button.layout.display = 'none'
+    if hasattr(import_button, 'layout') and hasattr(import_button.layout, 'display'):
+        import_button.layout.display = 'none'
 
 # EXPORT
 def export_settings(button=None, filter_empty=False):
@@ -323,7 +339,7 @@ def export_settings(button=None, filter_empty=False):
 
         settings_data = {
             'widgets': widgets_data,
-            # 'mountGDrive': GDrive_button.toggle
+            # 'mountGDrive': gdrive_toggle_state
         }
 
         display(Javascript(f'downloadJson({json.dumps(settings_data)});'))
@@ -353,8 +369,9 @@ def apply_imported_settings(data):
                         pass
 
         if 'mountGDrive' in data:
-            GDrive_button.toggle = data['mountGDrive']
-            if GDrive_button.toggle:
+            global gdrive_toggle_state
+            gdrive_toggle_state = data['mountGDrive']
+            if gdrive_toggle_state:
                 GDrive_button.add_class('active')
             else:
                 GDrive_button.remove_class('active')
@@ -467,7 +484,8 @@ factory.display(mainContainer)
 # ==================== CALLBACK FUNCTION ===================
 
 # Initialize visibility | hidden
-check_custom_nodes_deps_widget.layout.display = 'none'
+if hasattr(check_custom_nodes_deps_widget, 'layout') and hasattr(check_custom_nodes_deps_widget.layout, 'display'):
+    check_custom_nodes_deps_widget.layout.display = 'none'
 empowerment_output_widget.add_class('empowerment-output')
 empowerment_output_widget.add_class('hidden')
 
@@ -526,10 +544,13 @@ def update_change_webui(change, widget):
 
     is_comfy = webui == 'ComfyUI'
 
-    latest_extensions_widget.layout.display = 'none' if is_comfy else ''
+    if hasattr(latest_extensions_widget, 'layout') and hasattr(latest_extensions_widget.layout, 'display'):
+        latest_extensions_widget.layout.display = 'none' if is_comfy else ''
     latest_extensions_widget.value = not is_comfy
-    check_custom_nodes_deps_widget.layout.display = '' if is_comfy else 'none'
-    theme_accent_widget.layout.display = 'none' if is_comfy else ''
+    if hasattr(check_custom_nodes_deps_widget, 'layout') and hasattr(check_custom_nodes_deps_widget.layout, 'display'):
+        check_custom_nodes_deps_widget.layout.display = '' if is_comfy else 'none'
+    if hasattr(theme_accent_widget, 'layout') and hasattr(theme_accent_widget.layout, 'display'):
+        theme_accent_widget.layout.display = 'none' if is_comfy else ''
     Extensions_url_widget.description = 'Custom Nodes:' if is_comfy else 'Extensions:'
 
 # Callback functions for Empowerment
@@ -581,7 +602,7 @@ def save_settings():
     """Save widget values to settings."""
     widgets_values = {key: globals()[f"{key}_widget"].value for key in SETTINGS_KEYS}
     js.save(SETTINGS_PATH, 'WIDGETS', widgets_values)
-    js.save(SETTINGS_PATH, 'mountGDrive', True if GDrive_button.toggle else False)  # Save Status GDrive-btn
+    js.save(SETTINGS_PATH, 'mountGDrive', True if gdrive_toggle_state else False)  # Save Status GDrive-btn
 
     update_current_webui(change_webui_widget.value)  # Update Selected WebUI in settings.json
 
@@ -595,8 +616,9 @@ def load_settings():
 
     # Load Status GDrive-btn
     GD_status = js.read(SETTINGS_PATH, 'mountGDrive', False)
-    GDrive_button.toggle = (GD_status == True)
-    if GDrive_button.toggle:
+    global gdrive_toggle_state
+    gdrive_toggle_state = (GD_status == True)
+    if gdrive_toggle_state:
         GDrive_button.add_class('active')
     else:
         GDrive_button.remove_class('active')
