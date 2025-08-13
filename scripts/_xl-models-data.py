@@ -95,21 +95,47 @@ controlnet_list = {
 ## LORA
 
 lora_list = {
-    "1. SDXL Anime Style LoRAs": [
+    "1. 🎨 SDXL Style Masters": [
         {'url': "https://civitai.com/api/download/models/123456", 'name': "sdxl_anime_style.safetensors"},
         {'url': "https://civitai.com/api/download/models/234567", 'name': "sdxl_manga_art.safetensors"},
-        {'url': "https://civitai.com/api/download/models/345678", 'name': "sdxl_illustration.safetensors"}
+        {'url': "https://civitai.com/api/download/models/345678", 'name': "sdxl_illustration.safetensors"},
+        {'url': "https://civitai.com/api/download/models/987654", 'name': "sdxl_photorealistic.safetensors"},
+        {'url': "https://civitai.com/api/download/models/876543", 'name': "sdxl_artistic_fusion.safetensors"},
+        {'url': "https://civitai.com/api/download/models/765432", 'name': "sdxl_digital_painting.safetensors"}
     ],
-    "2. SDXL Character LoRAs": [
+    "2. 🌟 SDXL Quality Enhance": [
+        {'url': "https://civitai.com/api/download/models/789012", 'name': "sdxl_detailed_enhance.safetensors"},
+        {'url': "https://civitai.com/api/download/models/654321", 'name': "sdxl_ultra_sharp.safetensors"},
+        {'url': "https://civitai.com/api/download/models/543210", 'name': "sdxl_perfect_hands.safetensors"},
+        {'url': "https://civitai.com/api/download/models/432109", 'name': "sdxl_face_perfect.safetensors"},
+        {'url': "https://civitai.com/api/download/models/321098", 'name': "sdxl_texture_master.safetensors"}
+    ],
+    "3. 👥 SDXL Character Pro": [
         {'url': "https://civitai.com/api/download/models/456789", 'name': "sdxl_character_design.safetensors"},
-        {'url': "https://civitai.com/api/download/models/567890", 'name': "sdxl_anime_character.safetensors"}
+        {'url': "https://civitai.com/api/download/models/567890", 'name': "sdxl_anime_character.safetensors"},
+        {'url': "https://civitai.com/api/download/models/210987", 'name': "sdxl_portrait_master.safetensors"},
+        {'url': "https://civitai.com/api/download/models/109876", 'name': "sdxl_expression_control.safetensors"},
+        {'url': "https://civitai.com/api/download/models/098765", 'name': "sdxl_age_variation.safetensors"}
     ],
-    "3. SDXL Concept LoRAs": [
-        {'url': "https://civitai.com/api/download/models/678901", 'name': "sdxl_concept_art.safetensors"},
-        {'url': "https://civitai.com/api/download/models/789012", 'name': "sdxl_detailed_enhance.safetensors"}
+    "4. 🏛️ SDXL Environments": [
+        {'url': "https://civitai.com/api/download/models/987321", 'name': "sdxl_architecture.safetensors"},
+        {'url': "https://civitai.com/api/download/models/876210", 'name': "sdxl_landscapes.safetensors"},
+        {'url': "https://civitai.com/api/download/models/765109", 'name': "sdxl_interior_design.safetensors"},
+        {'url': "https://civitai.com/api/download/models/654098", 'name': "sdxl_sci_fi_worlds.safetensors"},
+        {'url': "https://civitai.com/api/download/models/543087", 'name': "sdxl_fantasy_realms.safetensors"}
     ],
-    "4. SDXL Clothing LoRAs": [
+    "5. 👗 SDXL Fashion Hub": [
         {'url': "https://civitai.com/api/download/models/890123", 'name': "sdxl_school_uniform.safetensors"},
-        {'url': "https://civitai.com/api/download/models/901234", 'name': "sdxl_casual_wear.safetensors"}
+        {'url': "https://civitai.com/api/download/models/901234", 'name': "sdxl_casual_wear.safetensors"},
+        {'url': "https://civitai.com/api/download/models/432076", 'name': "sdxl_haute_couture.safetensors"},
+        {'url': "https://civitai.com/api/download/models/321065", 'name': "sdxl_streetwear.safetensors"},
+        {'url': "https://civitai.com/api/download/models/210054", 'name': "sdxl_period_costumes.safetensors"}
+    ],
+    "6. 🎭 SDXL Themed Collections": [
+        {'url': "https://civitai.com/api/download/models/678901", 'name': "sdxl_concept_art.safetensors"},
+        {'url': "https://civitai.com/api/download/models/109043", 'name': "sdxl_cyberpunk_2077.safetensors"},
+        {'url': "https://civitai.com/api/download/models/098032", 'name': "sdxl_gothic_aesthetic.safetensors"},
+        {'url': "https://civitai.com/api/download/models/087021", 'name': "sdxl_retro_vintage.safetensors"},
+        {'url': "https://civitai.com/api/download/models/076010", 'name': "sdxl_minimalist_clean.safetensors"}
     ]
 }

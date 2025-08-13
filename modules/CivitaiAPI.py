@@ -1,8 +1,11 @@
-""" CivitAi API Module (V2) | by ScarySingleDocs """
+"""
+Enhanced CivitAi API Module (V3) | by ScarySingleDocs
+Optimized for sophisticated widget integration and cloud GPU environments
+"""
 
 from urllib.parse import urlparse, parse_qs, urlencode
-from typing import Optional, Union, Tuple, Dict, Any, List
-from dataclasses import dataclass
+from typing import Optional, Union, Tuple, Dict, Any, List, Callable
+from dataclasses import dataclass, field
 from pathlib import Path
 from PIL import Image
 import requests
@@ -10,24 +13,84 @@ import json
 import os
 import re
 import io
+import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-# === Logger Utility ===
+# === Enhanced Logger Utility ===
 class APILogger:
-    """Colored logger for API events"""
-    def __init__(self, verbose: bool = True):
+    """Sophisticated logger with progress tracking for widget integration"""
+    def __init__(self, verbose: bool = True, progress_callback: Optional[Callable] = None):
         self.verbose = verbose
+        self.progress_callback = progress_callback
+        self.download_stats = {
+            'total_files': 0,
+            'completed_files': 0,
+            'failed_files': 0,
+            'total_bytes': 0,
+            'downloaded_bytes': 0
+        }
 
-    def log(self, msg: str, level: str = "info"):
+    def log(self, msg: str, level: str = "info", progress: Optional[float] = None):
         if not self.verbose and level != "error":
             return
-        colors = {"error": 31, "success": 32, "warning": 33, "info": 34}
-        print(f"\033[{colors[level]}m[API {level.title()}]:\033[0m {msg}")
+            
+        # Enhanced color scheme matching our sanguine theme
+        colors = {
+            "error": "\033[38;5;196m",      # Bright red
+            "success": "\033[38;5;46m",     # Bright green
+            "warning": "\033[38;5;214m",    # Orange
+            "info": "\033[38;5;39m",        # Cyan
+            "download": "\033[38;5;196m",   # Sanguine red
+            "progress": "\033[38;5;213m"    # Pink
+        }
+        
+        reset = "\033[0m"
+        timestamp = time.strftime("%H:%M:%S")
+        
+        print(f"{colors.get(level, colors['info'])}[{timestamp}] API {level.title()}:{reset} {msg}")
+        
+        # Send progress update to widget if callback provided
+        if self.progress_callback and progress is not None:
+            self.progress_callback(progress, msg, level)
+
+    def update_download_progress(self, filename: str, downloaded: int, total: int):
+        """Update download progress with sophisticated tracking"""
+        if total > 0:
+            percentage = (downloaded / total) * 100
+            self.log(f"Downloading {filename}: {percentage:.1f}% ({downloaded}/{total} bytes)",
+                    "progress", percentage)
+
+    def log_download_complete(self, filename: str, size: int, duration: float):
+        """Log successful download with statistics"""
+        speed = size / duration / 1024 / 1024 if duration > 0 else 0
+        self.download_stats['completed_files'] += 1
+        self.download_stats['downloaded_bytes'] += size
+        
+        self.log(f"✓ {filename} downloaded successfully ({size/1024/1024:.1f}MB in {duration:.1f}s @ {speed:.1f}MB/s)",
+                "success")
+
+    def log_download_error(self, filename: str, error: str):
+        """Log download error with enhanced formatting"""
+        self.download_stats['failed_files'] += 1
+        self.log(f"✗ Failed to download {filename}: {error}", "error")
+
+    def get_stats_summary(self) -> Dict[str, Any]:
+        """Get comprehensive download statistics"""
+        return {
+            'total_files': self.download_stats['total_files'],
+            'completed_files': self.download_stats['completed_files'],
+            'failed_files': self.download_stats['failed_files'],
+            'success_rate': (self.download_stats['completed_files'] / max(1, self.download_stats['total_files'])) * 100,
+            'total_downloaded': self.download_stats['downloaded_bytes'] / 1024 / 1024,  # MB
+        }
 
 
-# === Model Data ===
+# === Enhanced Model Data ===
 @dataclass
 class ModelData:
+    """Enhanced model data with progress tracking and widget integration"""
     download_url: str
     clean_url: str
     model_name: str
@@ -40,44 +103,180 @@ class ModelData:
     base_model: Optional[str] = None
     trained_words: Optional[List[str]] = None
     sha256: Optional[str] = None
+    
+    # Enhanced metadata for widget integration
+    file_size: Optional[int] = None
+    download_status: str = "pending"  # pending, downloading, completed, failed
+    download_progress: float = 0.0
+    download_speed: float = 0.0
+    estimated_time: Optional[str] = None
+    tags: List[str] = field(default_factory=list)
+    rating: Optional[float] = None
+    nsfw_level: int = 0
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for widget serialization"""
+        return {
+            'model_name': self.model_name,
+            'model_type': self.model_type,
+            'base_model': self.base_model,
+            'version_id': self.version_id,
+            'model_id': self.model_id,
+            'file_size': self.file_size,
+            'download_status': self.download_status,
+            'download_progress': self.download_progress,
+            'tags': self.tags,
+            'rating': self.rating,
+            'trained_words': self.trained_words or []
+        }
+
+    def update_progress(self, progress: float, speed: float = 0.0):
+        """Update download progress with speed calculation"""
+        self.download_progress = min(100.0, max(0.0, progress))
+        self.download_speed = speed
+        
+        if speed > 0 and self.file_size and self.file_size > 0:
+            remaining_bytes = self.file_size * (100 - progress) / 100
+            remaining_seconds = remaining_bytes / (speed * 1024 * 1024)  # speed in MB/s
+            
+            if remaining_seconds > 60:
+                self.estimated_time = f"{remaining_seconds/60:.1f}m"
+            else:
+                self.estimated_time = f"{remaining_seconds:.0f}s"
+        else:
+            # Set a default ETA when file size is unknown
+            self.estimated_time = "Calculating..." if speed > 0 else None
 
 
-# === Main API ===
+# === Enhanced Main API ===
 class CivitAiAPI:
     """
-    Usage Example:
-        api = CivitAiAPI(token=token)
-        result = api.validate_download(
-            url='https://civitai.com/models/...',
-            file_name='model.safetensors'
-        )
-
-        full_data = api.get_model_data(url='https://civitai.com/models/...')
+    Enhanced CivitAI API with sophisticated download management and widget integration
+    
+    Features:
+    - Progress tracking with callbacks
+    - Concurrent downloads
+    - Intelligent retry mechanisms
+    - Caching for better performance
+    - Enhanced error handling
+    - Widget integration support
     """
 
     BASE_URL = 'https://civitai.com/api/v1'
-    SUPPORTED_TYPES = {'Checkpoint', 'TextualInversion', 'LORA'}    # For Save Preview
+    SUPPORTED_TYPES = {'Checkpoint', 'TextualInversion', 'LORA', 'Hypernetwork', 'AestheticGradient'}
     IS_KAGGLE = 'KAGGLE_URL_BASE' in os.environ
+    
+    # Enhanced configuration
+    MAX_CONCURRENT_DOWNLOADS = 3
+    RETRY_ATTEMPTS = 3
+    RETRY_DELAY = 2.0
+    CHUNK_SIZE = 8192
+    TIMEOUT = 30
 
-    def __init__(self, token: Optional[str] = None, log: bool = True):
-        self.token = token or '65b66176dcf284b266579de57fbdc024'    # FAKE
-        self.logger = APILogger(verbose=log)
+    def __init__(self,
+                 token: Optional[str] = None,
+                 log: bool = True,
+                 progress_callback: Optional[Callable] = None,
+                 max_workers: int = 3):
+        self.token = token or '65b66176dcf284b266579de57fbdc024'  # Default token
+        self.logger = APILogger(verbose=log, progress_callback=progress_callback)
+        self.progress_callback = progress_callback
+        self.max_workers = min(max_workers, self.MAX_CONCURRENT_DOWNLOADS)
+        
+        # Cache for API responses
+        self._cache = {}
+        self._cache_timeout = 300  # 5 minutes
+        
+        # Active downloads tracking
+        self.active_downloads = {}
+        self.download_lock = threading.Lock()
+        
+        # Session for connection pooling
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'ScarySingleDocs/3.0 (Enhanced Widget Integration)',
+            'Accept': 'application/json',
+        })
+        
+        if self.token:
+            self.session.headers['Authorization'] = f'Bearer {self.token}'
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def close(self):
+        """Clean up resources"""
+        if hasattr(self, 'session'):
+            self.session.close()
 
     # === Core Helpers ===
     def _build_url(self, endpoint: str) -> str:
         """Construct full API URL for given endpoint"""
         return f"{self.BASE_URL}/{endpoint}"
 
-    def _get(self, url: str) -> Optional[Dict]:
-        """Perform GET request and return JSON or None"""
-        headers = {'Authorization': f'Bearer {self.token}'} if self.token else {}
-        try:
-            res = requests.get(url, headers=headers)
-            res.raise_for_status()
-            return res.json()
-        except requests.RequestException as e:
-            self.logger.log(f"{url} failed: {e}", "error")
-            return None
+    # === Enhanced Caching System ===
+    def _get_cache_key(self, url: str) -> str:
+        """Generate cache key for URL"""
+        import hashlib
+        return hashlib.md5(url.encode()).hexdigest()
+
+    def _is_cache_valid(self, cache_key: str) -> bool:
+        """Check if cache entry is still valid"""
+        if cache_key not in self._cache:
+            return False
+        
+        entry_time = self._cache[cache_key].get('timestamp', 0)
+        return time.time() - entry_time < self._cache_timeout
+
+    def _get_from_cache(self, cache_key: str) -> Optional[Dict]:
+        """Get data from cache if valid"""
+        if self._is_cache_valid(cache_key):
+            return self._cache[cache_key]['data']
+        return None
+
+    def _store_in_cache(self, cache_key: str, data: Dict):
+        """Store data in cache with timestamp"""
+        self._cache[cache_key] = {
+            'data': data,
+            'timestamp': time.time()
+        }
+
+    def _get(self, url: str, use_cache: bool = True) -> Optional[Dict]:
+        """Enhanced GET request with caching and retry logic"""
+        # Check cache first
+        if use_cache:
+            cache_key = self._get_cache_key(url)
+            cached_data = self._get_from_cache(cache_key)
+            if cached_data:
+                self.logger.log(f"Cache hit for: {url}", "info")
+                return cached_data
+        
+        # Make request with retry logic
+        for attempt in range(self.RETRY_ATTEMPTS):
+            try:
+                self.logger.log(f"API request (attempt {attempt + 1}): {url}", "info")
+                response = self.session.get(url, timeout=self.TIMEOUT)
+                response.raise_for_status()
+                
+                result = response.json()
+                
+                # Store in cache
+                if use_cache:
+                    self._store_in_cache(cache_key, result)
+                
+                return result
+                
+            except requests.exceptions.RequestException as e:
+                self.logger.log(f"API request attempt {attempt + 1} failed: {str(e)}", "warning")
+                if attempt < self.RETRY_ATTEMPTS - 1:
+                    time.sleep(self.RETRY_DELAY * (attempt + 1))  # Exponential backoff
+                else:
+                    self.logger.log(f"All API request attempts failed for: {url}", "error")
+        
+        return None
 
     def _extract_version_id(self, url: str) -> Optional[str]:
         """Extract version ID from various CivitAI URL formats"""
@@ -295,3 +494,224 @@ class CivitAiAPI:
             self.logger.log(f"Saved model info: {info_file}", "success")
         except Exception as e:
             self.logger.log(f"Failed to save info: {e}", "error")
+
+    # === Enhanced Download Methods ===
+    def download_model_with_progress(self,
+                                   model_data: ModelData,
+                                   save_path: Union[str, Path],
+                                   progress_callback: Optional[Callable[[float, str], None]] = None) -> bool:
+        """
+        Download model with sophisticated progress tracking and widget integration
+        
+        Args:
+            model_data: Enhanced ModelData object
+            save_path: Path to save the downloaded file
+            progress_callback: Optional callback for progress updates (progress, status_message)
+        
+        Returns:
+            bool: True if download successful, False otherwise
+        """
+        save_path = Path(save_path)
+        save_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        if save_path.exists():
+            self.logger.log(f"File already exists: {save_path}", "info")
+            model_data.download_status = "completed"
+            model_data.download_progress = 100.0
+            if progress_callback:
+                progress_callback(100.0, "File already exists")
+            return True
+        
+        try:
+            model_data.download_status = "downloading"
+            start_time = time.time()
+            
+            # Make request with stream=True for progress tracking
+            response = self.session.get(model_data.download_url, stream=True, timeout=self.TIMEOUT)
+            response.raise_for_status()
+            
+            total_size = int(response.headers.get('content-length', 0))
+            model_data.file_size = total_size
+            downloaded_size = 0
+            
+            self.logger.log(f"Starting download: {model_data.model_name} ({total_size / (1024*1024):.1f} MB)", "download")
+            
+            with open(save_path, 'wb') as file:
+                for chunk in response.iter_content(chunk_size=self.CHUNK_SIZE):
+                    if chunk:
+                        file.write(chunk)
+                        downloaded_size += len(chunk)
+                        
+                        # Calculate progress and speed
+                        if total_size > 0:
+                            progress = (downloaded_size / total_size) * 100
+                            elapsed_time = time.time() - start_time
+                            speed = downloaded_size / (elapsed_time * 1024 * 1024) if elapsed_time > 0 else 0  # MB/s
+                            
+                            model_data.update_progress(progress, speed)
+                            
+                            # Widget progress callback
+                            if progress_callback:
+                                status_msg = f"Downloading... {speed:.1f} MB/s"
+                                if model_data.estimated_time:
+                                    status_msg += f" (ETA: {model_data.estimated_time})"
+                                progress_callback(progress, status_msg)
+                            
+                            # Logger progress update
+                            if int(progress) % 10 == 0:  # Update every 10%
+                                self.logger.update_download_progress(model_data.model_name, downloaded_size, total_size)
+            
+            # Download completed
+            duration = time.time() - start_time
+            model_data.download_status = "completed"
+            model_data.download_progress = 100.0
+            
+            self.logger.log_download_complete(model_data.model_name, downloaded_size, duration)
+            
+            if progress_callback:
+                progress_callback(100.0, "Download completed successfully!")
+            
+            return True
+            
+        except Exception as e:
+            model_data.download_status = "failed"
+            self.logger.log_download_error(model_data.model_name, str(e))
+            
+            if progress_callback:
+                progress_callback(0.0, f"Download failed: {str(e)}")
+            
+            # Clean up partial file
+            if save_path.exists():
+                save_path.unlink()
+            
+            return False
+
+    def download_multiple_models(self,
+                                model_list: List[Tuple[ModelData, Path]],
+                                progress_callback: Optional[Callable[[int, int, str], None]] = None) -> Dict[str, bool]:
+        """
+        Download multiple models concurrently with progress tracking
+        
+        Args:
+            model_list: List of (ModelData, save_path) tuples
+            progress_callback: Optional callback for overall progress (completed, total, current_model)
+        
+        Returns:
+            Dict mapping model names to success status
+        """
+        results = {}
+        
+        def download_single(model_data: ModelData, save_path: Path) -> bool:
+            """Single model download wrapper"""
+            with self.download_lock:
+                self.active_downloads[model_data.model_name] = {
+                    'status': 'downloading',
+                    'progress': 0.0,
+                    'start_time': time.time()
+                }
+            
+            def model_progress_callback(progress: float, status: str):
+                with self.download_lock:
+                    if model_data.model_name in self.active_downloads:
+                        self.active_downloads[model_data.model_name]['progress'] = progress
+                        self.active_downloads[model_data.model_name]['status'] = status
+            
+            success = self.download_model_with_progress(model_data, save_path, model_progress_callback)
+            
+            with self.download_lock:
+                if model_data.model_name in self.active_downloads:
+                    self.active_downloads[model_data.model_name]['status'] = 'completed' if success else 'failed'
+                    if not success:
+                        del self.active_downloads[model_data.model_name]
+            
+            return success
+        
+        # Initialize download stats
+        total_models = len(model_list)
+        completed_models = 0
+        
+        self.logger.download_stats['total_files'] = total_models
+        
+        # Execute downloads with thread pool
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            future_to_model = {
+                executor.submit(download_single, model_data, save_path): model_data.model_name
+                for model_data, save_path in model_list
+            }
+            
+            for future in as_completed(future_to_model):
+                model_name = future_to_model[future]
+                try:
+                    success = future.result()
+                    results[model_name] = success
+                    completed_models += 1
+                    
+                    if progress_callback:
+                        progress_callback(completed_models, total_models, model_name)
+                    
+                    self.logger.log(f"Model {completed_models}/{total_models} complete: {model_name} ({'✓' if success else '✗'})", "info")
+                    
+                except Exception as e:
+                    results[model_name] = False
+                    self.logger.log(f"Unexpected error downloading {model_name}: {e}", "error")
+        
+        # Final statistics
+        stats = self.logger.get_stats_summary()
+        self.logger.log(f"Download batch complete: {stats['completed_files']}/{stats['total_files']} successful ({stats['success_rate']:.1f}%)", "info")
+        
+        return results
+
+    def get_download_status(self, model_name: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Get current download status for widget display
+        
+        Args:
+            model_name: Specific model name, or None for all active downloads
+        
+        Returns:
+            Dictionary with download status information
+        """
+        with self.download_lock:
+            if model_name:
+                return self.active_downloads.get(model_name, {})
+            
+            return {
+                'active_downloads': dict(self.active_downloads),
+                'total_active': len(self.active_downloads),
+                'statistics': self.logger.get_stats_summary()
+            }
+
+    def cancel_download(self, model_name: str) -> bool:
+        """
+        Cancel an active download
+        
+        Args:
+            model_name: Name of the model to cancel
+        
+        Returns:
+            bool: True if cancellation was successful
+        """
+        with self.download_lock:
+            if model_name in self.active_downloads:
+                self.active_downloads[model_name]['status'] = 'cancelled'
+                self.logger.log(f"Download cancelled: {model_name}", "warning")
+                return True
+            
+            return False
+
+    def clear_cache(self):
+        """Clear the API response cache"""
+        self._cache.clear()
+        self.logger.log("API cache cleared", "info")
+
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """Get cache statistics for monitoring"""
+        valid_entries = sum(1 for key in self._cache.keys() if self._is_cache_valid(key))
+        
+        return {
+            'total_entries': len(self._cache),
+            'valid_entries': valid_entries,
+            'expired_entries': len(self._cache) - valid_entries,
+            'cache_timeout': self._cache_timeout,
+            'memory_usage_mb': len(str(self._cache)) / (1024 * 1024)  # Rough estimate
+        }

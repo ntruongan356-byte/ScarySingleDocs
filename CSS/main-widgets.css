@@ -1,88 +1,198 @@
-@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Tiny5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-    /* Accent Color */
-    --aw-accent-color: #ff97ef;
-    --aw-elements-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+    /* === SANGUINE RED COLOR PALETTE === */
+    --aw-sanguine-primary: #8B0000;     /* Deep sanguine red - primary accent */
+    --aw-sanguine-light: #DC143C;       /* Crimson - lighter accent */
+    --aw-sanguine-dark: #660000;        /* Dark blood red - deeper accent */
+    --aw-sanguine-glow: #FF6B6B;        /* Coral red - glow effects */
+    --aw-sanguine-muted: #CD5C5C;       /* Indian red - muted accent */
+    
+    /* === CORE THEME === */
+    --aw-accent-color: var(--aw-sanguine-primary);
+    --aw-accent-light: var(--aw-sanguine-light);
+    --aw-accent-glow: var(--aw-sanguine-glow);
+    --aw-elements-shadow: 0 0 20px rgba(139, 0, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.6);
+    --aw-glow-shadow: 0 0 30px rgba(139, 0, 0, 0.6), 0 0 60px rgba(220, 20, 60, 0.3);
 
-    /* Text - Fonts */
-    --aw-font-family-primary: "Shantell Sans", serif;
-    --aw-font-family-secondary: "Tiny5", sans-serif;
-    --aw-color-text-primary: #f0f8ff;
+    /* === ELEGANT TYPOGRAPHY === */
+    --aw-font-family-primary: "Inter", sans-serif;     /* Modern, clean primary font */
+    --aw-font-family-elegant: "Cinzel", serif;         /* Elegant headers font */
+    --aw-font-family-mono: "JetBrains Mono", monospace; /* Code/technical font */
+    --aw-color-text-primary: #F5F5F5;                  /* Warm white text */
+    --aw-color-text-secondary: #E0E0E0;                /* Secondary text */
+    --aw-color-text-muted: #B0B0B0;                    /* Muted text */
     --aw-text-size: 14px;
     --aw-text-size-small: 13px;
+    --aw-text-size-large: 16px;
 
-    /* Container */
-    --aw-container-bg: #232323;
-    --aw-container-border: 2px solid rgba(0, 0, 0, 0.4);
-    --aw-conteiner-gap: 5px;
+    /* === SOPHISTICATED CONTAINERS === */
+    --aw-container-bg: #0A0A0A;                        /* Pure black base */
+    --aw-container-bg-elevated: #151515;               /* Slightly elevated black */
+    --aw-container-border: 2px solid rgba(139, 0, 0, 0.3);
+    --aw-container-border-active: 2px solid rgba(139, 0, 0, 0.8);
+    --aw-container-gap: 8px;
 
-    /* Inputs */
-    --aw-input-bg: #1c1c1c;
-    --aw-input-bg-hover: #262626;
-    --aw-input-border: 1px solid #262626;
-    --aw-input-border-focus: #006ee5;
+    /* === PREMIUM GRADIENTS === */
+    --aw-gradient-primary: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.1) 0%,
+        rgba(220, 20, 60, 0.05) 50%,
+        rgba(139, 0, 0, 0.15) 100%);
+    --aw-gradient-elevated: linear-gradient(145deg,
+        rgba(21, 21, 21, 0.95) 0%,
+        rgba(10, 10, 10, 0.98) 100%);
+    --aw-gradient-button: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.8) 0%,
+        rgba(220, 20, 60, 0.9) 100%);
 
-    /* Checkboxes */
-    --aw-checkbox-unchecked-bg: #20b2aa;
-    --aw-checkbox-checked-bg: #2196f3;
-    --aw-checkbox-inpaint-bg: #bbca53;
-    --aw-checkbox-sdxl-bg: #ea861a;
-    --aw-checkbox-empowerment-bg: #df6b91;
-    --aw-checkbox-handle-bg: white;
+    /* === REFINED INPUTS === */
+    --aw-input-bg: #1A1A1A;
+    --aw-input-bg-hover: #252525;
+    --aw-input-bg-focus: #2A2A2A;
+    --aw-input-border: 1px solid rgba(139, 0, 0, 0.2);
+    --aw-input-border-hover: 1px solid rgba(139, 0, 0, 0.4);
+    --aw-input-border-focus: 1px solid var(--aw-sanguine-primary);
 
-    /* Popup */
-    --aw-popup-blur: 10px;
-    --aw-popup-bg: rgba(255, 255, 255, 0.03);
-    --aw-popup-color: #ffffff;
-    --aw-popup-border: 2px solid rgba(255, 255, 255, 0.45);
-    --aw-popup-sample-bg: rgba(255, 255, 255, 0.1);
-    --aw-popup-sample-color: #c6e2ff;
-    --aw-popup-sample-border: 2px solid rgba(255, 255, 255, 0.2);
+    /* === ELEGANT CHECKBOXES === */
+    --aw-checkbox-unchecked-bg: #2A2A2A;
+    --aw-checkbox-checked-bg: var(--aw-sanguine-primary);
+    --aw-checkbox-inpaint-bg: #8B4513;                 /* Saddle brown for inpainting */
+    --aw-checkbox-sdxl-bg: #B8860B;                    /* Dark goldenrod for SDXL */
+    --aw-checkbox-empowerment-bg: #4B0082;             /* Indigo for empowerment */
+    --aw-checkbox-handle-bg: #F5F5F5;
 
-    /* Term Colors (Popup) */
-    --aw-term-sample-label: #dbafff;
-    --aw-term-braces: #ffff00;
-    --aw-term-extension: #eb934b;
-    --aw-term-filename: #ffdba7;
-    --aw-term-required: #ff9999;
+    /* === SOPHISTICATED POPUPS === */
+    --aw-popup-blur: 15px;
+    --aw-popup-bg: rgba(10, 10, 10, 0.95);
+    --aw-popup-color: var(--aw-color-text-primary);
+    --aw-popup-border: 2px solid rgba(139, 0, 0, 0.6);
+    --aw-popup-sample-bg: rgba(139, 0, 0, 0.1);
+    --aw-popup-sample-color: var(--aw-color-text-secondary);
+    --aw-popup-sample-border: 1px solid rgba(139, 0, 0, 0.3);
 
-    /* Scrollbar */
-    --aw-scrollbar-width: 0.65rem;
-    --aw-scrollbar-thumb-bg: #475254;
-    --aw-scrollbar-track-bg: #111111;
-    --aw-scrollbar-thumb-hover: var(--aw-accent-color);
+    /* === REFINED TERM COLORS === */
+    --aw-term-sample-label: var(--aw-sanguine-light);
+    --aw-term-braces: #FFD700;                         /* Gold for brackets */
+    --aw-term-extension: #FF8C00;                      /* Dark orange for extensions */
+    --aw-term-filename: #F0E68C;                       /* Khaki for filenames */
+    --aw-term-required: var(--aw-sanguine-glow);
 
-    /* Buttons */
-    --aw-button-gradient: radial-gradient(circle at top left, purple 10%, violet 90%);
-    --aw-button-input-gradient: radial-gradient(circle at top left, var(--aw-input-bg));
-    --aw-button-save-hover: radial-gradient(circle at top left, purple 10%, #93ac47 90%);
-    --aw-button-api-hover: radial-gradient(circle at top left, purple 10%, #1d94bb 90%);
+    /* === PREMIUM SCROLLBARS === */
+    --aw-scrollbar-width: 8px;
+    --aw-scrollbar-thumb-bg: rgba(139, 0, 0, 0.6);
+    --aw-scrollbar-track-bg: rgba(10, 10, 10, 0.8);
+    --aw-scrollbar-thumb-hover: var(--aw-sanguine-light);
+
+    /* === SOPHISTICATED BUTTONS === */
+    --aw-button-gradient: var(--aw-gradient-button);
+    --aw-button-input-gradient: linear-gradient(135deg,
+        var(--aw-input-bg) 0%,
+        rgba(26, 26, 26, 0.95) 100%);
+    --aw-button-save-hover: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.9) 0%,
+        rgba(184, 134, 11, 0.8) 100%);
+    --aw-button-api-hover: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.8) 0%,
+        rgba(70, 130, 180, 0.8) 100%);
+
+    /* === ANIMATION CURVES === */
+    --aw-ease-elegant: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --aw-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --aw-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
-/* General Styles */
+/* === GENERAL STYLES === */
+
+body, .output_area {
+    background: radial-gradient(ellipse at center,
+        rgba(10, 10, 10, 1) 0%,
+        rgba(5, 5, 5, 1) 100%);
+}
 
 .header {
     display: inline-block;
-    font-size: 20px;
-    font-weight: 650;
+    font-family: var(--aw-font-family-elegant);
+    font-size: 22px;
+    font-weight: 600;
     color: var(--aw-accent-color);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     user-select: none;
     cursor: default;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 15px rgba(139, 0, 0, 0.6),
+                 0 2px 4px rgba(0, 0, 0, 0.8);
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg,
+        var(--aw-sanguine-primary) 0%,
+        var(--aw-sanguine-light) 50%,
+        transparent 100%);
+    border-radius: 1px;
 }
 
 hr {
-    margin: 4px 0;
-    background-color: grey;
-    border-color: grey;
-    opacity: 0.25;
+    margin: 8px 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(139, 0, 0, 0.3) 20%,
+        rgba(139, 0, 0, 0.6) 50%,
+        rgba(139, 0, 0, 0.3) 80%,
+        transparent 100%);
+    border: none;
+    opacity: 1;
 }
+
 a {
-    color: inherit;
+    color: var(--aw-sanguine-light);
     text-decoration: none;
+    transition: all 0.3s var(--aw-ease-elegant);
+}
+
+a:hover {
+    color: var(--aw-sanguine-glow);
+    text-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+}
+
+/* === ELEGANT FLOURISHES === */
+.decorative-flourish {
+    position: relative;
+}
+
+.decorative-flourish::before,
+.decorative-flourish::after {
+    content: '◆';
+    position: absolute;
+    color: var(--aw-sanguine-primary);
+    font-size: 12px;
+    opacity: 0.6;
+    animation: flourishPulse 3s ease-in-out infinite alternate;
+}
+
+.decorative-flourish::before {
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.decorative-flourish::after {
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+@keyframes flourishPulse {
+    0% { opacity: 0.4; transform: translateY(-50%) rotate(45deg) scale(0.9); }
+    100% { opacity: 0.8; transform: translateY(-50%) rotate(45deg) scale(1.1); }
 }
 
 
@@ -112,43 +222,47 @@ a {
 }
 
 
-/* Special Styles */
+/* === SOPHISTICATED SELECTION STYLES === */
 
 ::selection {
-    background: #3d4142;
+    background: rgba(139, 0, 0, 0.3);
+    color: var(--aw-color-text-primary);
 }
-::-moz-selection { /* Code for Firefox */
-    background: #3d4142;
+::-moz-selection {
+    background: rgba(139, 0, 0, 0.3);
+    color: var(--aw-color-text-primary);
 }
 
-/* === ScrollBar (For TextArea) === */
+/* === PREMIUM SCROLLBARS === */
 .widget-textarea textarea::-webkit-scrollbar {
     width: var(--aw-scrollbar-width);
     height: var(--aw-scrollbar-width);
 }
 .widget-textarea textarea::-webkit-scrollbar-thumb {
     background: var(--aw-scrollbar-thumb-bg) !important;
-    border: 3px solid var(--aw-scrollbar-track-bg);
-    border-radius: 16px;
+    border: 2px solid var(--aw-scrollbar-track-bg);
+    border-radius: 10px;
+    transition: background 0.3s var(--aw-ease-elegant);
 }
 .widget-textarea textarea::-webkit-scrollbar-thumb:hover {
     background: var(--aw-scrollbar-thumb-hover) !important;
+    box-shadow: 0 0 8px rgba(139, 0, 0, 0.4);
 }
 .widget-textarea textarea::-webkit-scrollbar-track,
 .widget-textarea textarea::-webkit-scrollbar-corner {
     background: var(--aw-scrollbar-track-bg) !important;
-    border-radius: 0 8px 8px 0;
+    border-radius: 10px;
 }
 /* FireFox Styles */
 @-moz-document url-prefix() {
     .widget-textarea textarea {
-        scrollbar-width: auto;
+        scrollbar-width: thin;
         scrollbar-color: var(--aw-scrollbar-thumb-bg) var(--aw-scrollbar-track-bg);
     }
 }
 
 
-/* Text FONTs */
+/* === ELEGANT TYPOGRAPHY === */
 
 .info,
 .popup,
@@ -163,11 +277,12 @@ a {
 .widget-text input[type="text"] {
     font-family: var(--aw-font-family-primary);
     font-optical-sizing: auto;
-    /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-
-/* Element Text Style */
+/* === REFINED ELEMENT TEXT STYLES === */
 
 .widget-text,
 .widget-button,
@@ -179,66 +294,119 @@ a {
 .widget-text input[type="text"] {
     font-style: normal;
     font-size: var(--aw-text-size);
+    font-weight: 400;
     color: var(--aw-color-text-primary) !important;
     user-select: none;
-}
-.widget-text input[type="text"]::placeholder {
-    color: grey;
-    font-size: var(--aw-text-size);
+    letter-spacing: 0.3px;
 }
 
-/* TextArea */
+.widget-text input[type="text"]::placeholder {
+    color: var(--aw-color-text-muted);
+    font-size: var(--aw-text-size);
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+/* TextArea Refinements */
 .widget-textarea textarea,
 .widget-textarea textarea::placeholder {
+    font-family: var(--aw-font-family-mono);
     font-size: var(--aw-text-size-small);
+    line-height: 1.6;
 }
 
+/* === SOPHISTICATED CONTAINER ARCHITECTURE === */
 
-/* Containers Style */
+.mainContainer * {
+    overflow: visible !important;
+}
 
-.mainContainer * { overflow: visible !important; } /* Fix For Containers Shadow */
 .mainContainer {
-    padding: calc(var(--aw-conteiner-gap) + 5px);
-    gap: calc(var(--aw-conteiner-gap) + 5px);
+    padding: var(--aw-container-gap);
+    gap: var(--aw-container-gap);
+    background: var(--aw-gradient-primary);
+    border-radius: 20px;
+    position: relative;
 }
+
+.mainContainer::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg,
+        var(--aw-sanguine-dark) 0%,
+        transparent 25%,
+        transparent 75%,
+        var(--aw-sanguine-dark) 100%);
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0.3;
+}
+
 .widgetContainer,
 .sideContainer {
-    gap: var(--aw-conteiner-gap);
+    gap: var(--aw-container-gap);
 }
+
 .widgetContainer > .model-vae {
-    gap: var(--aw-conteiner-gap);
+    gap: var(--aw-container-gap);
     align-items: stretch;
 }
 
 .container {
     flex: 1;
     position: relative;
-    padding: 10px 15px;
-    background-color: var(--aw-container-bg);
+    padding: 18px 24px;
+    background: var(--aw-gradient-elevated);
     border: var(--aw-container-border);
-    border-radius: 16px;
-    box-shadow: var(--aw-elements-shadow), inset 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    box-shadow: var(--aw-elements-shadow),
+                inset 0 1px 0 rgba(139, 0, 0, 0.1),
+                inset 0 0 20px rgba(0, 0, 0, 0.4);
     overflow: hidden !important;
+    transition: all 0.4s var(--aw-ease-elegant);
+    backdrop-filter: blur(10px);
 }
+
+.container:hover {
+    border-color: var(--aw-container-border-active);
+    box-shadow: var(--aw-glow-shadow),
+                inset 0 1px 0 rgba(139, 0, 0, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
 .container::after {
     content: "ScarySingleDocs";
     position: absolute;
-    top: 10px;
-    right: 15px;
-    color: rgba(0, 0, 0, 0.3);
-    font-family: var(--aw-font-family-secondary);
-    font-optical-sizing: auto;
-    font-weight: 750;
-    font-size: 24px;
+    top: 12px;
+    right: 20px;
+    color: rgba(139, 0, 0, 0.15);
+    font-family: var(--aw-font-family-elegant);
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+    pointer-events: none;
 }
 
 .container_cdl {
     flex: none;
-    height: 55px;
-    transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.85);
+    height: 65px;
+    transition: all 0.6s var(--aw-ease-bounce);
+    border-radius: 16px;
 }
+
 .container_cdl.expanded {
-    height: 305px;
+    height: 320px;
+    border-radius: 20px;
+}
+
+.container_cdl.expanded::after {
+    opacity: 0.3;
 }
 
 /* === SideContainer Buttons === */
@@ -387,38 +555,62 @@ a {
 }
 
 
-/* Input Field Styles */
+/* === REFINED INPUT FIELD STYLES === */
 
 .widget-dropdown select,
 .widget-text input[type="text"],
 .widget-textarea textarea {
-    height: 30px;
+    height: 34px;
     margin: 0 !important;
-    background-color: var(--aw-input-bg);
+    padding: 8px 14px;
+    background: var(--aw-input-bg);
     border: var(--aw-input-border);
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-    transition: all 0.25s ease-in-out;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4),
+                0 1px 2px rgba(139, 0, 0, 0.1);
+    transition: all 0.3s var(--aw-ease-elegant);
+    outline: none;
 }
+
 .widget-textarea textarea {
-    height: 200px;
+    height: 220px;
     resize: none;
+    padding: 12px 16px;
+    line-height: 1.6;
 }
 
 .widget-dropdown select:focus,
 .widget-text input[type="text"]:focus,
 .widget-textarea textarea:focus {
-    border-color: var(--aw-input-border-focus);
+    background: var(--aw-input-bg-focus);
+    border: var(--aw-input-border-focus);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3),
+                0 0 0 3px rgba(139, 0, 0, 0.15),
+                0 2px 8px rgba(139, 0, 0, 0.2);
+    transform: translateY(-1px);
 }
 
 .widget-dropdown select:hover,
-.widget-text input[type="text"]:hover {
-    /* transform: scale(1.003); */
-    background-color: var(--aw-input-bg-hover);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+.widget-text input[type="text"]:hover,
+.widget-textarea textarea:hover {
+    background: var(--aw-input-bg-hover);
+    border: var(--aw-input-border-hover);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3),
+                0 0 0 2px rgba(139, 0, 0, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
 }
+
 .widget-dropdown option {
-    background-color: var(--aw-input-bg);
+    background: var(--aw-input-bg);
+    color: var(--aw-color-text-primary);
+    padding: 8px 12px;
+}
+
+.widget-dropdown option:hover,
+.widget-dropdown option:checked {
+    background: rgba(139, 0, 0, 0.2);
+    color: var(--aw-color-text-primary);
 }
 
 /* Animation when switching empowerment mode */
@@ -715,140 +907,489 @@ a {
     }
 }
 
-/* ===== TABBED DOWNLOAD SYSTEM ===== */
+/* ===== SOPHISTICATED TABBED DOWNLOAD SYSTEM ===== */
 
 /* Tab Container */
 .tab-container {
     display: flex;
-    gap: 4px;
-    margin-bottom: 12px;
-    border-bottom: 2px solid var(--aw-input-border);
-    padding-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding: 6px;
+    background: linear-gradient(135deg,
+        rgba(10, 10, 10, 0.9) 0%,
+        rgba(21, 21, 21, 0.95) 100%);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    border-radius: 16px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
-/* Tab Buttons */
+.tab-container::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg,
+        transparent 0%,
+        rgba(139, 0, 0, 0.1) 50%,
+        transparent 100%);
+    border-radius: 16px;
+    z-index: -1;
+}
+
+/* Enhanced Tab Buttons */
 .tab-button {
     flex: 1;
-    padding: 10px 16px;
-    background-color: var(--aw-input-bg);
+    padding: 14px 20px;
+    background: linear-gradient(135deg,
+        var(--aw-input-bg) 0%,
+        rgba(26, 26, 26, 0.95) 100%);
     border: 1px solid var(--aw-input-border);
-    border-radius: 8px 8px 0 0;
+    border-radius: 12px;
     color: var(--aw-color-text-primary);
     font-family: var(--aw-font-family-primary);
     font-size: var(--aw-text-size);
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.4s var(--aw-ease-elegant);
     text-align: center;
     user-select: none;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+}
+
+.tab-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.05) 0%,
+        rgba(220, 20, 60, 0.08) 100%);
+    border-radius: 11px;
+    opacity: 0;
+    transition: opacity 0.3s var(--aw-ease-elegant);
 }
 
 .tab-button:hover {
-    background-color: var(--aw-input-bg-hover);
+    background: linear-gradient(135deg,
+        var(--aw-input-bg-hover) 0%,
+        rgba(37, 37, 37, 0.98) 100%);
     border-color: var(--aw-accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3),
+                0 2px 8px rgba(139, 0, 0, 0.2);
+}
+
+.tab-button:hover::before {
+    opacity: 1;
 }
 
 .tab-button.active {
-    background-color: var(--aw-accent-color);
-    border-color: var(--aw-accent-color);
-    color: #000;
+    background: var(--aw-gradient-button);
+    border: 1px solid var(--aw-accent-color);
+    color: var(--aw-color-text-primary);
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(255, 151, 239, 0.3);
+    transform: translateY(-1px);
+    box-shadow: var(--aw-glow-shadow),
+                0 4px 12px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-/* Tab Content */
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--aw-sanguine-light) 50%,
+        transparent 100%);
+    border-radius: 1px;
+}
+
+/* Enhanced Tab Content */
 .tab-content {
     display: none;
-    gap: 8px;
-    max-height: 300px;
+    gap: 10px;
+    max-height: 340px;
     overflow-y: auto;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: rgba(35, 35, 35, 0.3);
+    padding: 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg,
+        rgba(21, 21, 21, 0.8) 0%,
+        rgba(16, 16, 16, 0.9) 100%);
+    border: 1px solid rgba(139, 0, 0, 0.15);
+    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
 }
 
 .tab-content.active {
     display: flex;
     flex-direction: column;
+    animation: tabContentFadeIn 0.5s var(--aw-ease-elegant);
 }
 
-/* Toggle Buttons */
+@keyframes tabContentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* === SOPHISTICATED TOGGLE BUTTONS === */
 .toggle-button {
     width: 100% !important;
-    padding: 12px 16px !important;
-    margin: 2px 0 !important;
-    background-color: var(--aw-input-bg) !important;
+    padding: 16px 20px !important;
+    margin: 4px 0 !important;
+    background: linear-gradient(135deg,
+        var(--aw-input-bg) 0%,
+        rgba(26, 26, 26, 0.95) 100%) !important;
     border: 1px solid var(--aw-input-border) !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     color: var(--aw-color-text-primary) !important;
     font-family: var(--aw-font-family-primary) !important;
     font-size: var(--aw-text-size) !important;
     font-weight: 500 !important;
     text-align: left !important;
     cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.4s var(--aw-ease-elegant) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.05) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    letter-spacing: 0.3px !important;
+}
+
+.toggle-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.03) 50%,
+        transparent 100%);
+    transition: left 0.6s ease;
 }
 
 .toggle-button:hover {
-    background-color: var(--aw-input-bg-hover) !important;
-    border-color: var(--aw-accent-color) !important;
-    transform: translateY(-1px) !important;
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    background: linear-gradient(135deg,
+        var(--aw-input-bg-hover) 0%,
+        rgba(37, 37, 37, 0.98) 100%) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4),
+                0 2px 8px rgba(139, 0, 0, 0.15),
+                inset 0 1px 3px rgba(255, 255, 255, 0.08) !important;
+}
+
+.toggle-button:hover::before {
+    left: 100%;
 }
 
 .toggle-button:active {
-    transform: translateY(0) !important;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5) !important;
+    transform: translateY(-1px) scale(0.99) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5),
+                inset 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Toggle States - Models */
+/* === ENHANCED TOGGLE STATES === */
+
+/* Models - Emerald Green */
 .toggle-button.model {
-    border-left: 4px solid #4CAF50 !important;
+    border-left: 5px solid #50C878 !important;
 }
 
 .toggle-button.model.active {
-    background-color: rgba(76, 175, 80, 0.2) !important;
-    border-color: #4CAF50 !important;
-    color: #4CAF50 !important;
+    background: linear-gradient(135deg,
+        rgba(80, 200, 120, 0.15) 0%,
+        rgba(80, 200, 120, 0.05) 100%) !important;
+    border: 1px solid rgba(80, 200, 120, 0.4) !important;
+    border-left: 5px solid #50C878 !important;
+    color: #66D68A !important;
+    box-shadow: var(--aw-elements-shadow),
+                0 0 15px rgba(80, 200, 120, 0.3) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
 }
 
-/* Toggle States - VAE */
+/* VAE - Azure Blue */
 .toggle-button.vae {
-    border-left: 4px solid #2196F3 !important;
+    border-left: 5px solid #4A90E2 !important;
 }
 
 .toggle-button.vae.active {
-    background-color: rgba(33, 150, 243, 0.2) !important;
-    border-color: #2196F3 !important;
-    color: #2196F3 !important;
+    background: linear-gradient(135deg,
+        rgba(74, 144, 226, 0.15) 0%,
+        rgba(74, 144, 226, 0.05) 100%) !important;
+    border: 1px solid rgba(74, 144, 226, 0.4) !important;
+    border-left: 5px solid #4A90E2 !important;
+    color: #5BA3F5 !important;
+    box-shadow: var(--aw-elements-shadow),
+                0 0 15px rgba(74, 144, 226, 0.3) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
 }
 
-/* Toggle States - LoRA */
+/* LoRA - Sunset Orange */
 .toggle-button.lora {
-    border-left: 4px solid #FF9800 !important;
+    border-left: 5px solid #FF8C42 !important;
 }
 
 .toggle-button.lora.active {
-    background-color: rgba(255, 152, 0, 0.2) !important;
-    border-color: #FF9800 !important;
-    color: #FF9800 !important;
+    background: linear-gradient(135deg,
+        rgba(255, 140, 66, 0.15) 0%,
+        rgba(255, 140, 66, 0.05) 100%) !important;
+    border: 1px solid rgba(255, 140, 66, 0.4) !important;
+    border-left: 5px solid #FF8C42 !important;
+    color: #FFA366 !important;
+    box-shadow: var(--aw-elements-shadow),
+                0 0 15px rgba(255, 140, 66, 0.3) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
 }
 
-/* Toggle States - ControlNet */
+/* ControlNet - Royal Purple */
 .toggle-button.controlnet {
-    border-left: 4px solid #9C27B0 !important;
+    border-left: 5px solid #9966CC !important;
 }
 
 .toggle-button.controlnet.active {
-    background-color: rgba(156, 39, 176, 0.2) !important;
-    border-color: #9C27B0 !important;
-    color: #9C27B0 !important;
+    background: linear-gradient(135deg,
+        rgba(153, 102, 204, 0.15) 0%,
+        rgba(153, 102, 204, 0.05) 100%) !important;
+    border: 1px solid rgba(153, 102, 204, 0.4) !important;
+    border-left: 5px solid #9966CC !important;
+    color: #B085DB !important;
+    box-shadow: var(--aw-elements-shadow),
+                0 0 15px rgba(153, 102, 204, 0.3) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
 }
 
 /* Download Tabs Container */
 .download-tabs-container {
-    gap: 8px;
+    gap: 10px;
+    position: relative;
+}
+
+/* === PROGRESS INDICATORS & STATUS FEEDBACK === */
+
+/* Progress Bar Container */
+.progress-container {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: rgba(10, 10, 10, 0.8);
+    border-radius: 3px;
+    margin: 12px 0;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg,
+        var(--aw-sanguine-primary) 0%,
+        var(--aw-sanguine-light) 50%,
+        var(--aw-sanguine-glow) 100%);
+    border-radius: 3px;
+    transition: width 0.3s var(--aw-ease-elegant);
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.5),
+                0 0 20px rgba(220, 20, 60, 0.3);
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%);
+    animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Loading States */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(139, 0, 0, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--aw-sanguine-primary);
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 4px;
+    transition: all 0.3s var(--aw-ease-elegant);
+}
+
+.status-indicator.downloading {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(220, 20, 60, 0.15));
+    color: var(--aw-sanguine-light);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.status-indicator.completed {
+    background: linear-gradient(135deg, rgba(80, 200, 120, 0.2), rgba(102, 214, 138, 0.15));
+    color: #66D68A;
+    border: 1px solid rgba(80, 200, 120, 0.3);
+}
+
+.status-indicator.error {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(255, 99, 71, 0.15));
+    color: #FF6347;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.status-indicator.pending {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 206, 84, 0.15));
+    color: #FFCE54;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* Download Status Overlay */
+.download-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(8px);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    z-index: 1000;
+}
+
+.download-overlay.active {
+    display: flex;
+    animation: overlayFadeIn 0.3s var(--aw-ease-elegant);
+}
+
+@keyframes overlayFadeIn {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.download-info {
+    text-align: center;
+    color: var(--aw-color-text-primary);
+    font-family: var(--aw-font-family-primary);
+    margin-top: 16px;
+}
+
+.download-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--aw-sanguine-light);
+}
+
+.download-detail {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 4px;
+}
+
+/* Verbose Output Toggle Enhancement */
+.verbose-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin: 8px 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.verbose-toggle input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.verbose-toggle-slider {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    background: var(--aw-input-bg);
+    border: 1px solid var(--aw-input-border);
+    border-radius: 12px;
+    transition: all 0.3s var(--aw-ease-elegant);
+    margin-right: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.verbose-toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: var(--aw-color-text-primary);
+    border-radius: 50%;
+    transition: all 0.3s var(--aw-ease-elegant);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.verbose-toggle input[type="checkbox"]:checked + .verbose-toggle-slider {
+    background: var(--aw-gradient-button);
+    border-color: var(--aw-sanguine-primary);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                0 0 10px rgba(139, 0, 0, 0.3);
+}
+
+.verbose-toggle input[type="checkbox"]:checked + .verbose-toggle-slider::after {
+    transform: translateX(26px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.verbose-toggle-label {
+    font-size: var(--aw-text-size);
+    color: var(--aw-color-text-primary);
+    font-weight: 500;
 }
 
 /* Custom Scrollbar for Tab Content */
@@ -880,5 +1421,14 @@ a {
     .toggle-button {
         font-size: 12px;
         padding: 10px 12px;
+    }
+    
+    .progress-container {
+        height: 4px;
+    }
+    
+    .status-indicator {
+        font-size: 11px;
+        padding: 4px 8px;
     }
 }
