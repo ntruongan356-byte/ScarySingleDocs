@@ -1,0 +1,2174 @@
+{
+  "nodes": [
+    {
+      "id": "node_1",
+      "type": "File",
+      "name": "scripts/en/widgets-en.py",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 0
+    },
+    {
+      "id": "node_2",
+      "type": "Module",
+      "name": "widget_factory.WidgetFactory",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 3
+    },
+    {
+      "id": "node_3",
+      "type": "Module",
+      "name": "webui_utils.update_current_webui",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 4
+    },
+    {
+      "id": "node_4",
+      "type": "Module",
+      "name": "json_utils",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 5
+    },
+    {
+      "id": "node_5",
+      "type": "Module",
+      "name": "IPython.display.display",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 7
+    },
+    {
+      "id": "node_6",
+      "type": "Module",
+      "name": "IPython.display.Javascript",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 7
+    },
+    {
+      "id": "node_7",
+      "type": "Module",
+      "name": "google.colab.output",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 8
+    },
+    {
+      "id": "node_8",
+      "type": "Module",
+      "name": "ipywidgets",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 9
+    },
+    {
+      "id": "node_9",
+      "type": "Module",
+      "name": "pathlib.Path",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 10
+    },
+    {
+      "id": "node_10",
+      "type": "Module",
+      "name": "json",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 11
+    },
+    {
+      "id": "node_11",
+      "type": "Module",
+      "name": "os",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 12
+    },
+    {
+      "id": "node_12",
+      "type": "Function",
+      "name": "create_expandable_button",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 35
+    },
+    {
+      "id": "node_13",
+      "type": "Call",
+      "name": "factory.create_html",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 36
+    },
+    {
+      "id": "node_14",
+      "type": "Function",
+      "name": "read_model_data",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 43
+    },
+    {
+      "id": "node_15",
+      "type": "Call",
+      "name": "list",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 56
+    },
+    {
+      "id": "node_16",
+      "type": "Call",
+      "name": "open",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 53
+    },
+    {
+      "id": "node_17",
+      "type": "Call",
+      "name": "exec",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 54
+    },
+    {
+      "id": "node_18",
+      "type": "Call",
+      "name": "keys",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 56
+    },
+    {
+      "id": "node_19",
+      "type": "Call",
+      "name": "f.read",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 54
+    },
+    {
+      "id": "node_20",
+      "type": "Function",
+      "name": "export_settings",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 235
+    },
+    {
+      "id": "node_21",
+      "type": "Call",
+      "name": "display",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 248
+    },
+    {
+      "id": "node_22",
+      "type": "Call",
+      "name": "show_notification",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 249
+    },
+    {
+      "id": "node_23",
+      "type": "Call",
+      "name": "Javascript",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 248
+    },
+    {
+      "id": "node_24",
+      "type": "Call",
+      "name": "show_notification",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 251
+    },
+    {
+      "id": "node_25",
+      "type": "Call",
+      "name": "globals",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 239
+    },
+    {
+      "id": "node_26",
+      "type": "Call",
+      "name": "json.dumps",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 248
+    },
+    {
+      "id": "node_27",
+      "type": "Call",
+      "name": "str",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 251
+    },
+    {
+      "id": "node_28",
+      "type": "Function",
+      "name": "import_settings",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 255
+    },
+    {
+      "id": "node_29",
+      "type": "Call",
+      "name": "display",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 256
+    },
+    {
+      "id": "node_30",
+      "type": "Call",
+      "name": "Javascript",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 256
+    },
+    {
+      "id": "node_31",
+      "type": "Function",
+      "name": "apply_imported_settings",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 259
+    },
+    {
+      "id": "node_32",
+      "type": "Call",
+      "name": "items",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 265
+    },
+    {
+      "id": "node_33",
+      "type": "Call",
+      "name": "show_notification",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 282
+    },
+    {
+      "id": "node_34",
+      "type": "Call",
+      "name": "show_notification",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 284
+    },
+    {
+      "id": "node_35",
+      "type": "Call",
+      "name": "show_notification",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 287
+    },
+    {
+      "id": "node_36",
+      "type": "Call",
+      "name": "GDrive_button.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 277
+    },
+    {
+      "id": "node_37",
+      "type": "Call",
+      "name": "GDrive_button.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 279
+    },
+    {
+      "id": "node_38",
+      "type": "Call",
+      "name": "globals",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 267
+    },
+    {
+      "id": "node_39",
+      "type": "Call",
+      "name": "str",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 287
+    },
+    {
+      "id": "node_40",
+      "type": "Call",
+      "name": "globals",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 269
+    },
+    {
+      "id": "node_41",
+      "type": "Function",
+      "name": "show_notification",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 294
+    },
+    {
+      "id": "node_42",
+      "type": "Call",
+      "name": "icon_map.get",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 301
+    },
+    {
+      "id": "node_43",
+      "type": "Call",
+      "name": "notification_popup.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 311
+    },
+    {
+      "id": "node_44",
+      "type": "Call",
+      "name": "notification_popup.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 312
+    },
+    {
+      "id": "node_45",
+      "type": "Call",
+      "name": "notification_popup.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 313
+    },
+    {
+      "id": "node_46",
+      "type": "Call",
+      "name": "display",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 316
+    },
+    {
+      "id": "node_47",
+      "type": "Call",
+      "name": "Javascript",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 316
+    },
+    {
+      "id": "node_48",
+      "type": "Function",
+      "name": "update_XL_options",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 392
+    },
+    {
+      "id": "node_49",
+      "type": "Call",
+      "name": "read_model_data",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 400
+    },
+    {
+      "id": "node_50",
+      "type": "Call",
+      "name": "read_model_data",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 401
+    },
+    {
+      "id": "node_51",
+      "type": "Call",
+      "name": "read_model_data",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 402
+    },
+    {
+      "id": "node_52",
+      "type": "Call",
+      "name": "inpainting_model_widget.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 409
+    },
+    {
+      "id": "node_53",
+      "type": "Call",
+      "name": "inpainting_model_widget.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 412
+    },
+    {
+      "id": "node_54",
+      "type": "Function",
+      "name": "update_change_webui",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 415
+    },
+    {
+      "id": "node_55",
+      "type": "Call",
+      "name": "WEBUI_SELECTION.get",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 417
+    },
+    {
+      "id": "node_56",
+      "type": "Function",
+      "name": "update_empowerment",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 428
+    },
+    {
+      "id": "node_57",
+      "type": "Call",
+      "name": "widget.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 440
+    },
+    {
+      "id": "node_58",
+      "type": "Call",
+      "name": "empowerment_output_widget.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 446
+    },
+    {
+      "id": "node_59",
+      "type": "Call",
+      "name": "empowerment_output_widget.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 450
+    },
+    {
+      "id": "node_60",
+      "type": "Call",
+      "name": "wg.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 445
+    },
+    {
+      "id": "node_61",
+      "type": "Call",
+      "name": "wg.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 449
+    },
+    {
+      "id": "node_62",
+      "type": "Function",
+      "name": "save_settings",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 472
+    },
+    {
+      "id": "node_63",
+      "type": "Call",
+      "name": "js.save",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 475
+    },
+    {
+      "id": "node_64",
+      "type": "Call",
+      "name": "js.save",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 476
+    },
+    {
+      "id": "node_65",
+      "type": "Call",
+      "name": "update_current_webui",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 478
+    },
+    {
+      "id": "node_66",
+      "type": "Call",
+      "name": "globals",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 474
+    },
+    {
+      "id": "node_67",
+      "type": "Function",
+      "name": "load_settings",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 480
+    },
+    {
+      "id": "node_68",
+      "type": "Call",
+      "name": "js.key_exists",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 482
+    },
+    {
+      "id": "node_69",
+      "type": "Call",
+      "name": "js.read",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 489
+    },
+    {
+      "id": "node_70",
+      "type": "Call",
+      "name": "js.read",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 483
+    },
+    {
+      "id": "node_71",
+      "type": "Call",
+      "name": "GDrive_button.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 492
+    },
+    {
+      "id": "node_72",
+      "type": "Call",
+      "name": "GDrive_button.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 494
+    },
+    {
+      "id": "node_73",
+      "type": "Call",
+      "name": "widget_data.get",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 486
+    },
+    {
+      "id": "node_74",
+      "type": "Call",
+      "name": "globals",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 486
+    },
+    {
+      "id": "node_75",
+      "type": "Function",
+      "name": "save_data",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 496
+    },
+    {
+      "id": "node_76",
+      "type": "Call",
+      "name": "save_settings",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 498
+    },
+    {
+      "id": "node_77",
+      "type": "Call",
+      "name": "factory.close",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 503
+    },
+    {
+      "id": "node_78",
+      "type": "Function",
+      "name": "handle_toggle",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 213
+    },
+    {
+      "id": "node_79",
+      "type": "Call",
+      "name": "btn.remove_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 217
+    },
+    {
+      "id": "node_80",
+      "type": "Call",
+      "name": "btn.add_class",
+      "file_path": "scripts/en/widgets-en.py",
+      "line_number": 217
+    },
+    {
+      "id": "node_81",
+      "type": "File",
+      "name": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 0
+    },
+    {
+      "id": "node_82",
+      "type": "Module",
+      "name": "typing.Any",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 3
+    },
+    {
+      "id": "node_83",
+      "type": "Module",
+      "name": "typing.Dict",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 3
+    },
+    {
+      "id": "node_84",
+      "type": "Module",
+      "name": "typing.List",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 3
+    },
+    {
+      "id": "node_85",
+      "type": "Module",
+      "name": "typing.Optional",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 3
+    },
+    {
+      "id": "node_86",
+      "type": "Module",
+      "name": "typing.Union",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 3
+    },
+    {
+      "id": "node_87",
+      "type": "Module",
+      "name": "functools.wraps",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 4
+    },
+    {
+      "id": "node_88",
+      "type": "Module",
+      "name": "pathlib.Path",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 5
+    },
+    {
+      "id": "node_89",
+      "type": "Module",
+      "name": "logging",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 6
+    },
+    {
+      "id": "node_90",
+      "type": "Module",
+      "name": "json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 7
+    },
+    {
+      "id": "node_91",
+      "type": "Module",
+      "name": "os",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 8
+    },
+    {
+      "id": "node_92",
+      "type": "Class",
+      "name": "CustomFormatter",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 16
+    },
+    {
+      "id": "node_93",
+      "type": "Method",
+      "name": "format",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 24,
+      "class_name": "CustomFormatter"
+    },
+    {
+      "id": "node_94",
+      "type": "Call",
+      "name": "self.colors.get",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 25
+    },
+    {
+      "id": "node_95",
+      "type": "Call",
+      "name": "format",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 26
+    },
+    {
+      "id": "node_96",
+      "type": "Call",
+      "name": "super",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 26
+    },
+    {
+      "id": "node_97",
+      "type": "Function",
+      "name": "validate_args",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 37
+    },
+    {
+      "id": "node_98",
+      "type": "Call",
+      "name": "wraps",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 45
+    },
+    {
+      "id": "node_99",
+      "type": "Call",
+      "name": "func",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 53
+    },
+    {
+      "id": "node_100",
+      "type": "Call",
+      "name": "logger.error",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 48
+    },
+    {
+      "id": "node_101",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 47
+    },
+    {
+      "id": "node_102",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 50
+    },
+    {
+      "id": "node_103",
+      "type": "Function",
+      "name": "parse_key",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 60
+    },
+    {
+      "id": "node_104",
+      "type": "Call",
+      "name": "split",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 75
+    },
+    {
+      "id": "node_105",
+      "type": "Call",
+      "name": "isinstance",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 70
+    },
+    {
+      "id": "node_106",
+      "type": "Call",
+      "name": "logger.error",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 71
+    },
+    {
+      "id": "node_107",
+      "type": "Call",
+      "name": "p.replace",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 76
+    },
+    {
+      "id": "node_108",
+      "type": "Call",
+      "name": "key.replace",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 75
+    },
+    {
+      "id": "node_109",
+      "type": "Function",
+      "name": "_get_nested_value",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 78
+    },
+    {
+      "id": "node_110",
+      "type": "Call",
+      "name": "current.get",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 93
+    },
+    {
+      "id": "node_111",
+      "type": "Call",
+      "name": "isinstance",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 91
+    },
+    {
+      "id": "node_112",
+      "type": "Function",
+      "name": "_set_nested_value",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 98
+    },
+    {
+      "id": "node_113",
+      "type": "Call",
+      "name": "isinstance",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 109
+    },
+    {
+      "id": "node_114",
+      "type": "Function",
+      "name": "_read_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 114
+    },
+    {
+      "id": "node_115",
+      "type": "Call",
+      "name": "os.path.exists",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 122
+    },
+    {
+      "id": "node_116",
+      "type": "Call",
+      "name": "open",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 125
+    },
+    {
+      "id": "node_117",
+      "type": "Call",
+      "name": "f.read",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 126
+    },
+    {
+      "id": "node_118",
+      "type": "Call",
+      "name": "logger.error",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 129
+    },
+    {
+      "id": "node_119",
+      "type": "Call",
+      "name": "content.strip",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 127
+    },
+    {
+      "id": "node_120",
+      "type": "Call",
+      "name": "json.loads",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 127
+    },
+    {
+      "id": "node_121",
+      "type": "Call",
+      "name": "str",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 129
+    },
+    {
+      "id": "node_122",
+      "type": "Function",
+      "name": "_write_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 132
+    },
+    {
+      "id": "node_123",
+      "type": "Call",
+      "name": "os.makedirs",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 140
+    },
+    {
+      "id": "node_124",
+      "type": "Call",
+      "name": "os.path.dirname",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 140
+    },
+    {
+      "id": "node_125",
+      "type": "Call",
+      "name": "open",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 141
+    },
+    {
+      "id": "node_126",
+      "type": "Call",
+      "name": "json.dump",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 142
+    },
+    {
+      "id": "node_127",
+      "type": "Call",
+      "name": "logger.error",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 144
+    },
+    {
+      "id": "node_128",
+      "type": "Call",
+      "name": "str",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 144
+    },
+    {
+      "id": "node_129",
+      "type": "Function",
+      "name": "read",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 150
+    },
+    {
+      "id": "node_130",
+      "type": "Call",
+      "name": "validate_args",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 149
+    },
+    {
+      "id": "node_131",
+      "type": "Call",
+      "name": "_read_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 166
+    },
+    {
+      "id": "node_132",
+      "type": "Call",
+      "name": "parse_key",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 170
+    },
+    {
+      "id": "node_133",
+      "type": "Call",
+      "name": "_get_nested_value",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 174
+    },
+    {
+      "id": "node_134",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 163
+    },
+    {
+      "id": "node_135",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 164
+    },
+    {
+      "id": "node_136",
+      "type": "Function",
+      "name": "save",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 178
+    },
+    {
+      "id": "node_137",
+      "type": "Call",
+      "name": "validate_args",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 177
+    },
+    {
+      "id": "node_138",
+      "type": "Call",
+      "name": "_read_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 189
+    },
+    {
+      "id": "node_139",
+      "type": "Call",
+      "name": "parse_key",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 190
+    },
+    {
+      "id": "node_140",
+      "type": "Call",
+      "name": "_set_nested_value",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 194
+    },
+    {
+      "id": "node_141",
+      "type": "Call",
+      "name": "_write_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 195
+    },
+    {
+      "id": "node_142",
+      "type": "Function",
+      "name": "update",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 198
+    },
+    {
+      "id": "node_143",
+      "type": "Call",
+      "name": "validate_args",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 197
+    },
+    {
+      "id": "node_144",
+      "type": "Call",
+      "name": "_read_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 209
+    },
+    {
+      "id": "node_145",
+      "type": "Call",
+      "name": "parse_key",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 210
+    },
+    {
+      "id": "node_146",
+      "type": "Call",
+      "name": "_write_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 227
+    },
+    {
+      "id": "node_147",
+      "type": "Call",
+      "name": "current.setdefault",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 216
+    },
+    {
+      "id": "node_148",
+      "type": "Call",
+      "name": "logger.warning",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 225
+    },
+    {
+      "id": "node_149",
+      "type": "Call",
+      "name": "isinstance",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 220
+    },
+    {
+      "id": "node_150",
+      "type": "Call",
+      "name": "isinstance",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 220
+    },
+    {
+      "id": "node_151",
+      "type": "Call",
+      "name": "update",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 221
+    },
+    {
+      "id": "node_152",
+      "type": "Call",
+      "name": "join",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 225
+    },
+    {
+      "id": "node_153",
+      "type": "Function",
+      "name": "delete_key",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 230
+    },
+    {
+      "id": "node_154",
+      "type": "Call",
+      "name": "validate_args",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 229
+    },
+    {
+      "id": "node_155",
+      "type": "Call",
+      "name": "_read_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 240
+    },
+    {
+      "id": "node_156",
+      "type": "Call",
+      "name": "parse_key",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 241
+    },
+    {
+      "id": "node_157",
+      "type": "Call",
+      "name": "current.get",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 247
+    },
+    {
+      "id": "node_158",
+      "type": "Call",
+      "name": "_write_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 254
+    },
+    {
+      "id": "node_159",
+      "type": "Call",
+      "name": "isinstance",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 248
+    },
+    {
+      "id": "node_160",
+      "type": "Function",
+      "name": "key_exists",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 257
+    },
+    {
+      "id": "node_161",
+      "type": "Call",
+      "name": "validate_args",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 256
+    },
+    {
+      "id": "node_162",
+      "type": "Call",
+      "name": "_read_json",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 272
+    },
+    {
+      "id": "node_163",
+      "type": "Call",
+      "name": "parse_key",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 273
+    },
+    {
+      "id": "node_164",
+      "type": "Call",
+      "name": "_get_nested_value",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 277
+    },
+    {
+      "id": "node_165",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 270
+    },
+    {
+      "id": "node_166",
+      "type": "Function",
+      "name": "format",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 24
+    },
+    {
+      "id": "node_167",
+      "type": "Call",
+      "name": "self.colors.get",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 25
+    },
+    {
+      "id": "node_168",
+      "type": "Call",
+      "name": "format",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 26
+    },
+    {
+      "id": "node_169",
+      "type": "Call",
+      "name": "super",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 26
+    },
+    {
+      "id": "node_170",
+      "type": "Function",
+      "name": "decorator",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 44
+    },
+    {
+      "id": "node_171",
+      "type": "Call",
+      "name": "wraps",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 45
+    },
+    {
+      "id": "node_172",
+      "type": "Call",
+      "name": "func",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 53
+    },
+    {
+      "id": "node_173",
+      "type": "Call",
+      "name": "logger.error",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 48
+    },
+    {
+      "id": "node_174",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 47
+    },
+    {
+      "id": "node_175",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 50
+    },
+    {
+      "id": "node_176",
+      "type": "Function",
+      "name": "wrapper",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 46
+    },
+    {
+      "id": "node_177",
+      "type": "Call",
+      "name": "wraps",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 45
+    },
+    {
+      "id": "node_178",
+      "type": "Call",
+      "name": "func",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 53
+    },
+    {
+      "id": "node_179",
+      "type": "Call",
+      "name": "logger.error",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 48
+    },
+    {
+      "id": "node_180",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 47
+    },
+    {
+      "id": "node_181",
+      "type": "Call",
+      "name": "len",
+      "file_path": "/home/z/my-project/ScarySingleDocs/modules/json_utils.py",
+      "line_number": 50
+    }
+  ],
+  "edges": [
+    {
+      "source": "node_1",
+      "target": "node_2",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_3",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_4",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_5",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_6",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_7",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_8",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_9",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_10",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_11",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_12",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_12",
+      "target": "node_13",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_14",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_14",
+      "target": "node_15",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_14",
+      "target": "node_16",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_14",
+      "target": "node_17",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_14",
+      "target": "node_18",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_14",
+      "target": "node_19",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_20",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_20",
+      "target": "node_21",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_20",
+      "target": "node_22",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_20",
+      "target": "node_23",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_20",
+      "target": "node_24",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_20",
+      "target": "node_25",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_20",
+      "target": "node_26",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_20",
+      "target": "node_27",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_28",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_28",
+      "target": "node_29",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_28",
+      "target": "node_30",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_31",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_31",
+      "target": "node_32",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_33",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_34",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_35",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_36",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_37",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_38",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_39",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_31",
+      "target": "node_40",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_41",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_41",
+      "target": "node_42",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_41",
+      "target": "node_43",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_41",
+      "target": "node_44",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_41",
+      "target": "node_45",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_41",
+      "target": "node_46",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_41",
+      "target": "node_47",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_48",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_48",
+      "target": "node_49",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_48",
+      "target": "node_50",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_48",
+      "target": "node_51",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_48",
+      "target": "node_52",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_48",
+      "target": "node_53",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_54",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_54",
+      "target": "node_55",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_56",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_56",
+      "target": "node_57",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_56",
+      "target": "node_58",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_56",
+      "target": "node_59",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_56",
+      "target": "node_60",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_56",
+      "target": "node_61",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_62",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_62",
+      "target": "node_63",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_62",
+      "target": "node_64",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_62",
+      "target": "node_65",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_62",
+      "target": "node_66",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_67",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_67",
+      "target": "node_68",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_67",
+      "target": "node_69",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_67",
+      "target": "node_70",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_67",
+      "target": "node_71",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_67",
+      "target": "node_72",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_67",
+      "target": "node_73",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_67",
+      "target": "node_74",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_75",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_75",
+      "target": "node_76",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_75",
+      "target": "node_77",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_1",
+      "target": "node_78",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_78",
+      "target": "node_79",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_78",
+      "target": "node_80",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_82",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_83",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_84",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_85",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_86",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_87",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_88",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_89",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_90",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_91",
+      "type": "IMPORTS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_92",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_92",
+      "target": "node_93",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_93",
+      "target": "node_94",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_93",
+      "target": "node_95",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_93",
+      "target": "node_96",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_97",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_97",
+      "target": "node_98",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_97",
+      "target": "node_99",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_97",
+      "target": "node_100",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_97",
+      "target": "node_101",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_97",
+      "target": "node_102",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_103",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_103",
+      "target": "node_104",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_103",
+      "target": "node_105",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_103",
+      "target": "node_106",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_103",
+      "target": "node_107",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_103",
+      "target": "node_108",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_109",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_109",
+      "target": "node_110",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_109",
+      "target": "node_111",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_112",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_112",
+      "target": "node_113",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_114",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_114",
+      "target": "node_115",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_114",
+      "target": "node_116",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_114",
+      "target": "node_117",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_114",
+      "target": "node_118",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_114",
+      "target": "node_119",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_114",
+      "target": "node_120",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_114",
+      "target": "node_121",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_122",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_122",
+      "target": "node_123",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_122",
+      "target": "node_124",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_122",
+      "target": "node_125",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_122",
+      "target": "node_126",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_122",
+      "target": "node_127",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_122",
+      "target": "node_128",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_129",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_129",
+      "target": "node_130",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_129",
+      "target": "node_131",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_129",
+      "target": "node_132",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_129",
+      "target": "node_133",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_129",
+      "target": "node_134",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_129",
+      "target": "node_135",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_136",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_136",
+      "target": "node_137",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_136",
+      "target": "node_138",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_136",
+      "target": "node_139",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_136",
+      "target": "node_140",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_136",
+      "target": "node_141",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_142",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_142",
+      "target": "node_143",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_144",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_145",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_146",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_147",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_148",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_149",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_150",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_151",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_142",
+      "target": "node_152",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_153",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_153",
+      "target": "node_154",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_153",
+      "target": "node_155",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_153",
+      "target": "node_156",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_153",
+      "target": "node_157",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_153",
+      "target": "node_158",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_153",
+      "target": "node_159",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_160",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_160",
+      "target": "node_161",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_160",
+      "target": "node_162",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_160",
+      "target": "node_163",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_160",
+      "target": "node_164",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_160",
+      "target": "node_165",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_166",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_166",
+      "target": "node_167",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_166",
+      "target": "node_168",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_166",
+      "target": "node_169",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_170",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_170",
+      "target": "node_171",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_170",
+      "target": "node_172",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_170",
+      "target": "node_173",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_170",
+      "target": "node_174",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_170",
+      "target": "node_175",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_81",
+      "target": "node_176",
+      "type": "DEFINES"
+    },
+    {
+      "source": "node_176",
+      "target": "node_177",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_176",
+      "target": "node_178",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_176",
+      "target": "node_179",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_176",
+      "target": "node_180",
+      "type": "CALLS"
+    },
+    {
+      "source": "node_176",
+      "target": "node_181",
+      "type": "CALLS"
+    }
+  ],
+  "metadata": {
+    "total_nodes": 181,
+    "total_edges": 179,
+    "entry_point": "scripts/en/widgets-en.py"
+  }
+}

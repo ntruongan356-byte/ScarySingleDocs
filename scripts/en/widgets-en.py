@@ -41,10 +41,11 @@ def create_expandable_button(text, url):
     ''')
 
 def read_model_data(file_path, data_type):
-    """Reads model, VAE, or ControlNet data from the specified file."""
+    """Reads model, VAE, LoRA, or ControlNet data from the specified file."""
     type_map = {
         'model': ('model_list', ['none']),
         'vae': ('vae_list', ['none', 'ALL']),
+        'lora': ('lora_list', ['none', 'ALL']),
         'cnet': ('controlnet_list', ['none', 'ALL'])
     }
     key, prefixes = type_map[data_type]
@@ -73,8 +74,6 @@ HR = widgets.HTML('<hr>')
 """Create model selection widgets."""
 model_header = factory.create_header('Model Selection')
 model_options = read_model_data(f"{SCRIPTS}/_models-data.py", 'model')
-model_widget = factory.create_dropdown(model_options, 'Model:', '4. Counterfeit [Anime] [V3] + INP')
-model_num_widget = factory.create_text('Model Number:', '', 'Enter model numbers for download.')
 inpainting_model_widget = factory.create_checkbox('Inpainting Models', False, class_names=['inpaint'], layout={'width': '250px'})
 XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['sdxl'])
 
@@ -84,8 +83,93 @@ switch_model_widget = factory.create_hbox([inpainting_model_widget, XL_models_wi
 """Create VAE selection widgets."""
 vae_header = factory.create_header('VAE Selection')
 vae_options = read_model_data(f"{SCRIPTS}/_models-data.py", 'vae')
-vae_widget = factory.create_dropdown(vae_options, 'Vae:', '3. Blessed2.vae')
-vae_num_widget = factory.create_text('Vae Number:', '', 'Enter vae numbers for download.')
+
+# --- TABBED DOWNLOAD SYSTEM ---
+"""Create tabbed download interface for Models, VAE, LoRA, and ControlNet."""
+
+# Tab buttons
+tab_models = factory.create_button('Models', class_names=['tab-button', 'active'])
+tab_vae = factory.create_button('VAE', class_names=['tab-button'])
+tab_lora = factory.create_button('LoRA', class_names=['tab-button'])
+tab_controlnet = factory.create_button('ControlNet', class_names=['tab-button'])
+
+tab_container = factory.create_hbox([tab_models, tab_vae, tab_lora, tab_controlnet], class_names=['tab-container'])
+
+# Tab content containers
+tab_content_models = factory.create_vbox([], class_names=['tab-content', 'active'])
+tab_content_vae = factory.create_vbox([], class_names=['tab-content'])
+tab_content_lora = factory.create_vbox([], class_names=['tab-content'])
+tab_content_controlnet = factory.create_vbox([], class_names=['tab-content'])
+
+# Create toggle buttons for each type
+def create_toggle_buttons(data_type, options):
+    """Create toggle buttons for a given data type."""
+    buttons = []
+    for option in options:
+        if option not in ['none', 'ALL']:
+            button = factory.create_button(option, class_names=['toggle-button', data_type])
+            buttons.append(button)
+    return buttons
+
+# Generate toggle buttons for each tab
+model_toggle_buttons = create_toggle_buttons('model', model_options)
+vae_toggle_buttons = create_toggle_buttons('vae', vae_options)
+lora_options = read_model_data(f"{SCRIPTS}/_models-data.py", 'lora')
+lora_toggle_buttons = create_toggle_buttons('lora', lora_options)
+controlnet_options = read_model_data(f"{SCRIPTS}/_models-data.py", 'cnet')
+controlnet_toggle_buttons = create_toggle_buttons('controlnet', controlnet_options)
+
+# Add toggle buttons to tab contents
+tab_content_models.children = model_toggle_buttons
+tab_content_vae.children = vae_toggle_buttons
+tab_content_lora.children = lora_toggle_buttons
+tab_content_controlnet.children = controlnet_toggle_buttons
+
+# Tab switching function
+def switch_tab(button):
+    """Switch between tabs and update content."""
+    tabs = [tab_models, tab_vae, tab_lora, tab_controlnet]
+    contents = [tab_content_models, tab_content_vae, tab_content_lora, tab_content_controlnet]
+    
+    # Remove active class from all tabs and contents
+    for tab, content in zip(tabs, contents):
+        tab.remove_class('active')
+        content.remove_class('active')
+    
+    # Add active class to clicked tab and corresponding content
+    button.add_class('active')
+    tab_index = tabs.index(button)
+    contents[tab_index].add_class('active')
+
+# Toggle button function
+def toggle_button(button):
+    """Toggle button state on/off."""
+    if 'active' in button.get_class_names():
+        button.remove_class('active')
+    else:
+        button.add_class('active')
+
+# Connect tab buttons to switch function
+tab_models.on_click(switch_tab)
+tab_vae.on_click(switch_tab)
+tab_lora.on_click(switch_tab)
+tab_controlnet.on_click(switch_tab)
+
+# Connect all toggle buttons to toggle function
+for button in model_toggle_buttons:
+    button.on_click(toggle_button)
+for button in vae_toggle_buttons:
+    button.on_click(toggle_button)
+for button in lora_toggle_buttons:
+    button.on_click(toggle_button)
+for button in controlnet_toggle_buttons:
+    button.on_click(toggle_button)
+
+# Download tabs container
+download_tabs_container = factory.create_vbox(
+    [tab_container, tab_content_models, tab_content_vae, tab_content_lora, tab_content_controlnet],
+    class_names=['download-tabs-container']
+)
 
 # --- ADDITIONAL ---
 """Create additional configuration widgets."""
@@ -107,8 +191,6 @@ choose_changes_box = factory.create_hbox(
 )
 
 controlnet_options = read_model_data(f"{SCRIPTS}/_models-data.py", 'cnet')
-controlnet_widget = factory.create_dropdown(controlnet_options, 'ControlNet:', 'none')
-controlnet_num_widget = factory.create_text('ControlNet Number:', '', 'Enter ControlNet numbers for download.')
 commit_hash_widget = factory.create_text('Commit Hash:', '', 'Switching between branches or commits.')
 
 civitai_token_widget = factory.create_text('CivitAI Token:', '', 'Enter your CivitAi API token.')
@@ -139,7 +221,6 @@ additional_widget_list = [
     additional_header,
     choose_changes_box,
     HR,
-    controlnet_widget, controlnet_num_widget,
     commit_hash_widget,
     civitai_box, huggingface_box, zrok_box, ngrok_box,
     HR,
@@ -333,8 +414,9 @@ factory.load_css(widgets_css)   # load CSS (widgets)
 factory.load_js(widgets_js)     # load JS (widgets)
 
 # Display sections
-model_widgets = [model_header, model_widget, model_num_widget, switch_model_widget]
-vae_widgets = [vae_header, vae_widget, vae_num_widget]
+model_widgets = [model_header, switch_model_widget]
+vae_widgets = [vae_header]
+download_tabs_widgets = [factory.create_header('Download Selection'), download_tabs_container]
 additional_widgets = additional_widget_list
 custom_download_widgets = [
     custom_download_header_popup,
@@ -352,19 +434,20 @@ custom_download_widgets = [
 # Create Boxes
 model_box = factory.create_vbox(model_widgets, class_names=['container'])
 vae_box = factory.create_vbox(vae_widgets, class_names=['container'])
+download_tabs_box = factory.create_vbox(download_tabs_widgets, class_names=['container'])
 additional_box = factory.create_vbox(additional_widgets, class_names=['container'])
 custom_download_box = factory.create_vbox(custom_download_widgets, class_names=['container', 'container_cdl'])
 
 # Create Containers
 CONTAINERS_WIDTH = '1080px'
-model_vae_box = factory.create_hbox(
+download_selection_box = factory.create_hbox(
     [model_box, vae_box],
     class_names=['widgetContainer', 'model-vae'],
     # layout={'width': '100%'}
 )
 
 widgetContainer = factory.create_vbox(
-    [model_vae_box, additional_box, custom_download_box, save_button],
+    [download_selection_box, download_tabs_box, additional_box, custom_download_box, save_button],
     class_names=['widgetContainer'],
     layout={'min_width': CONTAINERS_WIDTH, 'max_width': CONTAINERS_WIDTH}
 )
@@ -391,19 +474,38 @@ empowerment_output_widget.add_class('hidden')
 # Callback functions for XL options
 def update_XL_options(change, widget):
     is_xl = change['new']
-    defaults = {
-        True: ('4. WAI-illustrious [Anime] [V14] [XL]', '1. sdxl.vae', 'none'),    # XL models
-        False: ('4. Counterfeit [Anime] [V3] + INP', '3. Blessed2.vae', 'none')    # SD 1.5 models
-    }
-
+    
     data_file = '_xl-models-data.py' if is_xl else '_models-data.py'
-    model_widget.options = read_model_data(f"{SCRIPTS}/{data_file}", 'model')
-    vae_widget.options = read_model_data(f"{SCRIPTS}/{data_file}", 'vae')
-    controlnet_widget.options = read_model_data(f"{SCRIPTS}/{data_file}", 'cnet')
-
-    # Set default values from the dictionary
-    model_widget.value, vae_widget.value, controlnet_widget.value = defaults[is_xl]
-
+    
+    # Update toggle buttons with new options
+    new_model_options = read_model_data(f"{SCRIPTS}/{data_file}", 'model')
+    new_vae_options = read_model_data(f"{SCRIPTS}/{data_file}", 'vae')
+    new_controlnet_options = read_model_data(f"{SCRIPTS}/{data_file}", 'cnet')
+    
+    # Clear existing toggle buttons
+    tab_content_models.children = []
+    tab_content_vae.children = []
+    tab_content_controlnet.children = []
+    
+    # Create new toggle buttons with updated options
+    global model_toggle_buttons, vae_toggle_buttons, controlnet_toggle_buttons
+    model_toggle_buttons = create_toggle_buttons('model', new_model_options)
+    vae_toggle_buttons = create_toggle_buttons('vae', new_vae_options)
+    controlnet_toggle_buttons = create_toggle_buttons('controlnet', new_controlnet_options)
+    
+    # Add new toggle buttons to tab contents
+    tab_content_models.children = model_toggle_buttons
+    tab_content_vae.children = vae_toggle_buttons
+    tab_content_controlnet.children = controlnet_toggle_buttons
+    
+    # Connect new toggle buttons to toggle function
+    for button in model_toggle_buttons:
+        button.on_click(toggle_button)
+    for button in vae_toggle_buttons:
+        button.on_click(toggle_button)
+    for button in controlnet_toggle_buttons:
+        button.on_click(toggle_button)
+    
     # Disable/enable inpainting checkbox based on SDXL state
     if is_xl:
         inpainting_model_widget.add_class('_disable')
@@ -458,10 +560,10 @@ factory.connect_widgets([(empowerment_widget, 'value')], update_empowerment)
 # ================ Load / Save - Settings V4 ===============
 
 SETTINGS_KEYS = [
-      'XL_models', 'model', 'model_num', 'inpainting_model', 'vae', 'vae_num',
+      'XL_models', 'inpainting_model',
       # Additional
       'latest_webui', 'latest_extensions', 'check_custom_nodes_deps', 'change_webui', 'detailed_download',
-      'controlnet', 'controlnet_num', 'commit_hash',
+      'commit_hash',
       'civitai_token', 'huggingface_token', 'zrok_token', 'ngrok_token', 'commandline_arguments', 'theme_accent',
       # CustomDL
       'empowerment', 'empowerment_output',
