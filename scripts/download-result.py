@@ -100,7 +100,9 @@ def create_section(title, items, is_grid=False):
     items_widgets = [factory.create_html(f'<div class="output-item">{item}</div>') for item in items]
 
     container = factory.create_hbox if is_grid else factory.create_vbox
-    content = container(items_widgets).add_class('_horizontal' if is_grid else '')
+    content = container(items_widgets)
+    if is_grid:
+        content.add_class('_horizontal')
 
     return factory.create_vbox([header, content], class_names=['output-section'])
 

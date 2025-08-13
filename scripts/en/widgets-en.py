@@ -147,10 +147,16 @@ def switch_tab(button):
 # Toggle button function
 def toggle_button(button):
     """Toggle button state on/off."""
-    if 'active' in button.class_names:
-        button.remove_class('active')
-    else:
+    # Use a custom attribute to track toggle state
+    if not hasattr(button, '_is_active'):
+        button._is_active = False
+    
+    button._is_active = not button._is_active
+    
+    if button._is_active:
         button.add_class('active')
+    else:
+        button.remove_class('active')
 
 # Connect tab buttons to switch function
 tab_models.on_click(switch_tab)
