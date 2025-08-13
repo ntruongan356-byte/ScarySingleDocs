@@ -147,6 +147,14 @@ def switch_tab(button):
 # Toggle button function
 def toggle_button(button):
     """Toggle button state on/off."""
+    # DIAGNOSTIC LOGGING - Remove after debugging
+    print(f"DEBUG: Button type: {type(button)}")
+    print(f"DEBUG: Button attributes containing 'class': {[attr for attr in dir(button) if 'class' in attr.lower()]}")
+    print(f"DEBUG: Has class_names: {hasattr(button, 'class_names')}")
+    if hasattr(button, 'class_names'):
+        print(f"DEBUG: class_names value: {button.class_names}")
+    print(f"DEBUG: Has _is_active: {hasattr(button, '_is_active')}")
+    
     # Use a custom attribute to track toggle state
     if not hasattr(button, '_is_active'):
         button._is_active = False
