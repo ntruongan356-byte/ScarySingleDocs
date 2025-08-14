@@ -287,11 +287,8 @@ save_button_html = factory.create_html('''
 ''')
 
 # ===================== Enhanced Side Container =====================
-# --- Top Bar with VAE and Utility Buttons ---
-"""Create consolidated top bar with VAE section and utility buttons."""
-
-# VAE dropdown in top bar
-vae_dropdown_widget = factory.create_dropdown(vae_options, '', 'none', layout={'width': 'auto'})
+# --- Simplified Top Bar with Only Utility Buttons ---
+"""Create clean top bar with only utility buttons, VAE moved to download tabs."""
 
 # Enhanced utility buttons
 BTN_STYLE = {'width': '36px', 'height': '36px'}
@@ -308,19 +305,10 @@ export_button.tooltip = "Export settings to JSON"
 import_button = factory.create_button('', layout=BTN_STYLE, class_names=['utility-button', 'import-button'])
 import_button.tooltip = "Import settings from JSON"
 
-# Create top bar layout
-vae_section = factory.create_hbox([
-    factory.create_html('<label class="vae-label">VAE:</label>'),
-    vae_dropdown_widget
-], class_names=['vae-section'])
-
-utility_buttons = factory.create_hbox([
-    GDrive_button, export_button, import_button
-], class_names=['utility-buttons'])
-
+# Create simplified top bar layout - only utility buttons
 top_bar_container = factory.create_hbox([
-    vae_section, utility_buttons
-], class_names=['top-bar-container'])
+    GDrive_button, export_button, import_button
+], class_names=['top-bar-container', 'utility-only'])
 
 # Handle environment-specific visibility
 if ENV_NAME != 'Google Colab':
@@ -484,50 +472,50 @@ custom_download_tab = factory.create_vbox(
     class_names=['accordion-tab', 'expanded']
 )
 
-# Additionally accordion tab
-additionally_header = factory.create_html('''
+# Advanced Settings accordion tab
+advanced_settings_header = factory.create_html('''
 <div class="accordion-header">
-    <h3>Additionally</h3>
+    <h3>Advanced Settings</h3>
     <div class="accordion-toggle">▼</div>
 </div>
 ''')
 
-additionally_content = factory.create_vbox(
+advanced_settings_content = factory.create_vbox(
     additional_widget_list,
     class_names=['accordion-content']
 )
 
-additionally_tab = factory.create_vbox(
-    [additionally_header, additionally_content],
+advanced_settings_tab = factory.create_vbox(
+    [advanced_settings_header, advanced_settings_content],
     class_names=['accordion-tab', 'collapsed']
 )
 
-# Accordion container
+# Accordion container - 50/50 split
 accordion_container = factory.create_hbox(
-    [custom_download_tab, additionally_tab],
+    [custom_download_tab, advanced_settings_tab],
     class_names=['accordion-container']
 )
 
-# Display sections with enhanced structure
-model_widgets = [model_header, switch_model_widget]
-download_tabs_widgets = [factory.create_header('Download Selection'), download_tabs_container]
-
-# Create Boxes with enhanced styling
-model_box = factory.create_vbox(model_widgets, class_names=['container'])
-download_tabs_box = factory.create_vbox(download_tabs_widgets, class_names=['container'])
-
-# Enhanced layout structure
+# Enhanced layout structure - COMPLETELY FIXED
 CONTAINERS_WIDTH = '1080px'
-download_selection_box = factory.create_hbox(
-    [model_box],
-    class_names=['widgetContainer', 'model-vae']
-)
+
+# Clean model selection section - compact layout
+model_selection_section = factory.create_vbox([
+    model_header,
+    switch_model_widget
+], class_names=['container', 'model-selection'])
+
+# Clean download section with tabs
+download_section = factory.create_vbox([
+    factory.create_header('Download Selection'),
+    download_tabs_container
+], class_names=['container', 'download-section'])
 
 widgetContainer = factory.create_vbox(
     [
         top_bar_container,
-        download_selection_box,
-        download_tabs_box,
+        model_selection_section,
+        download_section,
         accordion_container,
         save_button_html
     ],
@@ -763,17 +751,32 @@ def save_data(button=None):
 
 # Add JavaScript for accordion functionality and enhanced button interactions
 accordion_js = """
-// Accordion Tab Functionality
+// Enhanced Accordion Tab Functionality
 function initializeAccordion() {
     const accordionTabs = document.querySelectorAll('.accordion-tab');
     const accordionHeaders = document.querySelectorAll('.accordion-header');
     
+    // Set initial state - first tab expanded by default
+    if (accordionTabs.length > 0) {
+        accordionTabs[0].classList.add('expanded');
+        accordionTabs[0].classList.remove('collapsed');
+        
+        // Set all others as collapsed
+        for (let i = 1; i < accordionTabs.length; i++) {
+            accordionTabs[i].classList.add('collapsed');
+            accordionTabs[i].classList.remove('expanded');
+        }
+    }
+    
     accordionHeaders.forEach((header, index) => {
-        header.addEventListener('click', function() {
+        header.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const tab = this.parentElement;
             const isExpanded = tab.classList.contains('expanded');
             
-            // Collapse all tabs
+            // Always allow toggle - either collapse current or expand clicked
             accordionTabs.forEach(t => {
                 t.classList.remove('expanded');
                 t.classList.add('collapsed');
@@ -809,18 +812,17 @@ function setupEnhancedButtons() {
 }
 
 // Initialize when DOM is ready
+function initializeWidgets() {
+    initializeAccordion();
+    setupEnhancedButtons();
+}
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(() => {
-            initializeAccordion();
-            setupEnhancedButtons();
-        }, 500);
+        setTimeout(initializeWidgets, 1000);
     });
 } else {
-    setTimeout(() => {
-        initializeAccordion();
-        setupEnhancedButtons();
-    }, 500);
+    setTimeout(initializeWidgets, 1000);
 }
 """
 

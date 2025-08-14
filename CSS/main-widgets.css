@@ -409,6 +409,36 @@ a:hover {
     opacity: 0.3;
 }
 
+/* Enhanced section styling */
+.container.model-selection {
+    padding: 16px 24px;
+    margin-bottom: 12px;
+}
+
+.container.model-selection .header {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.container.download-section {
+    padding: 18px 24px;
+    margin-bottom: 16px;
+}
+
+.container.download-section .header {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Improved model selection text readability */
+.model-selection .widget-checkbox label {
+    font-size: var(--aw-text-size-large);
+    font-weight: 500;
+    color: var(--aw-color-text-primary);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.3px;
+}
+
 /* === SideContainer Buttons === */
 .sideContainer-btn {
     align-self: flex-start;
@@ -1532,11 +1562,12 @@ a:hover {
 
 /* === TOP BAR OPTIMIZATION LAYOUT === */
 
-/* Consolidated top bar container */
+/* Simplified utility-only top bar */
 .top-bar-container {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding: 10px 16px;
     background: var(--aw-gradient-elevated);
     border: var(--aw-container-border);
@@ -1545,6 +1576,10 @@ a:hover {
     margin-bottom: 12px;
     position: relative;
     overflow: hidden;
+}
+
+.top-bar-container.utility-only {
+    justify-content: flex-end;
 }
 
 .top-bar-container::before {
@@ -1559,36 +1594,6 @@ a:hover {
         transparent 50%,
         rgba(139, 0, 0, 0.05) 100%);
     pointer-events: none;
-}
-
-/* VAE section aligned properly */
-.vae-section {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
-}
-
-.vae-section label {
-    font-size: var(--aw-text-size-small);
-    font-weight: 600;
-    color: var(--aw-sanguine-light);
-    white-space: nowrap;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.vae-section .widget-dropdown {
-    flex: 1;
-    min-width: 120px;
-}
-
-/* Utility buttons group */
-.utility-buttons {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
 }
 
 /* Enhanced utility button styling */
@@ -1658,57 +1663,42 @@ a:hover {
 
 /* === ELEGANT ACCORDION TAB SYSTEM === */
 
-/* Accordion container taking up the full black rounded container */
+/* Accordion container - proper 50/50 functioning tabs */
 .accordion-container {
     display: flex;
-    gap: 2px;
-    height: 300px;
-    background: var(--aw-container-bg);
-    border: var(--aw-container-border);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--aw-elements-shadow);
+    gap: 16px;
+    height: 400px;
+    margin: 20px 0;
+    background: transparent;
     position: relative;
 }
 
-.accordion-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--aw-gradient-primary);
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Individual accordion tabs */
+/* Individual accordion tabs - equal 50% width */
 .accordion-tab {
     flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
     background: var(--aw-gradient-elevated);
-    border-right: 1px solid rgba(139, 0, 0, 0.2);
-    transition: all 0.6s var(--aw-ease-elegant);
-    z-index: 2;
+    border: var(--aw-container-border);
+    border-radius: 20px;
+    transition: all 0.4s var(--aw-ease-elegant);
     overflow: hidden;
+    box-shadow: var(--aw-elements-shadow);
 }
 
-.accordion-tab:last-child {
-    border-right: none;
-}
-
-/* Collapsed state - 50% each */
+/* Collapsed state - normal appearance */
 .accordion-tab.collapsed {
-    flex: 1;
+    opacity: 0.7;
+    transform: scale(0.98);
 }
 
-/* Expanded state - takes up more space */
+/* Expanded state - highlighted but same width */
 .accordion-tab.expanded {
-    flex: 2.5;
+    opacity: 1;
+    transform: scale(1);
     box-shadow: var(--aw-glow-shadow);
+    border-color: var(--aw-sanguine-primary);
 }
 
 /* Accordion header */

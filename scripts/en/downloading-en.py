@@ -164,10 +164,15 @@ if venv_needs_reinstall:
 def load_settings(path):
     """Load settings from a JSON file."""
     try:
+        # Safely read each section, defaulting to empty dict if None
+        environment = js.read(path, 'ENVIRONMENT') or {}
+        widgets = js.read(path, 'WIDGETS') or {}
+        webui = js.read(path, 'WEBUI') or {}
+        
         return {
-            **js.read(path, 'ENVIRONMENT'),
-            **js.read(path, 'WIDGETS'),
-            **js.read(path, 'WEBUI')
+            **environment,
+            **widgets,
+            **webui
         }
     except (json.JSONDecodeError, IOError) as e:
         print(f"Error loading settings: {e}")
