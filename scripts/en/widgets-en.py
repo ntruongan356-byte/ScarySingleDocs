@@ -278,26 +278,58 @@ Extensions_url_widget = factory.create_text('Extensions:')
 ADetailer_url_widget = factory.create_text('ADetailer:')
 custom_file_urls_widget = factory.create_text('File (txt):')
 
-# --- Save Button ---
-"""Create button widgets."""
-save_button = factory.create_button('Save', class_names=['button', 'button_save'])
+# --- Enhanced Save Button with Textured Text ---
+"""Create enhanced save button with textured styling."""
+save_button_html = factory.create_html('''
+<button class="button button_save">
+    <span class="button-text">Save</span>
+</button>
+''')
 
+# ===================== Enhanced Side Container =====================
+# --- Top Bar with VAE and Utility Buttons ---
+"""Create consolidated top bar with VAE section and utility buttons."""
 
-# ===================== Side Container =====================
-# --- GDrive Toggle Button ---
-"""Create Google Drive toggle button for Colab only."""
-BTN_STYLE = {'width': '48px', 'height': '48px'}
+# VAE dropdown in top bar
+vae_dropdown_widget = factory.create_dropdown(vae_options, '', 'none', layout={'width': 'auto'})
+
+# Enhanced utility buttons
+BTN_STYLE = {'width': '36px', 'height': '36px'}
 TOOLTIPS = ("Unmount Google Drive storage", "Mount Google Drive storage")
 
 GD_status = js.read(SETTINGS_PATH, 'mountGDrive', False)
-GDrive_button = factory.create_button('', layout=BTN_STYLE, class_names=['sideContainer-btn', 'gdrive-btn'])
-GDrive_button.tooltip = TOOLTIPS[not GD_status]    # Invert index
+GDrive_button = factory.create_button('', layout=BTN_STYLE, class_names=['utility-button', 'gdrive-button'])
+GDrive_button.tooltip = TOOLTIPS[not GD_status]
 gdrive_toggle_state = GD_status
 
+export_button = factory.create_button('', layout=BTN_STYLE, class_names=['utility-button', 'export-button'])
+export_button.tooltip = "Export settings to JSON"
+
+import_button = factory.create_button('', layout=BTN_STYLE, class_names=['utility-button', 'import-button'])
+import_button.tooltip = "Import settings from JSON"
+
+# Create top bar layout
+vae_section = factory.create_hbox([
+    factory.create_html('<label class="vae-label">VAE:</label>'),
+    vae_dropdown_widget
+], class_names=['vae-section'])
+
+utility_buttons = factory.create_hbox([
+    GDrive_button, export_button, import_button
+], class_names=['utility-buttons'])
+
+top_bar_container = factory.create_hbox([
+    vae_section, utility_buttons
+], class_names=['top-bar-container'])
+
+# Handle environment-specific visibility
 if ENV_NAME != 'Google Colab':
-    # Hide button if not Colab
     if hasattr(GDrive_button, 'layout') and hasattr(GDrive_button.layout, 'display'):
         GDrive_button.layout.display = 'none'
+    if hasattr(export_button, 'layout') and hasattr(export_button.layout, 'display'):
+        export_button.layout.display = 'none'
+    if hasattr(import_button, 'layout') and hasattr(import_button.layout, 'display'):
+        import_button.layout.display = 'none'
 else:
     if GD_status:
         GDrive_button.add_class('active')
@@ -307,32 +339,15 @@ else:
         global gdrive_toggle_state
         gdrive_toggle_state = not gdrive_toggle_state
         
-        # Update tooltip if the widget supports it
         if hasattr(btn, 'tooltip'):
             btn.tooltip = TOOLTIPS[not gdrive_toggle_state]
         
-        # Update visual state
         if gdrive_toggle_state:
             btn.add_class('active')
         else:
             btn.remove_class('active')
 
     GDrive_button.on_click(handle_toggle)
-
-# === Export/Import Widget Settings Buttons ===
-"""Create buttons to export/import widget settings to JSON for Colab only."""
-export_button = factory.create_button('', layout=BTN_STYLE, class_names=['sideContainer-btn', 'export-btn'])
-export_button.tooltip = "Export settings to JSON"
-
-import_button = factory.create_button('', layout=BTN_STYLE, class_names=['sideContainer-btn', 'import-btn'])
-import_button.tooltip = "Import settings from JSON"
-
-if ENV_NAME != 'Google Colab':
-    # Hide buttons if not Colab
-    if hasattr(export_button, 'layout') and hasattr(export_button.layout, 'display'):
-        export_button.layout.display = 'none'
-    if hasattr(import_button, 'layout') and hasattr(import_button.layout, 'display'):
-        import_button.layout.display = 'none'
 
 # EXPORT
 def export_settings(button=None, filter_empty=False):
@@ -436,13 +451,18 @@ import_button.on_click(import_settings)
 factory.load_css(widgets_css)   # load CSS (widgets)
 factory.load_js(widgets_js)     # load JS (widgets)
 
-# Display sections
-model_widgets = [model_header, switch_model_widget]
-vae_widgets = [vae_header]
-download_tabs_widgets = [factory.create_header('Download Selection'), download_tabs_container]
-additional_widgets = additional_widget_list
-custom_download_widgets = [
-    custom_download_header_popup,
+# === CREATE ELEGANT ACCORDION TAB SYSTEM ===
+"""Create accordion tabs for Custom Download and Additionally sections."""
+
+# Custom Download accordion tab
+custom_download_header = factory.create_html('''
+<div class="accordion-header">
+    <h3>Custom Download</h3>
+    <div class="accordion-toggle">▼</div>
+</div>
+''')
+
+custom_download_content_widgets = [
     empowerment_widget,
     empowerment_output_widget,
     Model_url_widget,
@@ -454,30 +474,72 @@ custom_download_widgets = [
     custom_file_urls_widget
 ]
 
-# Create Boxes
-model_box = factory.create_vbox(model_widgets, class_names=['container'])
-vae_box = factory.create_vbox(vae_widgets, class_names=['container'])
-download_tabs_box = factory.create_vbox(download_tabs_widgets, class_names=['container'])
-additional_box = factory.create_vbox(additional_widgets, class_names=['container'])
-custom_download_box = factory.create_vbox(custom_download_widgets, class_names=['container', 'container_cdl'])
+custom_download_content = factory.create_vbox(
+    custom_download_content_widgets,
+    class_names=['accordion-content']
+)
 
-# Create Containers
+custom_download_tab = factory.create_vbox(
+    [custom_download_header, custom_download_content],
+    class_names=['accordion-tab', 'expanded']
+)
+
+# Additionally accordion tab
+additionally_header = factory.create_html('''
+<div class="accordion-header">
+    <h3>Additionally</h3>
+    <div class="accordion-toggle">▼</div>
+</div>
+''')
+
+additionally_content = factory.create_vbox(
+    additional_widget_list,
+    class_names=['accordion-content']
+)
+
+additionally_tab = factory.create_vbox(
+    [additionally_header, additionally_content],
+    class_names=['accordion-tab', 'collapsed']
+)
+
+# Accordion container
+accordion_container = factory.create_hbox(
+    [custom_download_tab, additionally_tab],
+    class_names=['accordion-container']
+)
+
+# Display sections with enhanced structure
+model_widgets = [model_header, switch_model_widget]
+download_tabs_widgets = [factory.create_header('Download Selection'), download_tabs_container]
+
+# Create Boxes with enhanced styling
+model_box = factory.create_vbox(model_widgets, class_names=['container'])
+download_tabs_box = factory.create_vbox(download_tabs_widgets, class_names=['container'])
+
+# Enhanced layout structure
 CONTAINERS_WIDTH = '1080px'
 download_selection_box = factory.create_hbox(
-    [model_box, vae_box],
-    class_names=['widgetContainer', 'model-vae'],
-    # layout={'width': '100%'}
+    [model_box],
+    class_names=['widgetContainer', 'model-vae']
 )
 
 widgetContainer = factory.create_vbox(
-    [download_selection_box, download_tabs_box, additional_box, custom_download_box, save_button],
+    [
+        top_bar_container,
+        download_selection_box,
+        download_tabs_box,
+        accordion_container,
+        save_button_html
+    ],
     class_names=['widgetContainer'],
     layout={'min_width': CONTAINERS_WIDTH, 'max_width': CONTAINERS_WIDTH}
 )
+
 sideContainer = factory.create_vbox(
-    [GDrive_button, export_button, import_button, notification_popup],
+    [notification_popup],
     class_names=['sideContainer']
 )
+
 mainContainer = factory.create_hbox(
     [widgetContainer, sideContainer],
     class_names=['mainContainer'],
@@ -690,7 +752,7 @@ def load_settings():
     else:
         GDrive_button.remove_class('active')
 
-def save_data(button):
+def save_data(button=None):
     """Handle save button click."""
     # Save toggle button states before saving settings
     save_toggle_button_states()
@@ -699,6 +761,74 @@ def save_data(button):
     # Close the main container (this will close all child widgets)
     factory.close([mainContainer], class_names=['hide'], delay=0.8)
 
+# Add JavaScript for accordion functionality and enhanced button interactions
+accordion_js = """
+// Accordion Tab Functionality
+function initializeAccordion() {
+    const accordionTabs = document.querySelectorAll('.accordion-tab');
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    
+    accordionHeaders.forEach((header, index) => {
+        header.addEventListener('click', function() {
+            const tab = this.parentElement;
+            const isExpanded = tab.classList.contains('expanded');
+            
+            // Collapse all tabs
+            accordionTabs.forEach(t => {
+                t.classList.remove('expanded');
+                t.classList.add('collapsed');
+            });
+            
+            // Expand clicked tab if it wasn't already expanded
+            if (!isExpanded) {
+                tab.classList.remove('collapsed');
+                tab.classList.add('expanded');
+            }
+        });
+    });
+}
+
+// Enhanced Button Click Handler
+function setupEnhancedButtons() {
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.button_save')) {
+            // Handle save button with textured styling
+            const button = e.target.closest('.button_save');
+            const buttonText = button.querySelector('.button-text');
+            if (buttonText) {
+                buttonText.classList.add('expanding');
+                setTimeout(() => buttonText.classList.remove('expanding'), 800);
+            }
+            
+            // Trigger Python save function
+            if (typeof google !== 'undefined' && google.colab && google.colab.kernel) {
+                google.colab.kernel.invokeFunction('notebook.save_data_js', [], {});
+            }
+        }
+    });
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            initializeAccordion();
+            setupEnhancedButtons();
+        }, 500);
+    });
+} else {
+    setTimeout(() => {
+        initializeAccordion();
+        setupEnhancedButtons();
+    }, 500);
+}
+"""
+
+# Register the enhanced save function for JS callback
+output.register_callback('notebook.save_data_js', save_data)
+
+# Load JavaScript for enhanced functionality
+display(Javascript(accordion_js))
+
 load_settings()
 load_toggle_button_states()
-save_button.on_click(save_data)
