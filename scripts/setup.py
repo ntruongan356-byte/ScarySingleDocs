@@ -59,7 +59,10 @@ FILE_STRUCTURE = {
         '{lang}': ['widgets-{lang}.py', 'downloading-{lang}.py'],
         '': [
             'webui-installer.py', 'launch.py', 'download-result.py', 'auto-cleaner.py',
-            '_models-data.py', '_xl-models-data.py', 'setup.py'
+            '_models-data.py', '_xl-models-data.py', 'setup.py',
+            'enhanced_model_selector.py', 'visual_feedback_system.py',
+            'cloud_compatibility.py', 'comprehensive_test_suite.py',
+            'test_widget_functionality.py', 'simple_widget_test.py'
         ]
     },
     '__configs__': [
