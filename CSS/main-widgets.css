@@ -780,8 +780,9 @@ a:hover {
 .required { color: var(--aw-term-required); }
 
 
-/* Button styles */
+/* === ENHANCED TEXTURED BUTTON STYLES === */
 
+/* Core button foundation with textured text support */
 .button {
     margin: 0;
     color: var(--aw-color-text-primary);
@@ -792,7 +793,85 @@ a:hover {
     user-select: none;
     overflow: hidden !important;
     transition: background 0.5s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+/* Enhanced textured text implementation */
+.button-text {
+    position: relative;
+    display: inline-block;
+    padding: 0 8px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.1),
+        0 -1px 0 rgba(0, 0, 0, 0.8),
+        1px 1px 2px rgba(0, 0, 0, 0.9);
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0.15) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    filter: drop-shadow(0 0 2px var(--aw-color-text-primary));
+}
+
+/* Text expansion effect for long filenames */
+.button-text.expanding {
+    animation: textExpand 0.8s var(--aw-ease-elegant) forwards;
+    transform-origin: center;
+    white-space: nowrap;
+}
+
+@keyframes textExpand {
+    0% {
+        transform: scaleX(0.7) scaleY(0.9);
+        opacity: 0.7;
+        letter-spacing: -0.5px;
+    }
+    50% {
+        transform: scaleX(1.05) scaleY(1.02);
+        opacity: 0.9;
+        letter-spacing: 0.8px;
+    }
+    100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 1;
+        letter-spacing: 0.5px;
+    }
+}
+
+/* Center-outward stretch effect */
+.button-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.05) 20%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 80%,
+        transparent 100%);
+    transition: all 0.6s var(--aw-ease-elegant);
+    z-index: -1;
+}
+
+.button:hover .button-text::before {
+    left: -10px;
+    right: -10px;
+    opacity: 0.8;
+}
+
+/* Enhanced save button with textured text */
 .button_save {
     font-weight: 650;
     width: 120px;
@@ -803,6 +882,15 @@ a:hover {
     border-radius: 15px;
     box-shadow: var(--aw-elements-shadow);
 }
+
+.button_save .button-text {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Enhanced API button with textured expanding text */
 .button_api {
     position: relative;
     font-size: 12px;
@@ -821,40 +909,71 @@ a:hover {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
     transition: all 0.4s ease;
 }
+
 .button_api .icon {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     transition: all 0.4s ease;
     pointer-events: none;
+    z-index: 2;
 }
+
 .button_api .text {
     display: inline-block;
     max-width: 0;
     opacity: 0;
     pointer-events: none;
     transition: all 0.4s ease;
+    overflow: hidden;
+    position: relative;
 }
 
+.button_api .text .button-text {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 0 4px;
+    white-space: nowrap;
+}
+
+/* Hover states with enhanced effects */
 .button:hover {
     background-position: right bottom;
 }
+
 .button_save:hover {
     background-image: var(--aw-button-save-hover);
+    transform: translateY(-1px) scale(1.02);
 }
+
+.button_save:hover .button-text {
+    animation: textPulse 0.6s ease-in-out;
+}
+
+@keyframes textPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
 .button_api:hover {
     max-width: 300px;
     padding: 0 12px 0 32px;
     background-image: var(--aw-button-api-hover);
 }
+
 .button_api:hover .icon {
     left: 15px;
     transform: translateX(0);
 }
+
 .button_api:hover .text {
     max-width: 200px;
     padding-left: 6px;
     opacity: 1;
+}
+
+.button_api:hover .text .button-text {
+    animation: textExpand 0.5s var(--aw-ease-elegant) forwards;
 }
 
 /* Removes ugly stroke from widget buttons. */
@@ -1411,6 +1530,304 @@ a:hover {
     background: var(--aw-scrollbar-thumb-hover);
 }
 
+/* === TOP BAR OPTIMIZATION LAYOUT === */
+
+/* Consolidated top bar container */
+.top-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--aw-gradient-elevated);
+    border: var(--aw-container-border);
+    border-radius: 16px;
+    box-shadow: var(--aw-elements-shadow);
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.top-bar-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        rgba(139, 0, 0, 0.05) 0%,
+        transparent 50%,
+        rgba(139, 0, 0, 0.05) 100%);
+    pointer-events: none;
+}
+
+/* VAE section aligned properly */
+.vae-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.vae-section label {
+    font-size: var(--aw-text-size-small);
+    font-weight: 600;
+    color: var(--aw-sanguine-light);
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.vae-section .widget-dropdown {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* Utility buttons group */
+.utility-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Enhanced utility button styling */
+.utility-button {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    padding: 0 !important;
+    background: var(--aw-gradient-elevated);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s var(--aw-ease-elegant);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+.utility-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.3s var(--aw-ease-elegant);
+}
+
+.utility-button:hover {
+    border-color: var(--aw-sanguine-primary);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4),
+                0 0 12px rgba(139, 0, 0, 0.3);
+}
+
+.utility-button:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5),
+                inset 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Specific button icons */
+.gdrive-button::before {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg');
+}
+
+.export-button::before {
+    background-image: url(data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIFRyYW5zZm9ybWVkIGJ5OiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4KPHN2ZyBmaWxsPSIjZmZmZmZmIiB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KDTxnIGlkPSJTVkdSZXBvX2JnQ2FycmllciIgc3Ryb2tlLXdpZHRoPSIwIi8+Cg08ZyBpZD0iU1ZHUmVwb190cmFjZXJDYXJyaWVyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KDTxnIGlkPSJTVkdSZXBvX2ljb25DYXJyaWVyIj4KDTxwYXRoIGQ9Ik0yMSwxNGExLDEsMCwwLDAtMSwxdjRhMSwxLDAsMCwxLTEsMUg1YTEsMSwwLDAsMS0xLTFWMTVhMSwxLDAsMCwwLTIsMHY0YTMsMywwLDAsMCwzLDNIMTlhMywzLDAsMCwwLDMtM1YxNUExLDEsMCwwLDAsMjEsMTRabS05LjcxLDEuNzFhMSwxLDAsMCwwLC4zMy4yMS45NC45NCwwLDAsMCwuNzYsMCwxLDEsMCwwLDAsLjMzLS4yMWw0LTRhMSwxLDAsMCwwLTEuNDItMS40MkwxMywxMi41OVYzYTEsMSwwLDAsMC0yLDB2OS41OWwtMi4yOS0yLjNhMSwxLDAsMSwwLTEuNDIsMS40MloiLz4KDTwvZz4KDTwvc3ZnPg==);
+}
+
+.import-button::before {
+    background-image: url(data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIFRyYW5zZm9ybWVkIGJ5OiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4KPHN2ZyBmaWxsPSIjZmZmZmZmIiB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KDTxnIGlkPSJTVkdSZXBvX2JnQ2FycmllciIgc3Ryb2tlLXdpZHRoPSIwIi8+Cg08ZyBpZD0iU1ZHUmVwb190cmFjZXJDYXJyaWVyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KDTxnIGlkPSJTVkdSZXBvX2ljb25DYXJyaWVyIj4KDTxwYXRoIGQ9Ik04LjcxLDcuNzEsMTEsNS40MVYxNWExLDEsMCwwLDAsMiwwVjUuNDFsMi4yOSwyLjNhMSwxLDAsMCwwLDEuNDIsMCwxLDEsMCwwLDAsMC0xLjQybC00LTRhMSwxLDAsMCwwLS4zMy0uMjEsMSwxLDAsMCwwLS43NiwwLDEsMSwwLDAsMC0uMzMuMjFsLTQsNEExLDEsMCwxLDAsOC43MSw3LjcxWk0yMSwxNGExLDEsMCwwLDAtMSwxdjRhMSwxLDAsMCwxLTEsMUg1YTEsMSwwLDAsMS0xLTFWMTVhMSwxLDAsMCwwLTIsMHY0YTMsMywwLDAsMCwzLDNIMTlhMywzLDAsMCwwLDMtM1YxNUExLDEsMCwwLDAsMjEsMTRaIi8+Cg08L2c+Cg08L3N2Zz4=);
+}
+
+.gdrive-button.active {
+    background: linear-gradient(135deg,
+        rgba(0, 109, 51, 0.8) 0%,
+        rgba(0, 208, 98, 0.6) 100%);
+    border-color: #00d062;
+    box-shadow: 0 0 15px rgba(0, 208, 98, 0.4);
+}
+
+/* === ELEGANT ACCORDION TAB SYSTEM === */
+
+/* Accordion container taking up the full black rounded container */
+.accordion-container {
+    display: flex;
+    gap: 2px;
+    height: 300px;
+    background: var(--aw-container-bg);
+    border: var(--aw-container-border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--aw-elements-shadow);
+    position: relative;
+}
+
+.accordion-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--aw-gradient-primary);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Individual accordion tabs */
+.accordion-tab {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--aw-gradient-elevated);
+    border-right: 1px solid rgba(139, 0, 0, 0.2);
+    transition: all 0.6s var(--aw-ease-elegant);
+    z-index: 2;
+    overflow: hidden;
+}
+
+.accordion-tab:last-child {
+    border-right: none;
+}
+
+/* Collapsed state - 50% each */
+.accordion-tab.collapsed {
+    flex: 1;
+}
+
+/* Expanded state - takes up more space */
+.accordion-tab.expanded {
+    flex: 2.5;
+    box-shadow: var(--aw-glow-shadow);
+}
+
+/* Accordion header */
+.accordion-header {
+    padding: 16px 20px;
+    background: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.1) 0%,
+        rgba(220, 20, 60, 0.05) 100%);
+    border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s var(--aw-ease-elegant);
+}
+
+.accordion-header:hover {
+    background: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.15) 0%,
+        rgba(220, 20, 60, 0.08) 100%);
+}
+
+.accordion-header h3 {
+    margin: 0;
+    font-family: var(--aw-font-family-elegant);
+    font-size: var(--aw-text-size-large);
+    font-weight: 600;
+    color: var(--aw-sanguine-light);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Accordion toggle icon */
+.accordion-toggle {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--aw-sanguine-primary);
+    transition: transform 0.3s var(--aw-ease-elegant);
+    opacity: 0.8;
+}
+
+.accordion-tab.expanded .accordion-toggle {
+    transform: rotate(180deg);
+}
+
+/* Accordion content */
+.accordion-content {
+    flex: 1;
+    padding: 16px 20px;
+    overflow-y: auto;
+    background: linear-gradient(135deg,
+        rgba(21, 21, 21, 0.9) 0%,
+        rgba(16, 16, 16, 0.95) 100%);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s var(--aw-ease-elegant);
+    max-height: 0;
+}
+
+.accordion-tab.expanded .accordion-content {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 1000px;
+}
+
+/* Custom scrollbar for accordion content */
+.accordion-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.accordion-content::-webkit-scrollbar-track {
+    background: var(--aw-scrollbar-track-bg);
+    border-radius: 3px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb {
+    background: var(--aw-scrollbar-thumb-bg);
+    border-radius: 3px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb:hover {
+    background: var(--aw-scrollbar-thumb-hover);
+}
+
+/* Accordion tab indicators */
+.accordion-tab::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--aw-sanguine-primary);
+    transform: translateY(-50%);
+    transition: height 0.4s var(--aw-ease-elegant);
+    border-radius: 0 2px 2px 0;
+}
+
+.accordion-tab.expanded::after {
+    height: 60%;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+}
+
+/* Content styling within accordion */
+.accordion-content .widget-container {
+    margin-bottom: 12px;
+}
+
+.accordion-content .widget-text,
+.accordion-content .widget-dropdown,
+.accordion-content .widget-textarea {
+    margin-bottom: 8px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .tab-button {
@@ -1430,5 +1847,43 @@ a:hover {
     .status-indicator {
         font-size: 11px;
         padding: 4px 8px;
+    }
+    
+    /* Mobile accordion adjustments */
+    .accordion-container {
+        height: 250px;
+    }
+    
+    .accordion-header {
+        padding: 12px 16px;
+    }
+    
+    .accordion-header h3 {
+        font-size: var(--aw-text-size);
+    }
+    
+    .accordion-content {
+        padding: 12px 16px;
+    }
+    
+    /* Mobile top bar adjustments */
+    .top-bar-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .vae-section {
+        justify-content: space-between;
+    }
+    
+    .utility-buttons {
+        justify-content: center;
+    }
+    
+    .utility-button {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
     }
 }
