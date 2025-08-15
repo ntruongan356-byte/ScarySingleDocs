@@ -128,11 +128,27 @@ tab_content_vae.children = vae_toggle_buttons
 tab_content_lora.children = lora_toggle_buttons
 tab_content_controlnet.children = controlnet_toggle_buttons
 
-# Tab switching function
-def switch_tab(button):
-    """Switch between tabs and update content."""
+# Tab switching function for download tabs
+def switch_download_tab(button):
+    """Switch between download tabs and update content."""
     tabs = [tab_models, tab_vae, tab_lora, tab_controlnet]
     contents = [tab_content_models, tab_content_vae, tab_content_lora, tab_content_controlnet]
+    
+    # Remove active class from all tabs and contents
+    for tab, content in zip(tabs, contents):
+        tab.remove_class('active')
+        content.remove_class('active')
+    
+    # Add active class to clicked tab and corresponding content
+    button.add_class('active')
+    tab_index = tabs.index(button)
+    contents[tab_index].add_class('active')
+
+# Tab switching function for bottom sections
+def switch_bottom_tab(button):
+    """Switch between bottom section tabs."""
+    tabs = [tab_custom_download, tab_advanced_settings]
+    contents = [bottom_tab_content_custom, bottom_tab_content_advanced]
     
     # Remove active class from all tabs and contents
     for tab, content in zip(tabs, contents):
@@ -158,11 +174,14 @@ def toggle_button(button):
     else:
         button.remove_class('active')
 
-# Connect tab buttons to switch function
-tab_models.on_click(switch_tab)
-tab_vae.on_click(switch_tab)
-tab_lora.on_click(switch_tab)
-tab_controlnet.on_click(switch_tab)
+# Connect download tab buttons to switch function
+tab_models.on_click(switch_download_tab)
+tab_vae.on_click(switch_download_tab)
+tab_lora.on_click(switch_download_tab)
+tab_controlnet.on_click(switch_download_tab)
+
+# Connect bottom tab buttons to switch function (defined later)
+# These will be connected after the widgets are created
 
 # Connect all toggle buttons to toggle function
 for button in model_toggle_buttons:
@@ -180,19 +199,23 @@ download_tabs_container = factory.create_vbox(
     class_names=['download-tabs-container']
 )
 
-# --- ADDITIONAL ---
+# --- ADDITIONAL SETTINGS ---
 """Create additional configuration widgets."""
-additional_header = factory.create_header('Additionally')
+# Core settings toggles
 latest_webui_widget = factory.create_checkbox('Update WebUI', True)
 latest_extensions_widget = factory.create_checkbox('Update Extensions', True)
 check_custom_nodes_deps_widget = factory.create_checkbox('Check Custom-Nodes Dependencies', True)
+
+# Dropdowns
 change_webui_widget = factory.create_dropdown(list(WEBUI_SELECTION.keys()), 'WebUI:', 'A1111', layout={'width': 'auto'})
 detailed_download_widget = factory.create_dropdown(['off', 'on'], 'Detailed Download:', 'off', layout={'width': 'auto'})
-choose_changes_box = factory.create_hbox(
+
+# Main settings box
+main_settings_box = factory.create_hbox(
     [
         latest_webui_widget,
         latest_extensions_widget,
-        check_custom_nodes_deps_widget,   # Only ComfyUI
+        check_custom_nodes_deps_widget,
         change_webui_widget,
         detailed_download_widget
     ],
@@ -286,29 +309,63 @@ save_button_html = factory.create_html('''
 </button>
 ''')
 
-# ===================== Enhanced Side Container =====================
-# --- Simplified Top Bar with Only Utility Buttons ---
-"""Create clean top bar with only utility buttons, VAE moved to download tabs."""
+# ===================== CONSOLIDATED BAR LAYOUT =====================
+# --- Final Consolidated Bar with 3 Sections ---
+"""Create consolidated bar with utility, content, and settings sections."""
 
 # Enhanced utility buttons
-BTN_STYLE = {'width': '36px', 'height': '36px'}
+BTN_STYLE = {'width': '26px', 'height': '26px'}
 TOOLTIPS = ("Unmount Google Drive storage", "Mount Google Drive storage")
 
 GD_status = js.read(SETTINGS_PATH, 'mountGDrive', False)
-GDrive_button = factory.create_button('', layout=BTN_STYLE, class_names=['utility-button', 'gdrive-button'])
+GDrive_button = factory.create_button('', layout=BTN_STYLE, class_names=['consolidated-utility-button', 'gdrive-button'])
 GDrive_button.tooltip = TOOLTIPS[not GD_status]
 gdrive_toggle_state = GD_status
 
-export_button = factory.create_button('', layout=BTN_STYLE, class_names=['utility-button', 'export-button'])
+export_button = factory.create_button('', layout=BTN_STYLE, class_names=['consolidated-utility-button', 'export-button'])
 export_button.tooltip = "Export settings to JSON"
 
-import_button = factory.create_button('', layout=BTN_STYLE, class_names=['utility-button', 'import-button'])
+import_button = factory.create_button('', layout=BTN_STYLE, class_names=['consolidated-utility-button', 'import-button'])
 import_button.tooltip = "Import settings from JSON"
 
-# Create simplified top bar layout - only utility buttons
-top_bar_container = factory.create_hbox([
-    GDrive_button, export_button, import_button
-], class_names=['top-bar-container', 'utility-only'])
+# Utility section
+utility_section_title = factory.create_html('<span class="section-title">Utils</span>')
+utility_section = factory.create_hbox([
+    utility_section_title, GDrive_button, export_button, import_button
+], class_names=['control-section', 'utility-section'])
+
+# Model types for consolidated bar (moved from model selection)
+consolidated_inpainting_widget = factory.create_checkbox('Inpainting', False, class_names=['model-type-toggle'], layout={'width': 'auto'})
+consolidated_sdxl_widget = factory.create_checkbox('SDXL', False, class_names=['model-type-toggle'], layout={'width': 'auto'})
+
+model_types_container = factory.create_hbox([
+    consolidated_inpainting_widget, consolidated_sdxl_widget
+], class_names=['model-types-container'])
+
+# WebUI selector for consolidated bar
+webui_selector = factory.create_dropdown(list(WEBUI_SELECTION.keys()), '', 'A1111',
+                                         layout={'width': '100px'}, class_names=['webui-select'])
+webui_selector_container = factory.create_hbox([webui_selector], class_names=['webui-selector-container'])
+
+# Content section
+content_section = factory.create_hbox([
+    model_types_container, webui_selector_container
+], class_names=['content-section'])
+
+# Settings section with expanded controls
+settings_section_title = factory.create_html('<span class="section-title">Settings</span>')
+update_webui_compact = factory.create_checkbox('Update WebUI', True, class_names=['compact-toggle'], layout={'width': 'auto'})
+update_ext_compact = factory.create_checkbox('Update Extensions', True, class_names=['compact-toggle'], layout={'width': 'auto'})
+details_compact = factory.create_dropdown(['off', 'on'], '', 'off', layout={'width': '80px'}, class_names=['compact-select'])
+
+settings_section = factory.create_hbox([
+    settings_section_title, update_webui_compact, update_ext_compact, details_compact
+], class_names=['control-section', 'settings-section'])
+
+# Create consolidated bar layout
+consolidated_bar = factory.create_hbox([
+    utility_section, content_section, settings_section
+], class_names=['consolidated-bar'])
 
 # Handle environment-specific visibility
 if ENV_NAME != 'Google Colab':
@@ -439,17 +496,27 @@ import_button.on_click(import_settings)
 factory.load_css(widgets_css)   # load CSS (widgets)
 factory.load_js(widgets_js)     # load JS (widgets)
 
-# === CREATE ELEGANT ACCORDION TAB SYSTEM ===
-"""Create accordion tabs for Custom Download and Additionally sections."""
-
-# Custom Download accordion tab
-custom_download_header = factory.create_html('''
-<div class="accordion-header">
-    <h3>Custom Download</h3>
-    <div class="accordion-toggle">▼</div>
+# === DRAWER TOGGLE BUTTON ===
+"""Create drawer toggle button for bottom sections."""
+drawer_toggle_button = factory.create_html('''
+<div class="drawer-toggle-container">
+    <button class="drawer-toggle-button" id="drawer-toggle">
+        <span class="drawer-toggle-text">Advanced Options</span>
+        <span class="drawer-toggle-icon">▼</span>
+    </button>
 </div>
 ''')
 
+# === CREATE TABBED SYSTEM FOR BOTTOM SECTIONS (DRAWER) ===
+"""Create tabbed interface for Custom Download and Advanced Settings with drawer functionality."""
+
+# Tab buttons for bottom sections
+tab_custom_download = factory.create_button('Custom Download', class_names=['bottom-tab-button', 'active'])
+tab_advanced_settings = factory.create_button('Advanced Settings', class_names=['bottom-tab-button'])
+
+bottom_tab_container = factory.create_hbox([tab_custom_download, tab_advanced_settings], class_names=['bottom-tab-container'])
+
+# Custom Download content with Empowerment functionality
 custom_download_content_widgets = [
     empowerment_widget,
     empowerment_output_widget,
@@ -462,61 +529,45 @@ custom_download_content_widgets = [
     custom_file_urls_widget
 ]
 
-custom_download_content = factory.create_vbox(
-    custom_download_content_widgets,
-    class_names=['accordion-content']
-)
+# Advanced Settings content (using consolidated bar widgets)
+advanced_settings_content_widgets = [
+    commit_hash_widget,
+    civitai_box, huggingface_box, zrok_box, ngrok_box,
+    HR,
+    commandline_arguments_widget,
+    theme_accent_widget
+]
 
-custom_download_tab = factory.create_vbox(
-    [custom_download_header, custom_download_content],
-    class_names=['accordion-tab', 'expanded']
-)
+# Tab content containers
+bottom_tab_content_custom = factory.create_vbox(custom_download_content_widgets, class_names=['bottom-tab-content', 'active'])
+bottom_tab_content_advanced = factory.create_vbox(advanced_settings_content_widgets, class_names=['bottom-tab-content'])
 
-# Advanced Settings accordion tab
-advanced_settings_header = factory.create_html('''
-<div class="accordion-header">
-    <h3>Advanced Settings</h3>
-    <div class="accordion-toggle">▼</div>
-</div>
-''')
+# Combined bottom sections container - HIDDEN BY DEFAULT
+bottom_sections_container = factory.create_vbox([
+    bottom_tab_container,
+    bottom_tab_content_custom,
+    bottom_tab_content_advanced
+], class_names=['container', 'bottom-sections', 'hidden'])
 
-advanced_settings_content = factory.create_vbox(
-    additional_widget_list,
-    class_names=['accordion-content']
-)
-
-advanced_settings_tab = factory.create_vbox(
-    [advanced_settings_header, advanced_settings_content],
-    class_names=['accordion-tab', 'collapsed']
-)
-
-# Accordion container - 50/50 split
-accordion_container = factory.create_hbox(
-    [custom_download_tab, advanced_settings_tab],
-    class_names=['accordion-container']
-)
-
-# Enhanced layout structure - COMPLETELY FIXED
+# Enhanced layout structure - WITH CONSOLIDATED BAR AND DRAWER
 CONTAINERS_WIDTH = '1080px'
 
-# Clean model selection section - compact layout
+# Model Selection section with tabs - category tabs moved here
 model_selection_section = factory.create_vbox([
     model_header,
-    switch_model_widget
+    tab_container,
+    tab_content_models,
+    tab_content_vae,
+    tab_content_lora,
+    tab_content_controlnet
 ], class_names=['container', 'model-selection'])
-
-# Clean download section with tabs
-download_section = factory.create_vbox([
-    factory.create_header('Download Selection'),
-    download_tabs_container
-], class_names=['container', 'download-section'])
 
 widgetContainer = factory.create_vbox(
     [
-        top_bar_container,
+        consolidated_bar,
         model_selection_section,
-        download_section,
-        accordion_container,
+        drawer_toggle_button,
+        bottom_sections_container,
         save_button_html
     ],
     class_names=['widgetContainer'],
@@ -634,10 +685,42 @@ def update_empowerment(change, widget):
             wg.remove_class('hidden')
         empowerment_output_widget.add_class('hidden')
 
-# Connecting widgets
-factory.connect_widgets([(change_webui_widget, 'value')], update_change_webui)
-factory.connect_widgets([(XL_models_widget, 'value')], update_XL_options)
+# Callback functions for consolidated bar widgets
+def update_consolidated_webui(change, widget):
+    """Handle consolidated bar WebUI selector changes."""
+    webui = change['new']
+    commandline_arguments_widget.value = WEBUI_SELECTION.get(webui, '')
+
+def update_main_from_consolidated_inpainting(change, widget):
+    inpainting_model_widget.value = change['new']
+    
+def update_main_from_consolidated_sdxl(change, widget):
+    XL_models_widget.value = change['new']
+    
+def update_main_from_consolidated_webui_update(change, widget):
+    latest_webui_widget.value = change['new']
+    
+def update_main_from_consolidated_ext_update(change, widget):
+    latest_extensions_widget.value = change['new']
+    
+def update_main_from_consolidated_details(change, widget):
+    detailed_download_widget.value = change['new']
+
+# Connecting widgets - Updated for consolidated bar
+factory.connect_widgets([(webui_selector, 'value')], update_consolidated_webui)
+factory.connect_widgets([(consolidated_sdxl_widget, 'value')], update_XL_options)
 factory.connect_widgets([(empowerment_widget, 'value')], update_empowerment)
+
+# Connect consolidated widgets to main widgets
+factory.connect_widgets([(consolidated_inpainting_widget, 'value')], update_main_from_consolidated_inpainting)
+factory.connect_widgets([(consolidated_sdxl_widget, 'value')], update_main_from_consolidated_sdxl)
+factory.connect_widgets([(update_webui_compact, 'value')], update_main_from_consolidated_webui_update)
+factory.connect_widgets([(update_ext_compact, 'value')], update_main_from_consolidated_ext_update)
+factory.connect_widgets([(details_compact, 'value')], update_main_from_consolidated_details)
+
+# Connect bottom tab buttons to switch function (now that they're defined)
+tab_custom_download.on_click(switch_bottom_tab)
+tab_advanced_settings.on_click(switch_bottom_tab)
 
 
 # ================ Load / Save - Settings V4 ===============
@@ -749,52 +832,137 @@ def save_data(button=None):
     # Close the main container (this will close all child widgets)
     factory.close([mainContainer], class_names=['hide'], delay=0.8)
 
-# Add JavaScript for accordion functionality and enhanced button interactions
-accordion_js = """
-// Enhanced Accordion Tab Functionality
-function initializeAccordion() {
-    const accordionTabs = document.querySelectorAll('.accordion-tab');
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+# Add JavaScript for consolidated bar, drawer functionality and enhanced button interactions
+consolidated_js = """
+// DRAWER FUNCTIONALITY
+function initializeDrawer() {
+    console.log('Initializing drawer...');
     
-    // Set initial state - first tab expanded by default
-    if (accordionTabs.length > 0) {
-        accordionTabs[0].classList.add('expanded');
-        accordionTabs[0].classList.remove('collapsed');
+    setTimeout(function() {
+        const drawerToggle = document.getElementById('drawer-toggle');
+        const drawerSections = document.querySelector('.bottom-sections');
         
-        // Set all others as collapsed
-        for (let i = 1; i < accordionTabs.length; i++) {
-            accordionTabs[i].classList.add('collapsed');
-            accordionTabs[i].classList.remove('expanded');
+        if (!drawerToggle || !drawerSections) {
+            console.log('Drawer elements not found, retrying...');
+            setTimeout(initializeDrawer, 500);
+            return;
         }
-    }
-    
-    accordionHeaders.forEach((header, index) => {
-        header.addEventListener('click', function(e) {
+        
+        let isOpen = false;
+        
+        drawerToggle.addEventListener('click', function(e) {
+            console.log('Drawer toggle clicked');
             e.preventDefault();
             e.stopPropagation();
             
-            const tab = this.parentElement;
-            const isExpanded = tab.classList.contains('expanded');
+            isOpen = !isOpen;
             
-            // Always allow toggle - either collapse current or expand clicked
-            accordionTabs.forEach(t => {
-                t.classList.remove('expanded');
-                t.classList.add('collapsed');
-            });
-            
-            // Expand clicked tab if it wasn't already expanded
-            if (!isExpanded) {
-                tab.classList.remove('collapsed');
-                tab.classList.add('expanded');
+            if (isOpen) {
+                drawerSections.classList.remove('hidden');
+                drawerSections.classList.add('shown');
+                drawerToggle.classList.add('expanded');
+                drawerToggle.querySelector('.drawer-toggle-text').textContent = 'Hide Advanced Options';
+                console.log('Drawer opened');
+            } else {
+                drawerSections.classList.remove('shown');
+                drawerSections.classList.add('hidden');
+                drawerToggle.classList.remove('expanded');
+                drawerToggle.querySelector('.drawer-toggle-text').textContent = 'Advanced Options';
+                console.log('Drawer closed');
             }
         });
-    });
+        
+        console.log('Drawer initialization complete');
+    }, 100);
+}
+
+// TABBED SYSTEM - Bottom Sections
+function initializeBottomTabs() {
+    console.log('Initializing bottom tabs...');
+    
+    setTimeout(function() {
+        const bottomTabButtons = document.querySelectorAll('.bottom-tab-button');
+        const bottomTabContents = document.querySelectorAll('.bottom-tab-content');
+        
+        console.log('Found', bottomTabButtons.length, 'bottom tab buttons');
+        console.log('Found', bottomTabContents.length, 'bottom tab contents');
+        
+        if (bottomTabButtons.length === 0) {
+            console.log('No bottom tab buttons found, retrying...');
+            setTimeout(initializeBottomTabs, 500);
+            return;
+        }
+        
+        bottomTabButtons.forEach(function(button, index) {
+            button.addEventListener('click', function(e) {
+                console.log('Bottom tab clicked:', index);
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Remove active class from all buttons and contents
+                bottomTabButtons.forEach(btn => btn.classList.remove('active'));
+                bottomTabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                this.classList.add('active');
+                if (bottomTabContents[index]) {
+                    bottomTabContents[index].classList.add('active');
+                }
+                
+                console.log('Switched to bottom tab:', index);
+            });
+        });
+        
+        console.log('Bottom tabs initialization complete');
+    }, 100);
+}
+
+// TABBED SYSTEM - Model Selection Tabs
+function initializeModelTabs() {
+    console.log('Initializing model tabs...');
+    
+    setTimeout(function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        console.log('Found', tabButtons.length, 'model tab buttons');
+        console.log('Found', tabContents.length, 'model tab contents');
+        
+        if (tabButtons.length === 0) {
+            console.log('No model tab buttons found, retrying...');
+            setTimeout(initializeModelTabs, 500);
+            return;
+        }
+        
+        tabButtons.forEach(function(button, index) {
+            button.addEventListener('click', function(e) {
+                console.log('Model tab clicked:', index);
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                this.classList.add('active');
+                if (tabContents[index]) {
+                    tabContents[index].classList.add('active');
+                }
+                
+                console.log('Switched to model tab:', index);
+            });
+        });
+        
+        console.log('Model tabs initialization complete');
+    }, 100);
 }
 
 // Enhanced Button Click Handler
 function setupEnhancedButtons() {
     document.addEventListener('click', function(e) {
         if (e.target.closest('.button_save')) {
+            console.log('Save button clicked');
             // Handle save button with textured styling
             const button = e.target.closest('.button_save');
             const buttonText = button.querySelector('.button-text');
@@ -813,24 +981,58 @@ function setupEnhancedButtons() {
 
 // Initialize when DOM is ready
 function initializeWidgets() {
-    initializeAccordion();
+    console.log('Initializing consolidated widgets...');
+    initializeDrawer();
+    initializeBottomTabs();
+    initializeModelTabs();
     setupEnhancedButtons();
+    
+    // Re-initialize components periodically to handle dynamic content
+    setInterval(function() {
+        const tabButtons = document.querySelectorAll('.bottom-tab-button');
+        const drawerToggle = document.getElementById('drawer-toggle');
+        
+        if (tabButtons.length > 0) {
+            const firstButton = tabButtons[0];
+            if (firstButton && !firstButton.hasAttribute('data-initialized')) {
+                console.log('Re-initializing bottom tabs...');
+                initializeBottomTabs();
+                tabButtons.forEach(btn => btn.setAttribute('data-initialized', 'true'));
+            }
+        }
+        
+        if (drawerToggle && !drawerToggle.hasAttribute('data-initialized')) {
+            console.log('Re-initializing drawer...');
+            initializeDrawer();
+            drawerToggle.setAttribute('data-initialized', 'true');
+        }
+    }, 2000);
 }
 
+// Multiple initialization attempts for reliable startup
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(initializeWidgets, 1000);
+        setTimeout(initializeWidgets, 500);
+        setTimeout(initializeWidgets, 1500);
+        setTimeout(initializeWidgets, 3000);
     });
 } else {
-    setTimeout(initializeWidgets, 1000);
+    setTimeout(initializeWidgets, 500);
+    setTimeout(initializeWidgets, 1500);
+    setTimeout(initializeWidgets, 3000);
 }
+
+// Additional initialization on window load
+window.addEventListener('load', function() {
+    setTimeout(initializeWidgets, 1000);
+});
 """
 
 # Register the enhanced save function for JS callback
 output.register_callback('notebook.save_data_js', save_data)
 
 # Load JavaScript for enhanced functionality
-display(Javascript(accordion_js))
+display(Javascript(consolidated_js))
 
 load_settings()
 load_toggle_button_states()

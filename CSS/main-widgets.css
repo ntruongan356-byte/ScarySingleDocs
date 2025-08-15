@@ -19,9 +19,9 @@
     --aw-font-family-primary: "Inter", sans-serif;     /* Modern, clean primary font */
     --aw-font-family-elegant: "Cinzel", serif;         /* Elegant headers font */
     --aw-font-family-mono: "JetBrains Mono", monospace; /* Code/technical font */
-    --aw-color-text-primary: #F5F5F5;                  /* Warm white text */
-    --aw-color-text-secondary: #E0E0E0;                /* Secondary text */
-    --aw-color-text-muted: #B0B0B0;                    /* Muted text */
+    --aw-color-text-primary: #F2B2B2;                  /* Light sanguine red text */
+    --aw-color-text-secondary: #E8A0A0;                /* Secondary sanguine text */
+    --aw-color-text-muted: #D48888;                    /* Muted sanguine text */
     --aw-text-size: 14px;
     --aw-text-size-small: 13px;
     --aw-text-size-large: 16px;
@@ -409,34 +409,40 @@ a:hover {
     opacity: 0.3;
 }
 
-/* Enhanced section styling */
+/* COMPACT Enhanced section styling */
 .container.model-selection {
-    padding: 16px 24px;
-    margin-bottom: 12px;
+    padding: 12px 20px;
+    margin-bottom: 8px;
+    min-height: auto;
 }
 
 .container.model-selection .header {
-    font-size: 18px;
-    margin-bottom: 16px;
+    font-size: 16px;
+    margin-bottom: 12px;
 }
 
 .container.download-section {
-    padding: 18px 24px;
-    margin-bottom: 16px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
 }
 
 .container.download-section .header {
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 16px;
 }
 
-/* Improved model selection text readability */
+/* IMPROVED model selection text readability - HIGH CONTRAST */
 .model-selection .widget-checkbox label {
-    font-size: var(--aw-text-size-large);
-    font-weight: 500;
-    color: var(--aw-color-text-primary);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-    letter-spacing: 0.3px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.5px;
+}
+
+.model-selection .widget-hbox {
+    gap: 24px;
+    justify-content: flex-start;
 }
 
 /* === SideContainer Buttons === */
@@ -1562,18 +1568,19 @@ a:hover {
 
 /* === TOP BAR OPTIMIZATION LAYOUT === */
 
-/* Simplified utility-only top bar */
+/* Compact utility-only top bar - FIXED HEIGHT */
 .top-bar-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 8px;
-    padding: 10px 16px;
+    padding: 6px 12px;
+    height: 44px;
     background: var(--aw-gradient-elevated);
     border: var(--aw-container-border);
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: var(--aw-elements-shadow);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     position: relative;
     overflow: hidden;
 }
@@ -1596,15 +1603,15 @@ a:hover {
     pointer-events: none;
 }
 
-/* Enhanced utility button styling */
+/* COMPACT Enhanced utility button styling */
 .utility-button {
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
     padding: 0 !important;
     background: var(--aw-gradient-elevated);
     border: 1px solid rgba(139, 0, 0, 0.3);
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s var(--aw-ease-elegant);
     position: relative;
@@ -1619,8 +1626,8 @@ a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -1732,7 +1739,7 @@ a:hover {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Accordion toggle icon */
+/* FIXED Accordion toggle icon - correct orientation */
 .accordion-toggle {
     width: 24px;
     height: 24px;
@@ -1745,8 +1752,16 @@ a:hover {
     opacity: 0.8;
 }
 
-.accordion-tab.expanded .accordion-toggle {
-    transform: rotate(180deg);
+.accordion-toggle::before {
+    content: '▼';
+}
+
+.accordion-tab.expanded .accordion-toggle::before {
+    content: '▲';
+}
+
+.accordion-tab.collapsed .accordion-toggle::before {
+    content: '▼';
 }
 
 /* Accordion content */
@@ -1875,5 +1890,455 @@ a:hover {
         width: 32px !important;
         height: 32px !important;
         min-width: 32px !important;
+    }
+}
+
+/* === BOTTOM TABBED SECTIONS === */
+
+/* Bottom tab container - like download tabs */
+.bottom-tab-container {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    padding: 4px;
+    background: linear-gradient(135deg,
+        rgba(10, 10, 10, 0.9) 0%,
+        rgba(21, 21, 21, 0.95) 100%);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    border-radius: 12px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Bottom tab buttons */
+.bottom-tab-button {
+    flex: 1;
+    padding: 12px 16px;
+    background: linear-gradient(135deg,
+        var(--aw-input-bg) 0%,
+        rgba(26, 26, 26, 0.95) 100%);
+    border: 1px solid var(--aw-input-border);
+    border-radius: 8px;
+    color: var(--aw-color-text-primary);
+    font-family: var(--aw-font-family-primary);
+    font-size: var(--aw-text-size);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s var(--aw-ease-elegant);
+    text-align: center;
+    user-select: none;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+}
+
+.bottom-tab-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+        rgba(139, 0, 0, 0.05) 0%,
+        rgba(220, 20, 60, 0.08) 100%);
+    border-radius: 7px;
+    opacity: 0;
+    transition: opacity 0.3s var(--aw-ease-elegant);
+}
+
+.bottom-tab-button:hover {
+    background: linear-gradient(135deg,
+        var(--aw-input-bg-hover) 0%,
+        rgba(37, 37, 37, 0.98) 100%);
+    border-color: var(--aw-accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3),
+                0 2px 6px rgba(139, 0, 0, 0.2);
+}
+
+.bottom-tab-button:hover::before {
+    opacity: 1;
+}
+
+.bottom-tab-button.active {
+    background: var(--aw-gradient-button);
+    border: 1px solid var(--aw-accent-color);
+    color: #FFFFFF;
+    font-weight: 600;
+    transform: translateY(-1px);
+    box-shadow: var(--aw-glow-shadow),
+                0 4px 12px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Bottom tab content */
+.bottom-tab-content {
+    display: none;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg,
+        rgba(21, 21, 21, 0.8) 0%,
+        rgba(16, 16, 16, 0.9) 100%);
+    border: 1px solid rgba(139, 0, 0, 0.15);
+    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    min-height: 300px;
+}
+
+.bottom-tab-content.active {
+    display: block;
+    animation: bottomTabContentFadeIn 0.5s var(--aw-ease-elegant);
+}
+
+@keyframes bottomTabContentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Bottom sections container */
+.container.bottom-sections {
+    padding: 16px 20px;
+}
+
+.container.bottom-sections .header {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+/* Enhanced form styling for bottom sections */
+.bottom-tab-content .widget-text,
+.bottom-tab-content .widget-dropdown,
+.bottom-tab-content .widget-textarea,
+.bottom-tab-content .widget-checkbox {
+    margin-bottom: 12px;
+}
+
+.bottom-tab-content .widget-hbox {
+    margin-bottom: 16px;
+}
+
+/* Improved readability with new text colors */
+.bottom-tab-content label {
+    color: var(--aw-color-text-primary);
+    font-weight: 500;
+}
+
+.bottom-tab-content .widget-text input,
+.bottom-tab-content .widget-dropdown select,
+.bottom-tab-content .widget-textarea textarea {
+    color: var(--aw-color-text-primary);
+}
+
+/* === FINAL CONSOLIDATED BAR LAYOUT === */
+
+/* Final consolidated bar - 3 sections layout */
+.consolidated-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--aw-gradient-elevated);
+    border: var(--aw-container-border);
+    border-radius: 16px;
+    box-shadow: var(--aw-elements-shadow);
+    margin-bottom: 12px;
+    min-height: 52px;
+}
+
+/* Section containers for consolidated bar */
+.control-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(10, 10, 10, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(139, 0, 0, 0.15);
+}
+
+.section-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--aw-sanguine-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+    white-space: nowrap;
+}
+
+/* Utility Section */
+.utility-section {
+    justify-self: start;
+}
+
+.consolidated-utility-button {
+    width: 26px;
+    height: 26px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--aw-ease-elegant);
+    font-size: 11px;
+}
+
+.consolidated-utility-button:hover {
+    border-color: var(--aw-sanguine-primary);
+    background: rgba(139, 0, 0, 0.1);
+    transform: scale(1.05);
+}
+
+/* Content Section - Model Types & WebUI */
+.content-section {
+    justify-self: stretch;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Model Types */
+.model-types-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.model-type-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.model-type-toggle input[type="checkbox"] {
+    appearance: none;
+    width: 30px;
+    height: 15px;
+    background: #2A2A2A;
+    border-radius: 7px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.model-type-toggle input[type="checkbox"]:checked {
+    background: var(--aw-sanguine-primary);
+}
+
+.model-type-toggle input[type="checkbox"]:before {
+    content: '';
+    position: absolute;
+    top: 1.5px;
+    left: 1.5px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.model-type-toggle input[type="checkbox"]:checked:before {
+    left: 16.5px;
+}
+
+.model-type-toggle label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--aw-color-text-primary);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* WebUI Selection in content section */
+.webui-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+}
+
+.webui-select {
+    padding: 5px 12px;
+    background: var(--aw-input-bg);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: 6px;
+    color: var(--aw-color-text-primary);
+    font-family: var(--aw-font-family-primary);
+    font-size: 12px;
+    cursor: pointer;
+    min-width: 100px;
+    text-align: center;
+}
+
+.webui-select:focus {
+    outline: none;
+    border-color: var(--aw-sanguine-primary);
+    background: var(--aw-input-bg-focus);
+}
+
+.webui-select:hover {
+    border-color: var(--aw-sanguine-light);
+}
+
+/* Settings Section - Expanded */
+.settings-section {
+    justify-self: end;
+    gap: 12px;
+}
+
+.compact-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.compact-toggle input[type="checkbox"] {
+    appearance: none;
+    width: 24px;
+    height: 12px;
+    background: #2A2A2A;
+    border-radius: 6px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.compact-toggle input[type="checkbox"]:checked {
+    background: var(--aw-sanguine-primary);
+}
+
+.compact-toggle input[type="checkbox"]:before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.compact-toggle input[type="checkbox"]:checked:before {
+    left: 13px;
+}
+
+.compact-toggle label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--aw-color-text-primary);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.compact-select {
+    padding: 4px 8px;
+    background: var(--aw-input-bg);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    border-radius: 5px;
+    color: var(--aw-color-text-primary);
+    font-family: var(--aw-font-family-primary);
+    font-size: 10px;
+    cursor: pointer;
+    min-width: 80px;
+}
+
+.compact-select:focus {
+    outline: none;
+    border-color: var(--aw-sanguine-primary);
+}
+
+/* === DRAWER FUNCTIONALITY === */
+
+/* Drawer toggle button */
+.drawer-toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.drawer-toggle-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--aw-gradient-elevated);
+    border: var(--aw-container-border);
+    border-radius: 8px;
+    color: var(--aw-sanguine-light);
+    font-family: var(--aw-font-family-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s var(--aw-ease-elegant);
+    box-shadow: var(--aw-elements-shadow);
+}
+
+.drawer-toggle-button:hover {
+    border-color: var(--aw-sanguine-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--aw-glow-shadow);
+}
+
+.drawer-toggle-button.expanded {
+    background: var(--aw-gradient-button);
+    color: white;
+}
+
+.drawer-toggle-icon {
+    transition: transform 0.3s var(--aw-ease-elegant);
+    font-size: 12px;
+}
+
+.drawer-toggle-button.expanded .drawer-toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Drawer animation */
+.bottom-sections {
+    transition: all 0.5s var(--aw-ease-elegant);
+    overflow: hidden;
+}
+
+.bottom-sections.hidden {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-20px);
+    margin: 0;
+    padding: 0;
+}
+
+.bottom-sections.shown {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive adjustments for consolidated bar */
+@media (max-width: 768px) {
+    .consolidated-bar {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .control-section {
+        justify-content: center;
+    }
+    
+    .content-section {
+        justify-self: center;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }

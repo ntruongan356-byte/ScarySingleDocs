@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScarySingleDocs - Consolidated V2: Sectioned Groups</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        :root {
+            /* === SANGUINE RED COLOR PALETTE === */
+            --aw-sanguine-primary: #8B0000;     
+            --aw-sanguine-light: #DC143C;       
+            --aw-sanguine-dark: #660000;        
+            --aw-sanguine-glow: #FF6B6B;        
+            --aw-sanguine-muted: #CD5C5C;       
+            
+            /* === CORE THEME === */
+            --aw-accent-color: var(--aw-sanguine-primary);
+            --aw-accent-light: var(--aw-sanguine-light);
+            --aw-accent-glow: var(--aw-sanguine-glow);
+            --aw-elements-shadow: 0 0 20px rgba(139, 0, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.6);
+            --aw-glow-shadow: 0 0 30px rgba(139, 0, 0, 0.6), 0 0 60px rgba(220, 20, 60, 0.3);
+
+            /* === TYPOGRAPHY - LIGHT SANGUINE TEXT === */
+            --aw-font-family-primary: "Inter", sans-serif;     
+            --aw-font-family-elegant: "Cinzel", serif;         
+            --aw-font-family-mono: "JetBrains Mono", monospace; 
+            --aw-color-text-primary: #F2B2B2;                  /* Light sanguine red text */
+            --aw-color-text-secondary: #E8A0A0;                /* Secondary sanguine text */
+            --aw-color-text-muted: #D48888;                    /* Muted sanguine text */
+
+            /* === CONTAINERS === */
+            --aw-container-bg: #0A0A0A;                        
+            --aw-container-bg-elevated: #151515;               
+            --aw-container-border: 2px solid rgba(139, 0, 0, 0.3);
+            --aw-container-border-active: 2px solid rgba(139, 0, 0, 0.8);
+
+            /* === GRADIENTS === */
+            --aw-gradient-primary: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(220, 20, 60, 0.05) 50%, rgba(139, 0, 0, 0.15) 100%);
+            --aw-gradient-elevated: linear-gradient(145deg, rgba(21, 21, 21, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+            --aw-gradient-button: linear-gradient(135deg, rgba(139, 0, 0, 0.8) 0%, rgba(220, 20, 60, 0.9) 100%);
+
+            /* === INPUTS === */
+            --aw-input-bg: #1A1A1A;
+            --aw-input-bg-hover: #252525;
+            --aw-input-bg-focus: #2A2A2A;
+            --aw-input-border: 1px solid rgba(139, 0, 0, 0.2);
+            --aw-input-border-hover: 1px solid rgba(139, 0, 0, 0.4);
+            --aw-input-border-focus: 1px solid var(--aw-sanguine-primary);
+
+            /* === ANIMATION CURVES === */
+            --aw-ease-elegant: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --aw-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --aw-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: radial-gradient(ellipse at center, rgba(10, 10, 10, 1) 0%, rgba(5, 5, 5, 1) 100%);
+            font-family: var(--aw-font-family-primary);
+            color: var(--aw-color-text-primary);
+            min-height: 100vh;
+        }
+
+        .main-container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        /* === CONSOLIDATED SECTIONED BAR === */
+        .consolidated-bar {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 16px;
+            align-items: center;
+            padding: 10px 16px;
+            background: var(--aw-gradient-elevated);
+            border: var(--aw-container-border);
+            border-radius: 16px;
+            box-shadow: var(--aw-elements-shadow);
+            margin-bottom: 12px;
+            min-height: 52px;
+        }
+
+        /* Section containers */
+        .control-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(10, 10, 10, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(139, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--aw-sanguine-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 6px;
+            white-space: nowrap;
+        }
+
+        /* Utility Section */
+        .utility-section {
+            justify-self: start;
+        }
+
+        .utility-button {
+            width: 26px;
+            height: 26px;
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s var(--aw-ease-elegant);
+            font-size: 11px;
+        }
+
+        .utility-button:hover {
+            border-color: var(--aw-sanguine-primary);
+            background: rgba(139, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Content Section - stretches to fill space */
+        .content-section {
+            justify-self: stretch;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Model Types in content section */
+        .model-types-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .model-type-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .model-type-toggle input[type="checkbox"] {
+            appearance: none;
+            width: 30px;
+            height: 15px;
+            background: #2A2A2A;
+            border-radius: 7px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .model-type-toggle input[type="checkbox"]:checked {
+            background: var(--aw-sanguine-primary);
+        }
+
+        .model-type-toggle input[type="checkbox"]:before {
+            content: '';
+            position: absolute;
+            top: 1.5px;
+            left: 1.5px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .model-type-toggle input[type="checkbox"]:checked:before {
+            left: 16.5px;
+        }
+
+        .model-type-toggle label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--aw-color-text-primary);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Category Pills in content section */
+        .category-container {
+            display: flex;
+            gap: 3px;
+        }
+
+        .category-pill {
+            padding: 5px 8px;
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            border-radius: 8px;
+            color: var(--aw-color-text-primary);
+            font-size: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--aw-ease-elegant);
+            white-space: nowrap;
+        }
+
+        .category-pill.active {
+            background: var(--aw-gradient-button);
+            color: white;
+            border-color: var(--aw-sanguine-primary);
+            font-weight: 600;
+        }
+
+        .category-pill:hover:not(.active) {
+            border-color: var(--aw-sanguine-primary);
+            background: rgba(139, 0, 0, 0.1);
+        }
+
+        /* Settings Sections */
+        .settings-section {
+            justify-self: end;
+        }
+
+        .webui-section {
+            justify-self: end;
+        }
+
+        .compact-toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .compact-toggle input[type="checkbox"] {
+            appearance: none;
+            width: 22px;
+            height: 11px;
+            background: #2A2A2A;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .compact-toggle input[type="checkbox"]:checked {
+            background: var(--aw-sanguine-primary);
+        }
+
+        .compact-toggle input[type="checkbox"]:before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 9px;
+            height: 9px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .compact-toggle input[type="checkbox"]:checked:before {
+            left: 12px;
+        }
+
+        .compact-toggle label {
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--aw-color-text-primary);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .compact-select {
+            padding: 3px 5px;
+            background: var(--aw-input-bg);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            border-radius: 4px;
+            color: var(--aw-color-text-primary);
+            font-family: var(--aw-font-family-primary);
+            font-size: 9px;
+            cursor: pointer;
+            min-width: 60px;
+        }
+
+        .compact-select:focus {
+            outline: none;
+            border-color: var(--aw-sanguine-primary);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .consolidated-bar {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .control-section {
+                justify-content: center;
+            }
+            
+            .content-section {
+                justify-self: center;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* Rest of the layout */
+        .container {
+            padding: 16px 20px;
+            background: var(--aw-gradient-elevated);
+            border: var(--aw-container-border);
+            border-radius: 16px;
+            box-shadow: var(--aw-elements-shadow);
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .header {
+            font-family: var(--aw-font-family-elegant);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--aw-accent-color);
+            margin-bottom: 16px;
+            text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
+        }
+
+        /* Tab content */
+        .tab-content {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 16px;
+            background: rgba(21, 21, 21, 0.8);
+            border-radius: 12px;
+            border: 1px solid rgba(139, 0, 0, 0.15);
+        }
+
+        .model-item {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 8px;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--aw-color-text-primary);
+        }
+
+        .model-item:hover {
+            border-color: var(--aw-sanguine-primary);
+            background: rgba(139, 0, 0, 0.1);
+        }
+
+        .model-item.active {
+            background: rgba(139, 0, 0, 0.15);
+            border-color: var(--aw-sanguine-light);
+        }
+
+        .save-button {
+            padding: 12px 24px;
+            background: var(--aw-gradient-button);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--aw-ease-elegant);
+            font-family: var(--aw-font-family-primary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .save-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- === CONSOLIDATED SECTIONED BAR === -->
+        <div class="consolidated-bar">
+            <!-- Utility Section -->
+            <div class="control-section utility-section">
+                <span class="section-title">Utils</span>
+                <div class="utility-button" title="Google Drive">🔗</div>
+                <div class="utility-button" title="Export">⬇</div>
+                <div class="utility-button" title="Import">⬆</div>
+            </div>
+
+            <!-- Content Section - Model Types & Categories -->
+            <div class="content-section">
+                <!-- Model Types -->
+                <div class="model-types-container">
+                    <div class="model-type-toggle">
+                        <input type="checkbox" id="inpainting-s">
+                        <label for="inpainting-s">Inpainting</label>
+                    </div>
+                    <div class="model-type-toggle">
+                        <input type="checkbox" id="sdxl-s">
+                        <label for="sdxl-s">SDXL</label>
+                    </div>
+                </div>
+
+                <!-- Category Pills -->
+                <div class="category-container">
+                    <div class="category-pill active" data-category="models">Models</div>
+                    <div class="category-pill" data-category="vae">VAE</div>
+                    <div class="category-pill" data-category="lora">LoRA</div>
+                    <div class="category-pill" data-category="controlnet">ControlNet</div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="control-section settings-section">
+                <span class="section-title">Update</span>
+                <div class="compact-toggle">
+                    <input type="checkbox" id="update-webui-s" checked>
+                    <label for="update-webui-s">WebUI</label>
+                </div>
+                <div class="compact-toggle">
+                    <input type="checkbox" id="update-ext-s" checked>
+                    <label for="update-ext-s">Ext</label>
+                </div>
+            </div>
+
+            <!-- WebUI Section -->
+            <div class="control-section webui-section">
+                <span class="section-title">WebUI</span>
+                <select class="compact-select" id="webui-select-s">
+                    <option value="A1111" selected>A1111</option>
+                    <option value="ComfyUI">ComfyUI</option>
+                    <option value="Forge">Forge</option>
+                    <option value="Classic">Classic</option>
+                    <option value="ReForge">ReForge</option>
+                </select>
+                <select class="compact-select" id="detailed-s">
+                    <option value="off" selected>Details Off</option>
+                    <option value="on">Details On</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Download Selection -->
+        <div class="container">
+            <div class="header">Download Selection</div>
+            
+            <div class="tab-content" id="models-content">
+                <div class="model-item">1. Anime [by YourCT] + IND</div>
+                <div class="model-item">2. BluMix [Anime] [V7] + IND</div>
+                <div class="model-item">3. Cetuš-Mix [Anime] [V4] + IND</div>
+                <div class="model-item">4. Counterfeit [Anime] [V3] + IND</div>
+                <div class="model-item">5. CuteColor [Anime] [V3]</div>
+                <div class="model-item">6. Dark-Sushi-Mix [Anime]</div>
+                <div class="model-item">7. Meina-Mix [Anime] [V12] + IND</div>
+            </div>
+
+            <div class="tab-content" id="vae-content" style="display: none;">
+                <div class="model-item">1. sdxl_vae</div>
+                <div class="model-item">2. vae-ft-mse-840000-ema-pruned</div>
+                <div class="model-item">3. kl-f8-anime2</div>
+            </div>
+
+            <div class="tab-content" id="lora-content" style="display: none;">
+                <div class="model-item">🎨 Style LoRAs</div>
+                <div class="model-item">👥 Character LoRAs</div>
+                <div class="model-item">🏞️ Concept LoRAs</div>
+            </div>
+
+            <div class="tab-content" id="controlnet-content" style="display: none;">
+                <div class="model-item">OpenPose</div>
+                <div class="model-item">Canny</div>
+                <div class="model-item">Depth</div>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <button class="save-button">SAVE</button>
+    </div>
+
+    <script>
+        // Category pill functionality
+        function initializeCategoryPills() {
+            const categoryPills = document.querySelectorAll('.category-pill');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    const targetCategory = this.dataset.category;
+                    
+                    // Remove active class from all pills
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.style.display = 'none');
+                    
+                    // Add active class to clicked pill
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    document.getElementById(targetCategory + '-content').style.display = 'block';
+                    
+                    console.log('Switched to category:', targetCategory);
+                });
+            });
+        }
+
+        // Model item selection
+        function initializeModelItems() {
+            const modelItems = document.querySelectorAll('.model-item');
+            modelItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing Consolidated V2: Sectioned Groups...');
+            initializeCategoryPills();
+            initializeModelItems();
+            console.log('All systems initialized successfully!');
+        });
+    </script>
+</body>
+</html>
