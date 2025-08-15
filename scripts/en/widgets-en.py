@@ -1,4 +1,41 @@
 # ~ widgets.py | by ScarySingleDocs ~
+import sys
+import os
+from pathlib import Path
+from unittest.mock import MagicMock
+
+# --- Mock google.colab ---
+google_colab = MagicMock()
+google_colab.output = MagicMock()
+google_colab.output.register_callback = MagicMock()
+sys.modules['google'] = MagicMock()
+sys.modules['google.colab'] = google_colab
+
+# --- Environment Setup ---
+print("Setting up environment...")
+CWD = Path.cwd()
+HOME_PATH = CWD
+SCR_PATH = HOME_PATH / 'ScarySingleDocs'
+SETTINGS_PATH = SCR_PATH / 'settings.json'
+VENV_PATH = HOME_PATH / 'venv'
+
+# Create the settings directory if it doesn't exist
+SETTINGS_PATH.parent.mkdir(exist_ok=True)
+
+# Create a dummy settings.json if it doesn't exist
+if not SETTINGS_PATH.exists():
+    with open(SETTINGS_PATH, 'w') as f:
+        f.write('{"ENVIRONMENT": {"env_name": "local"}}')
+
+# Set environment variables
+os.environ['home_path'] = str(HOME_PATH)
+os.environ['scr_path'] = str(SCR_PATH)
+os.environ['settings_path'] = str(SETTINGS_PATH)
+os.environ['venv_path'] = str(VENV_PATH)
+print("Environment setup complete.")
+
+sys.path.append(str(Path(__file__).parent.parent.parent / 'modules'))
+sys.path.append(str(Path(__file__).parent.parent))
 
 from widget_factory import WidgetFactory        # WIDGETS
 from webui_utils import update_current_webui    # WEBUI
@@ -1036,3 +1073,51 @@ display(Javascript(consolidated_js))
 
 load_settings()
 load_toggle_button_states()
+
+if __name__ == '__main__':
+    # This block will only be executed when the script is run directly
+    # It will not be executed when the script is imported by another module
+    
+    # --- Mock google.colab ---
+    from unittest.mock import MagicMock
+    import sys
+    google_colab = MagicMock()
+    google_colab.output = MagicMock()
+    google_colab.output.register_callback = MagicMock()
+    sys.modules['google'] = MagicMock()
+    sys.modules['google.colab'] = google_colab
+    
+    # --- Add project directories to Python path ---
+    sys.path.append(str(Path(__file__).parent.parent.parent / 'modules'))
+    
+    # --- Environment Setup ---
+    print("Setting up environment...")
+    CWD = Path.cwd()
+    HOME_PATH = CWD
+    SCR_PATH = HOME_PATH / 'ScarySingleDocs'
+    SETTINGS_PATH = SCR_PATH / 'settings.json'
+    VENV_PATH = HOME_PATH / 'venv'
+
+    # Create the settings directory if it doesn't exist
+    SETTINGS_PATH.parent.mkdir(exist_ok=True)
+
+    # Create a dummy settings.json if it doesn't exist
+    if not SETTINGS_PATH.exists():
+        with open(SETTINGS_PATH, 'w') as f:
+            f.write('{"ENVIRONMENT": {"env_name": "local"}}')
+
+    # Set environment variables
+    os.environ['home_path'] = str(HOME_PATH)
+    os.environ['scr_path'] = str(SCR_PATH)
+    os.environ['settings_path'] = str(SETTINGS_PATH)
+    os.environ['venv_path'] = str(VENV_PATH)
+    print("Environment setup complete.")
+    
+    # --- Add project directories to Python path ---
+    sys.path.append(str(CWD.parent / 'modules'))
+    sys.path.append(str(CWD.parent / 'scripts'))
+    
+    # --- Run the widget creation logic ---
+    # The widgets are created at the top level of the script, so we don't
+    # need to call any functions here.
+    pass
