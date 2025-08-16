@@ -1,41 +1,35 @@
-# ~ widgets.py | by ScarySingleDocs ~
 import sys
 import os
 from pathlib import Path
-from unittest.mock import MagicMock
 
-# --- Mock google.colab ---
-google_colab = MagicMock()
-google_colab.output = MagicMock()
-google_colab.output.register_callback = MagicMock()
-sys.modules['google'] = MagicMock()
-sys.modules['google.colab'] = google_colab
+# Robustly add the 'modules' directory to the Python path.
+# This is necessary for the script to find its dependencies when run from
+# a different working directory, such as in a Google Colab notebook.
+try:
+    # Get the absolute path of the directory containing this script.
+    # __file__ is the most reliable way to get the script's location.
+    script_dir = Path(__file__).resolve().parent
+    
+    # Navigate up to the project root directory (which contains 'scripts', 'modules', etc.)
+    # The script is in .../scripts/en, so we go up two levels.
+    project_root = script_dir.parent.parent
+    
+    # Construct the path to the 'modules' directory.
+    modules_path = project_root / 'modules'
+    
+    # Add the 'modules' path to the beginning of sys.path if it's not already there.
+    # This ensures it's checked first during imports.
+    if str(modules_path) not in sys.path:
+        sys.path.insert(0, str(modules_path))
 
-# --- Environment Setup ---
-print("Setting up environment...")
-CWD = Path.cwd()
-HOME_PATH = CWD
-SCR_PATH = HOME_PATH / 'ScarySingleDocs'
-SETTINGS_PATH = SCR_PATH / 'settings.json'
-VENV_PATH = HOME_PATH / 'venv'
-
-# Create the settings directory if it doesn't exist
-SETTINGS_PATH.parent.mkdir(exist_ok=True)
-
-# Create a dummy settings.json if it doesn't exist
-if not SETTINGS_PATH.exists():
-    with open(SETTINGS_PATH, 'w') as f:
-        f.write('{"ENVIRONMENT": {"env_name": "local"}}')
-
-# Set environment variables
-os.environ['home_path'] = str(HOME_PATH)
-os.environ['scr_path'] = str(SCR_PATH)
-os.environ['settings_path'] = str(SETTINGS_PATH)
-os.environ['venv_path'] = str(VENV_PATH)
-print("Environment setup complete.")
-
-sys.path.append(str(Path(__file__).parent.parent.parent / 'modules'))
-sys.path.append(str(Path(__file__).parent.parent))
+except NameError:
+    # Fallback for environments where __file__ is not defined (e.g., some interactive shells)
+    # This is less reliable but better than nothing.
+    print("Warning: __file__ is not defined. Falling back to CWD-based path resolution.")
+    modules_path = Path(os.getcwd()) / 'modules'
+    if str(modules_path) not in sys.path:
+        sys.path.insert(0, str(modules_path))
+# ~ widgets.py | by ScarySingleDocs ~
 
 from widget_factory import WidgetFactory        # WIDGETS
 from webui_utils import update_current_webui    # WEBUI
@@ -72,13 +66,7 @@ gdrive_toggle_state = False
 
 # ================ WIDGETS (Main Container) ================
 
-def create_expandable_button(text, url):
-    return factory.create_html(f'''
-    <a href="{url}" target="_blank" class="button button_api">
-        <span class="icon"><</span>
-        <span class="text">{text}</span>
-    </a>
-    ''')
+# create_expandable_button removed as it's obsolete.
 
 def read_model_data(file_path, data_type):
     """Reads model, VAE, LoRA, or ControlNet data from the specified file."""
@@ -114,10 +102,8 @@ HR = widgets.HTML('<hr>')
 """Create model selection widgets."""
 model_header = factory.create_header('Model Selection')
 model_options = read_model_data(f"{SCRIPTS}/_models-data.py", 'model')
-inpainting_model_widget = factory.create_checkbox('Inpainting Models', False, class_names=['inpaint'], layout={'width': '250px'})
-XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['sdxl'])
-
-switch_model_widget = factory.create_hbox([inpainting_model_widget, XL_models_widget])
+# inpainting_model_widget and XL_models_widget are now part of the consolidated_bar
+# switch_model_widget is no longer needed.
 
 # --- VAE ---
 """Create VAE selection widgets."""
@@ -147,7 +133,7 @@ def create_toggle_buttons(data_type, options):
     buttons = []
     for option in options:
         if option not in ['none', 'ALL']:
-            button = factory.create_button(option, class_names=['toggle-button', data_type])
+            button = factory.create_button(option, class_names=['model-item', data_type])
             buttons.append(button)
     return buttons
 
@@ -165,27 +151,11 @@ tab_content_vae.children = vae_toggle_buttons
 tab_content_lora.children = lora_toggle_buttons
 tab_content_controlnet.children = controlnet_toggle_buttons
 
-# Tab switching function for download tabs
-def switch_download_tab(button):
-    """Switch between download tabs and update content."""
+# Tab switching function
+def switch_tab(button):
+    """Switch between tabs and update content."""
     tabs = [tab_models, tab_vae, tab_lora, tab_controlnet]
     contents = [tab_content_models, tab_content_vae, tab_content_lora, tab_content_controlnet]
-    
-    # Remove active class from all tabs and contents
-    for tab, content in zip(tabs, contents):
-        tab.remove_class('active')
-        content.remove_class('active')
-    
-    # Add active class to clicked tab and corresponding content
-    button.add_class('active')
-    tab_index = tabs.index(button)
-    contents[tab_index].add_class('active')
-
-# Tab switching function for bottom sections
-def switch_bottom_tab(button):
-    """Switch between bottom section tabs."""
-    tabs = [tab_custom_download, tab_advanced_settings]
-    contents = [bottom_tab_content_custom, bottom_tab_content_advanced]
     
     # Remove active class from all tabs and contents
     for tab, content in zip(tabs, contents):
@@ -211,14 +181,11 @@ def toggle_button(button):
     else:
         button.remove_class('active')
 
-# Connect download tab buttons to switch function
-tab_models.on_click(switch_download_tab)
-tab_vae.on_click(switch_download_tab)
-tab_lora.on_click(switch_download_tab)
-tab_controlnet.on_click(switch_download_tab)
-
-# Connect bottom tab buttons to switch function (defined later)
-# These will be connected after the widgets are created
+# Connect tab buttons to switch function
+tab_models.on_click(switch_tab)
+tab_vae.on_click(switch_tab)
+tab_lora.on_click(switch_tab)
+tab_controlnet.on_click(switch_tab)
 
 # Connect all toggle buttons to toggle function
 for button in model_toggle_buttons:
@@ -236,47 +203,22 @@ download_tabs_container = factory.create_vbox(
     class_names=['download-tabs-container']
 )
 
-# --- ADDITIONAL SETTINGS ---
+# --- ADDITIONAL (Now part of Advanced Settings Drawer) ---
 """Create additional configuration widgets."""
-# Core settings toggles
-latest_webui_widget = factory.create_checkbox('Update WebUI', True)
-latest_extensions_widget = factory.create_checkbox('Update Extensions', True)
-check_custom_nodes_deps_widget = factory.create_checkbox('Check Custom-Nodes Dependencies', True)
+additional_header = factory.create_header('Additionally')
 
-# Dropdowns
-change_webui_widget = factory.create_dropdown(list(WEBUI_SELECTION.keys()), 'WebUI:', 'A1111', layout={'width': 'auto'})
-detailed_download_widget = factory.create_dropdown(['off', 'on'], 'Detailed Download:', 'off', layout={'width': 'auto'})
-
-# Main settings box
-main_settings_box = factory.create_hbox(
-    [
-        latest_webui_widget,
-        latest_extensions_widget,
-        check_custom_nodes_deps_widget,
-        change_webui_widget,
-        detailed_download_widget
-    ],
-    layout={'justify_content': 'space-between'}
-)
+# These widgets are now part of the consolidated_bar or advanced settings drawer
+# latest_webui_widget, latest_extensions_widget, change_webui_widget, detailed_download_widget
+# are moved. check_custom_nodes_deps_widget will be in the drawer.
 
 controlnet_options = read_model_data(f"{SCRIPTS}/_models-data.py", 'cnet')
 commit_hash_widget = factory.create_text('Commit Hash:', '', 'Switching between branches or commits.')
 
 civitai_token_widget = factory.create_text('CivitAI Token:', '', 'Enter your CivitAi API token.')
-civitai_button = create_expandable_button('Get CivitAI Token', 'https://civitai.com/user/account')
-civitai_box = factory.create_hbox([civitai_token_widget, civitai_button])
-
+# The expandable buttons for tokens are removed to match the new design.
 huggingface_token_widget = factory.create_text('HuggingFace Token:')
-huggingface_button = create_expandable_button('Get HuggingFace Token', 'https://huggingface.co/settings/tokens')
-huggingface_box = factory.create_hbox([huggingface_token_widget, huggingface_button])
-
 ngrok_token_widget = factory.create_text('Ngrok Token:')
-ngrok_button = create_expandable_button('Get Ngrok Token', 'https://dashboard.ngrok.com/get-started/your-authtoken')
-ngrok_box = factory.create_hbox([ngrok_token_widget, ngrok_button])
-
 zrok_token_widget = factory.create_text('Zrok Token:')
-zrok_button = create_expandable_button('Register Zrok Token', 'https://colab.research.google.com/drive/1d2sjWDJi_GYBUavrHSuQyHTDuLy36WpU')
-zrok_box = factory.create_hbox([zrok_token_widget, zrok_button])
 
 commandline_arguments_widget = factory.create_text('Arguments:', WEBUI_SELECTION['A1111'])
 
@@ -288,33 +230,17 @@ additional_footer_box = factory.create_hbox([commandline_arguments_widget, theme
 
 additional_widget_list = [
     additional_header,
-    choose_changes_box,
+    # choose_changes_box is removed
     HR,
     commit_hash_widget,
-    civitai_box, huggingface_box, zrok_box, ngrok_box,
+    civitai_token_widget, huggingface_token_widget, zrok_token_widget, ngrok_token_widget,
     HR,
-    # commandline_arguments_widget,
     additional_footer_box
 ]
 
 # --- CUSTOM DOWNLOAD ---
 """Create Custom-Download Selection widgets."""
-custom_download_header_popup = factory.create_html('''
-<div class="header" style="cursor: pointer;" onclick="toggleContainer()">Custom Download</div>
-<div class="info">INFO</div>
-<div class="popup">
-    Separate multiple URLs with a comma/space.
-    For a <span class="file_name">custom name</span> file/extension, specify it with <span class="braces">[ ]</span> after the URL without spaces.
-    <span style="color: #ff9999">For files, be sure to specify</span> - <span class="extension">Filename Extension.</span>
-    <div class="sample">
-        <span class="sample_label">Example for File:</span>
-        https://civitai.com/api/download/models/229782<span class="braces">[</span><span class="file_name">Detailer</span><span class="extension">.safetensors</span><span class="braces">]</span>
-        <br>
-        <span class="sample_label">Example for Extension:</span>
-        https://github.com/hako-mikan/sd-webui-regional-prompter<span class="braces">[</span><span class="file_name">Regional-Prompter</span><span class="braces">]</span>
-    </div>
-</div>
-''')
+# custom_download_header_popup removed as it's obsolete.
 
 empowerment_widget = factory.create_checkbox('Empowerment', False, class_names=['empowerment'])
 empowerment_output_widget = factory.create_textarea(
@@ -346,90 +272,82 @@ save_button_html = factory.create_html('''
 </button>
 ''')
 
-# ===================== CONSOLIDATED BAR LAYOUT =====================
-# --- Final Consolidated Bar with 3 Sections ---
-"""Create consolidated bar with utility, content, and settings sections."""
+# ===================== CONSOLIDATED TOP BAR =====================
+"""Create the new consolidated top bar with three sections."""
 
-# Enhanced utility buttons
-BTN_STYLE = {'width': '26px', 'height': '26px'}
+# --- Utility Section ---
 TOOLTIPS = ("Unmount Google Drive storage", "Mount Google Drive storage")
-
 GD_status = js.read(SETTINGS_PATH, 'mountGDrive', False)
-GDrive_button = factory.create_button('', layout=BTN_STYLE, class_names=['consolidated-utility-button', 'gdrive-button'])
-GDrive_button.tooltip = TOOLTIPS[not GD_status]
 gdrive_toggle_state = GD_status
 
-export_button = factory.create_button('', layout=BTN_STYLE, class_names=['consolidated-utility-button', 'export-button'])
-export_button.tooltip = "Export settings to JSON"
+gdrive_button_html = factory.create_html('<div class="utility-button" title="Google Drive">🔗</div>')
+export_button_html = factory.create_html('<div class="utility-button" title="Export">⬇</div>')
+import_button_html = factory.create_html('<div class="utility-button" title="Import">⬆</div>')
 
-import_button = factory.create_button('', layout=BTN_STYLE, class_names=['consolidated-utility-button', 'import-button'])
-import_button.tooltip = "Import settings from JSON"
+utility_section = factory.create_hbox(
+    [
+        factory.create_html('<span class="section-title">Utils</span>'),
+        gdrive_button_html,
+        export_button_html,
+        import_button_html
+    ],
+    class_names=['control-section', 'utility-section']
+)
 
-# Utility section
-utility_section_title = factory.create_html('<span class="section-title">Utils</span>')
-utility_section = factory.create_hbox([
-    utility_section_title, GDrive_button, export_button, import_button
-], class_names=['control-section', 'utility-section'])
+# --- Content Section ---
+inpainting_model_widget = factory.create_checkbox('Inpainting', False, class_names=['model-type-toggle'])
+XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['model-type-toggle'])
+model_types_container = factory.create_hbox(
+    [inpainting_model_widget, XL_models_widget],
+    class_names=['model-types-container']
+)
 
-# Model types for consolidated bar (moved from model selection)
-consolidated_inpainting_widget = factory.create_checkbox('Inpainting', False, class_names=['model-type-toggle'], layout={'width': 'auto'})
-consolidated_sdxl_widget = factory.create_checkbox('SDXL', False, class_names=['model-type-toggle'], layout={'width': 'auto'})
+change_webui_widget = factory.create_dropdown(
+    list(WEBUI_SELECTION.keys()),
+    description='', # No label
+    value='A1111',
+    class_names=['webui-select']
+)
+webui_selector_container = factory.create_hbox(
+    [change_webui_widget],
+    class_names=['webui-selector-container']
+)
 
-model_types_container = factory.create_hbox([
-    consolidated_inpainting_widget, consolidated_sdxl_widget
-], class_names=['model-types-container'])
+content_section = factory.create_hbox(
+    [model_types_container, webui_selector_container],
+    class_names=['content-section']
+)
 
-# WebUI selector for consolidated bar
-webui_selector = factory.create_dropdown(list(WEBUI_SELECTION.keys()), '', 'A1111',
-                                         layout={'width': '100px'}, class_names=['webui-select'])
-webui_selector_container = factory.create_hbox([webui_selector], class_names=['webui-selector-container'])
+# --- Settings Section ---
+latest_webui_widget = factory.create_checkbox('Update WebUI', True, class_names=['compact-toggle'])
+latest_extensions_widget = factory.create_checkbox('Update Extensions', True, class_names=['compact-toggle'])
+detailed_download_widget = factory.create_dropdown(
+    ['off', 'on'],
+    description='', # No label
+    value='off',
+    class_names=['compact-select']
+)
+check_custom_nodes_deps_widget = factory.create_checkbox('Check Custom-Nodes Dependencies', True, class_names=['compact-toggle'])
 
-# Content section
-content_section = factory.create_hbox([
-    model_types_container, webui_selector_container
-], class_names=['content-section'])
+settings_section = factory.create_hbox(
+    [
+        factory.create_html('<span class="section-title">Settings</span>'),
+        latest_webui_widget,
+        latest_extensions_widget,
+        detailed_download_widget
+    ],
+    class_names=['control-section', 'settings-section']
+)
 
-# Settings section with expanded controls
-settings_section_title = factory.create_html('<span class="section-title">Settings</span>')
-update_webui_compact = factory.create_checkbox('Update WebUI', True, class_names=['compact-toggle'], layout={'width': 'auto'})
-update_ext_compact = factory.create_checkbox('Update Extensions', True, class_names=['compact-toggle'], layout={'width': 'auto'})
-details_compact = factory.create_dropdown(['off', 'on'], '', 'off', layout={'width': '80px'}, class_names=['compact-select'])
+consolidated_bar = factory.create_hbox(
+    [utility_section, content_section, settings_section],
+    class_names=['consolidated-bar']
+)
 
-settings_section = factory.create_hbox([
-    settings_section_title, update_webui_compact, update_ext_compact, details_compact
-], class_names=['control-section', 'settings-section'])
-
-# Create consolidated bar layout
-consolidated_bar = factory.create_hbox([
-    utility_section, content_section, settings_section
-], class_names=['consolidated-bar'])
-
-# Handle environment-specific visibility
-if ENV_NAME != 'Google Colab':
-    if hasattr(GDrive_button, 'layout') and hasattr(GDrive_button.layout, 'display'):
-        GDrive_button.layout.display = 'none'
-    if hasattr(export_button, 'layout') and hasattr(export_button.layout, 'display'):
-        export_button.layout.display = 'none'
-    if hasattr(import_button, 'layout') and hasattr(import_button.layout, 'display'):
-        import_button.layout.display = 'none'
-else:
-    if GD_status:
-        GDrive_button.add_class('active')
-
-    def handle_toggle(btn):
-        """Toggle Google Drive button state"""
-        global gdrive_toggle_state
-        gdrive_toggle_state = not gdrive_toggle_state
-        
-        if hasattr(btn, 'tooltip'):
-            btn.tooltip = TOOLTIPS[not gdrive_toggle_state]
-        
-        if gdrive_toggle_state:
-            btn.add_class('active')
-        else:
-            btn.remove_class('active')
-
-    GDrive_button.on_click(handle_toggle)
+# Placeholder for old button logic, to be re-integrated
+GDrive_button = widgets.Button() # Dummy button for now
+export_button = widgets.Button()
+import_button = widgets.Button()
 
 # EXPORT
 def export_settings(button=None, filter_empty=False):
@@ -533,27 +451,18 @@ import_button.on_click(import_settings)
 factory.load_css(widgets_css)   # load CSS (widgets)
 factory.load_js(widgets_js)     # load JS (widgets)
 
-# === DRAWER TOGGLE BUTTON ===
-"""Create drawer toggle button for bottom sections."""
-drawer_toggle_button = factory.create_html('''
-<div class="drawer-toggle-container">
-    <button class="drawer-toggle-button" id="drawer-toggle">
-        <span class="drawer-toggle-text">Advanced Options</span>
-        <span class="drawer-toggle-icon">▼</span>
-    </button>
-</div>
-''')
+# === ADVANCED OPTIONS DRAWER ===
+"""Create the collapsible drawer for advanced settings."""
 
-# === CREATE TABBED SYSTEM FOR BOTTOM SECTIONS (DRAWER) ===
-"""Create tabbed interface for Custom Download and Advanced Settings with drawer functionality."""
+# --- Drawer Toggle Button ---
+drawer_toggle_button = factory.create_button(
+    description='Advanced Options',
+    class_names=['drawer-toggle-button']
+)
+drawer_toggle_button.icon = 'chevron-down'
 
-# Tab buttons for bottom sections
-tab_custom_download = factory.create_button('Custom Download', class_names=['bottom-tab-button', 'active'])
-tab_advanced_settings = factory.create_button('Advanced Settings', class_names=['bottom-tab-button'])
-
-bottom_tab_container = factory.create_hbox([tab_custom_download, tab_advanced_settings], class_names=['bottom-tab-container'])
-
-# Custom Download content with Empowerment functionality
+# --- Drawer Content ---
+# Custom Download Tab
 custom_download_content_widgets = [
     empowerment_widget,
     empowerment_output_widget,
@@ -565,46 +474,49 @@ custom_download_content_widgets = [
     ADetailer_url_widget,
     custom_file_urls_widget
 ]
+custom_download_content = factory.create_vbox(
+    custom_download_content_widgets,
+    class_names=['bottom-tab-content', 'active']
+)
 
-# Advanced Settings content (using consolidated bar widgets)
-advanced_settings_content_widgets = [
-    commit_hash_widget,
-    civitai_box, huggingface_box, zrok_box, ngrok_box,
-    HR,
-    commandline_arguments_widget,
-    theme_accent_widget
-]
+# Advanced Settings Tab
+advanced_settings_content = factory.create_vbox(
+    additional_widget_list,
+    class_names=['bottom-tab-content']
+)
 
-# Tab content containers
-bottom_tab_content_custom = factory.create_vbox(custom_download_content_widgets, class_names=['bottom-tab-content', 'active'])
-bottom_tab_content_advanced = factory.create_vbox(advanced_settings_content_widgets, class_names=['bottom-tab-content'])
+# Bottom Tab Buttons
+bottom_tab_custom = factory.create_button('Custom Download', class_names=['bottom-tab-button', 'active'])
+bottom_tab_advanced = factory.create_button('Advanced Settings', class_names=['bottom-tab-button'])
+bottom_tab_container = factory.create_hbox(
+    [bottom_tab_custom, bottom_tab_advanced],
+    class_names=['bottom-tab-container']
+)
 
-# Combined bottom sections container - HIDDEN BY DEFAULT
-bottom_sections_container = factory.create_vbox([
-    bottom_tab_container,
-    bottom_tab_content_custom,
-    bottom_tab_content_advanced
-], class_names=['container', 'bottom-sections', 'hidden'])
+# Drawer Container
+drawer_container = factory.create_vbox(
+    [
+        bottom_tab_container,
+        custom_download_content,
+        advanced_settings_content
+    ],
+    class_names=['bottom-sections', 'hidden']
+)
 
-# Enhanced layout structure - WITH CONSOLIDATED BAR AND DRAWER
+# Enhanced layout structure - COMPLETELY FIXED
 CONTAINERS_WIDTH = '1080px'
 
-# Model Selection section with tabs - category tabs moved here
-model_selection_section = factory.create_vbox([
-    model_header,
-    tab_container,
-    tab_content_models,
-    tab_content_vae,
-    tab_content_lora,
-    tab_content_controlnet
+# Redesigned download selection section
+model_download_section = factory.create_vbox([
+    factory.create_header('Model Selection'),
+    download_tabs_container
 ], class_names=['container', 'model-selection'])
 
 widgetContainer = factory.create_vbox(
     [
         consolidated_bar,
-        model_selection_section,
-        drawer_toggle_button,
-        bottom_sections_container,
+        model_download_section,
+        factory.create_vbox([drawer_toggle_button, drawer_container]),
         save_button_html
     ],
     class_names=['widgetContainer'],
@@ -722,42 +634,10 @@ def update_empowerment(change, widget):
             wg.remove_class('hidden')
         empowerment_output_widget.add_class('hidden')
 
-# Callback functions for consolidated bar widgets
-def update_consolidated_webui(change, widget):
-    """Handle consolidated bar WebUI selector changes."""
-    webui = change['new']
-    commandline_arguments_widget.value = WEBUI_SELECTION.get(webui, '')
-
-def update_main_from_consolidated_inpainting(change, widget):
-    inpainting_model_widget.value = change['new']
-    
-def update_main_from_consolidated_sdxl(change, widget):
-    XL_models_widget.value = change['new']
-    
-def update_main_from_consolidated_webui_update(change, widget):
-    latest_webui_widget.value = change['new']
-    
-def update_main_from_consolidated_ext_update(change, widget):
-    latest_extensions_widget.value = change['new']
-    
-def update_main_from_consolidated_details(change, widget):
-    detailed_download_widget.value = change['new']
-
-# Connecting widgets - Updated for consolidated bar
-factory.connect_widgets([(webui_selector, 'value')], update_consolidated_webui)
-factory.connect_widgets([(consolidated_sdxl_widget, 'value')], update_XL_options)
+# Connecting widgets
+factory.connect_widgets([(change_webui_widget, 'value')], update_change_webui)
+factory.connect_widgets([(XL_models_widget, 'value')], update_XL_options)
 factory.connect_widgets([(empowerment_widget, 'value')], update_empowerment)
-
-# Connect consolidated widgets to main widgets
-factory.connect_widgets([(consolidated_inpainting_widget, 'value')], update_main_from_consolidated_inpainting)
-factory.connect_widgets([(consolidated_sdxl_widget, 'value')], update_main_from_consolidated_sdxl)
-factory.connect_widgets([(update_webui_compact, 'value')], update_main_from_consolidated_webui_update)
-factory.connect_widgets([(update_ext_compact, 'value')], update_main_from_consolidated_ext_update)
-factory.connect_widgets([(details_compact, 'value')], update_main_from_consolidated_details)
-
-# Connect bottom tab buttons to switch function (now that they're defined)
-tab_custom_download.on_click(switch_bottom_tab)
-tab_advanced_settings.on_click(switch_bottom_tab)
 
 
 # ================ Load / Save - Settings V4 ===============
@@ -869,255 +749,11 @@ def save_data(button=None):
     # Close the main container (this will close all child widgets)
     factory.close([mainContainer], class_names=['hide'], delay=0.8)
 
-# Add JavaScript for consolidated bar, drawer functionality and enhanced button interactions
-consolidated_js = """
-// DRAWER FUNCTIONALITY
-function initializeDrawer() {
-    console.log('Initializing drawer...');
-    
-    setTimeout(function() {
-        const drawerToggle = document.getElementById('drawer-toggle');
-        const drawerSections = document.querySelector('.bottom-sections');
-        
-        if (!drawerToggle || !drawerSections) {
-            console.log('Drawer elements not found, retrying...');
-            setTimeout(initializeDrawer, 500);
-            return;
-        }
-        
-        let isOpen = false;
-        
-        drawerToggle.addEventListener('click', function(e) {
-            console.log('Drawer toggle clicked');
-            e.preventDefault();
-            e.stopPropagation();
-            
-            isOpen = !isOpen;
-            
-            if (isOpen) {
-                drawerSections.classList.remove('hidden');
-                drawerSections.classList.add('shown');
-                drawerToggle.classList.add('expanded');
-                drawerToggle.querySelector('.drawer-toggle-text').textContent = 'Hide Advanced Options';
-                console.log('Drawer opened');
-            } else {
-                drawerSections.classList.remove('shown');
-                drawerSections.classList.add('hidden');
-                drawerToggle.classList.remove('expanded');
-                drawerToggle.querySelector('.drawer-toggle-text').textContent = 'Advanced Options';
-                console.log('Drawer closed');
-            }
-        });
-        
-        console.log('Drawer initialization complete');
-    }, 100);
-}
+# Obsolete JavaScript and callback registration removed.
+# All JS is now in main-widgets.js and loaded via factory.load_js()
+# The save button will be handled by a new callback.
 
-// TABBED SYSTEM - Bottom Sections
-function initializeBottomTabs() {
-    console.log('Initializing bottom tabs...');
-    
-    setTimeout(function() {
-        const bottomTabButtons = document.querySelectorAll('.bottom-tab-button');
-        const bottomTabContents = document.querySelectorAll('.bottom-tab-content');
-        
-        console.log('Found', bottomTabButtons.length, 'bottom tab buttons');
-        console.log('Found', bottomTabContents.length, 'bottom tab contents');
-        
-        if (bottomTabButtons.length === 0) {
-            console.log('No bottom tab buttons found, retrying...');
-            setTimeout(initializeBottomTabs, 500);
-            return;
-        }
-        
-        bottomTabButtons.forEach(function(button, index) {
-            button.addEventListener('click', function(e) {
-                console.log('Bottom tab clicked:', index);
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Remove active class from all buttons and contents
-                bottomTabButtons.forEach(btn => btn.classList.remove('active'));
-                bottomTabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked button and corresponding content
-                this.classList.add('active');
-                if (bottomTabContents[index]) {
-                    bottomTabContents[index].classList.add('active');
-                }
-                
-                console.log('Switched to bottom tab:', index);
-            });
-        });
-        
-        console.log('Bottom tabs initialization complete');
-    }, 100);
-}
-
-// TABBED SYSTEM - Model Selection Tabs
-function initializeModelTabs() {
-    console.log('Initializing model tabs...');
-    
-    setTimeout(function() {
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
-        
-        console.log('Found', tabButtons.length, 'model tab buttons');
-        console.log('Found', tabContents.length, 'model tab contents');
-        
-        if (tabButtons.length === 0) {
-            console.log('No model tab buttons found, retrying...');
-            setTimeout(initializeModelTabs, 500);
-            return;
-        }
-        
-        tabButtons.forEach(function(button, index) {
-            button.addEventListener('click', function(e) {
-                console.log('Model tab clicked:', index);
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked button and corresponding content
-                this.classList.add('active');
-                if (tabContents[index]) {
-                    tabContents[index].classList.add('active');
-                }
-                
-                console.log('Switched to model tab:', index);
-            });
-        });
-        
-        console.log('Model tabs initialization complete');
-    }, 100);
-}
-
-// Enhanced Button Click Handler
-function setupEnhancedButtons() {
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.button_save')) {
-            console.log('Save button clicked');
-            // Handle save button with textured styling
-            const button = e.target.closest('.button_save');
-            const buttonText = button.querySelector('.button-text');
-            if (buttonText) {
-                buttonText.classList.add('expanding');
-                setTimeout(() => buttonText.classList.remove('expanding'), 800);
-            }
-            
-            // Trigger Python save function
-            if (typeof google !== 'undefined' && google.colab && google.colab.kernel) {
-                google.colab.kernel.invokeFunction('notebook.save_data_js', [], {});
-            }
-        }
-    });
-}
-
-// Initialize when DOM is ready
-function initializeWidgets() {
-    console.log('Initializing consolidated widgets...');
-    initializeDrawer();
-    initializeBottomTabs();
-    initializeModelTabs();
-    setupEnhancedButtons();
-    
-    // Re-initialize components periodically to handle dynamic content
-    setInterval(function() {
-        const tabButtons = document.querySelectorAll('.bottom-tab-button');
-        const drawerToggle = document.getElementById('drawer-toggle');
-        
-        if (tabButtons.length > 0) {
-            const firstButton = tabButtons[0];
-            if (firstButton && !firstButton.hasAttribute('data-initialized')) {
-                console.log('Re-initializing bottom tabs...');
-                initializeBottomTabs();
-                tabButtons.forEach(btn => btn.setAttribute('data-initialized', 'true'));
-            }
-        }
-        
-        if (drawerToggle && !drawerToggle.hasAttribute('data-initialized')) {
-            console.log('Re-initializing drawer...');
-            initializeDrawer();
-            drawerToggle.setAttribute('data-initialized', 'true');
-        }
-    }, 2000);
-}
-
-// Multiple initialization attempts for reliable startup
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(initializeWidgets, 500);
-        setTimeout(initializeWidgets, 1500);
-        setTimeout(initializeWidgets, 3000);
-    });
-} else {
-    setTimeout(initializeWidgets, 500);
-    setTimeout(initializeWidgets, 1500);
-    setTimeout(initializeWidgets, 3000);
-}
-
-// Additional initialization on window load
-window.addEventListener('load', function() {
-    setTimeout(initializeWidgets, 1000);
-});
-"""
-
-# Register the enhanced save function for JS callback
-output.register_callback('notebook.save_data_js', save_data)
-
-# Load JavaScript for enhanced functionality
-display(Javascript(consolidated_js))
+output.register_callback('notebook.save_data_from_js', save_data)
 
 load_settings()
 load_toggle_button_states()
-
-if __name__ == '__main__':
-    # This block will only be executed when the script is run directly
-    # It will not be executed when the script is imported by another module
-    
-    # --- Mock google.colab ---
-    from unittest.mock import MagicMock
-    import sys
-    google_colab = MagicMock()
-    google_colab.output = MagicMock()
-    google_colab.output.register_callback = MagicMock()
-    sys.modules['google'] = MagicMock()
-    sys.modules['google.colab'] = google_colab
-    
-    # --- Add project directories to Python path ---
-    sys.path.append(str(Path(__file__).parent.parent.parent / 'modules'))
-    
-    # --- Environment Setup ---
-    print("Setting up environment...")
-    CWD = Path.cwd()
-    HOME_PATH = CWD
-    SCR_PATH = HOME_PATH / 'ScarySingleDocs'
-    SETTINGS_PATH = SCR_PATH / 'settings.json'
-    VENV_PATH = HOME_PATH / 'venv'
-
-    # Create the settings directory if it doesn't exist
-    SETTINGS_PATH.parent.mkdir(exist_ok=True)
-
-    # Create a dummy settings.json if it doesn't exist
-    if not SETTINGS_PATH.exists():
-        with open(SETTINGS_PATH, 'w') as f:
-            f.write('{"ENVIRONMENT": {"env_name": "local"}}')
-
-    # Set environment variables
-    os.environ['home_path'] = str(HOME_PATH)
-    os.environ['scr_path'] = str(SCR_PATH)
-    os.environ['settings_path'] = str(SETTINGS_PATH)
-    os.environ['venv_path'] = str(VENV_PATH)
-    print("Environment setup complete.")
-    
-    # --- Add project directories to Python path ---
-    sys.path.append(str(CWD.parent / 'modules'))
-    sys.path.append(str(CWD.parent / 'scripts'))
-    
-    # --- Run the widget creation logic ---
-    # The widgets are created at the top level of the script, so we don't
-    # need to call any functions here.
-    pass

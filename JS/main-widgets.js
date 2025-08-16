@@ -1,278 +1,219 @@
 /**
- * Enhanced Widget JavaScript - ScarySingleDocs
- * Sophisticated interaction handling for cloud GPU notebook environments
+ * Consolidated Widget JavaScript - ScarySingleDocs
+ * Handles all dynamic UI interactions for the refactored notebook interface.
  */
 
-// === CORE FUNCTIONALITY ===
+// === INITIALIZATION ===
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing ScarySingleDocs UI...');
+    initializeAll();
+    console.log('All systems initialized successfully!');
+});
 
-// Toggle container visibility with elegant animations
-function toggleContainer() {
-    const SHOW_CLASS = 'showed';
-    const elements = {
-        downloadContainer: document.querySelector('.container_cdl'),
-        info: document.querySelector('.info'),
-        empowerment: document.querySelector('.empowerment')
-    };
+function initializeAll() {
+    initializeTopTabs();
+    initializeModelItems();
+    initializeDrawer();
+    initializeBottomTabs();
+    initializeEmpowerment();
+    initializeUtilityButtons();
+}
 
-    if (!elements.downloadContainer) return;
+// === UI COMPONENT INITIALIZERS ===
 
-    // Enhanced animation with callbacks
-    elements.downloadContainer.classList.toggle('expanded');
-    elements.info?.classList.toggle(SHOW_CLASS);
-    elements.empowerment?.classList.toggle(SHOW_CLASS);
+// 1. Top-level download tabs (Models, VAE, etc.)
+function initializeTopTabs() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            
+            // Deactivate all
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Activate clicked
+            this.classList.add('active');
+            const targetContent = document.getElementById(targetTab + '-content');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
 
-    // Add visual feedback
-    const isExpanded = elements.downloadContainer.classList.contains('expanded');
-    if (isExpanded) {
-        showStatusFeedback('Custom Download expanded', 'info');
+// 2. Selectable model items
+function initializeModelItems() {
+    const modelItems = document.querySelectorAll('.model-item');
+    modelItems.forEach(item => {
+        item.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+    });
+}
+
+// 3. Advanced Options Drawer
+function initializeDrawer() {
+    const drawerToggle = document.getElementById('drawer-toggle');
+    const drawerSections = document.getElementById('drawer-sections');
+    if (!drawerToggle || !drawerSections) return;
+
+    let isOpen = false;
+
+    drawerToggle.addEventListener('click', function() {
+        isOpen = !isOpen;
+        
+        if (isOpen) {
+            drawerSections.classList.remove('hidden');
+            drawerSections.classList.add('shown');
+            drawerToggle.classList.add('expanded');
+            drawerToggle.querySelector('.drawer-toggle-text').textContent = 'Hide Advanced Options';
+        } else {
+            drawerSections.classList.remove('shown');
+            drawerSections.classList.add('hidden');
+            drawerToggle.classList.remove('expanded');
+            drawerToggle.querySelector('.drawer-toggle-text').textContent = 'Advanced Options';
+        }
+    });
+}
+
+// 4. Tabs within the Advanced Drawer (Custom Download, etc.)
+function initializeBottomTabs() {
+    const bottomTabButtons = document.querySelectorAll('.bottom-tab-button');
+    const bottomTabContents = document.querySelectorAll('.bottom-tab-content');
+    if (bottomTabButtons.length === 0) return;
+
+    bottomTabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.dataset.bottomTab;
+            
+            // Deactivate all
+            bottomTabButtons.forEach(btn => btn.classList.remove('active'));
+            bottomTabContents.forEach(content => content.classList.remove('active'));
+            
+            // Activate clicked
+            this.classList.add('active');
+            const targetContent = document.getElementById(targetTab + '-content');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// 5. Empowerment (Text Area vs. Individual Fields) Toggle
+function initializeEmpowerment() {
+    const empowermentToggle = document.getElementById('empowerment');
+    const textareaContainer = document.getElementById('empowerment-textarea-container');
+    const individualFields = document.getElementById('individual-fields');
+    if (!empowermentToggle || !textareaContainer || !individualFields) return;
+
+    empowermentToggle.addEventListener('change', function() {
+        if (this.checked) {
+            textareaContainer.style.display = 'block';
+            individualFields.style.display = 'none';
+        } else {
+            textareaContainer.style.display = 'none';
+            individualFields.style.display = 'block';
+        }
+    });
+}
+
+// 6. Utility Buttons (Export/Import/GDrive)
+function initializeUtilityButtons() {
+    // These will likely trigger Python callbacks, so we just need placeholders
+    // The actual logic is in the Python script.
+    const gdriveButton = document.querySelector('.utility-button[title="Google Drive"]');
+    const exportButton = document.querySelector('.utility-button[title="Export"]');
+    const importButton = document.querySelector('.utility-button[title="Import"]');
+
+    const saveButton = document.querySelector('.button_save');
+    if (saveButton) {
+        saveButton.addEventListener('click', () => {
+            if (typeof google !== 'undefined' && google.colab && google.colab.kernel) {
+                google.colab.kernel.invokeFunction('notebook.save_data_from_js', [], {});
+            }
+        });
+    }
+
+    if (importButton) {
+        importButton.addEventListener('click', () => {
+            if (typeof google !== 'undefined' && google.colab && google.colab.kernel) {
+                google.colab.kernel.invokeFunction('importSettingsFromJS', [], {});
+            }
+        });
     }
 }
 
-// Enhanced JSON download with progress feedback
-function downloadJson(data, filename='widget_settings.json') {
-    showStatusFeedback('Preparing settings export...', 'info');
-    
+
+// === PYTHON COMMUNICATION & HELPERS ===
+
+// Function to be called from Python to download JSON
+function downloadJson(data, filename = 'widget_settings.json') {
     try {
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = filename;
-        a.style.display = 'none';
-        
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        
-        showStatusFeedback('Settings exported successfully!', 'success');
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        URL.revokeObjectURL(url);
+        showNotification('Settings exported successfully!', 'success');
     } catch (error) {
-        showStatusFeedback('Export failed: ' + error.message, 'error');
+        showNotification(`Export failed: ${error.message}`, 'error');
     }
 }
 
-// Enhanced file picker with validation
-function openFilePicker(callbackName='importSettingsFromJS') {
+// Function to be called from Python to open file picker
+function openFilePicker() {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
-    input.style.display = 'none';
-
     input.onchange = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
-
-        showStatusFeedback('Reading settings file...', 'info');
-
         try {
-            // Validate file size (max 1MB for safety)
-            if (file.size > 1024 * 1024) {
-                throw new Error('File too large (max 1MB)');
-            }
-
             const text = await file.text();
             const jsonData = JSON.parse(text);
-            
-            // Basic validation
-            if (typeof jsonData !== 'object' || jsonData === null) {
-                throw new Error('Invalid JSON structure');
+            if (typeof google !== 'undefined' && google.colab && google.colab.kernel) {
+                google.colab.kernel.invokeFunction('importSettingsFromJS', [jsonData], {});
             }
-
-            google.colab.kernel.invokeFunction(callbackName, [jsonData], {});
         } catch (err) {
-            const errorMsg = `Import failed: ${err.message}`;
-            showStatusFeedback(errorMsg, 'error');
-            google.colab.kernel.invokeFunction('showNotificationFromJS', [errorMsg, "error"], {});
+            showNotification(`Import failed: ${err.message}`, 'error');
         }
     };
-
-    document.body.appendChild(input);
     input.click();
-    document.body.removeChild(input);
 }
 
-// === PROGRESS & STATUS FEEDBACK ===
+// Notification system
+function showNotification(message, type = 'info', duration = 3000) {
+    const notificationPopup = document.querySelector('.notification-popup');
+    if (!notificationPopup) return;
 
-// Create and manage progress bars
-function createProgressBar(container, initialValue = 0) {
-    const progressContainer = document.createElement('div');
-    progressContainer.className = 'progress-container';
-    
-    const progressBar = document.createElement('div');
-    progressBar.className = 'progress-bar';
-    progressBar.style.width = `${initialValue}%`;
-    
-    progressContainer.appendChild(progressBar);
-    container.appendChild(progressContainer);
-    
-    return {
-        update: (value) => {
-            progressBar.style.width = `${Math.min(100, Math.max(0, value))}%`;
-        },
-        remove: () => {
-            progressContainer.remove();
-        }
+    const iconMap = {
+        'success': '✅',
+        'error': '❌',
+        'info': '💡',
+        'warning': '⚠️'
     };
-}
+    const icon = iconMap[type] || '💡';
 
-// Enhanced status feedback system
-function showStatusFeedback(message, type = 'info', duration = 3000) {
-    // Remove existing status indicators
-    document.querySelectorAll('.status-indicator').forEach(el => {
-        if (!el.classList.contains('persistent')) {
-            el.remove();
-        }
-    });
+    notificationPopup.innerHTML = `
+        <div class="notification ${type}">
+            <span class="notification-icon">${icon}</span>
+            <span class="notification-text">${message}</span>
+        </div>
+    `;
 
-    const statusIndicator = document.createElement('div');
-    statusIndicator.className = `status-indicator ${type}`;
-    
-    // Add loading spinner for certain types
-    if (type === 'downloading' || (type === 'info' && message.includes('...'))) {
-        const spinner = document.createElement('div');
-        spinner.className = 'loading-spinner';
-        statusIndicator.appendChild(spinner);
-    }
-    
-    const textNode = document.createTextNode(message);
-    statusIndicator.appendChild(textNode);
-    
-    // Insert into appropriate container
-    const targetContainer = document.querySelector('.download-tabs-container') || document.body;
-    targetContainer.appendChild(statusIndicator);
-    
-    // Auto-remove after duration
-    if (duration > 0) {
-        setTimeout(() => {
-            statusIndicator.style.opacity = '0';
-            setTimeout(() => statusIndicator.remove(), 300);
-        }, duration);
-    }
-    
-    return statusIndicator;
-}
+    notificationPopup.classList.remove('hidden');
+    notificationPopup.classList.add('visible');
 
-// Create download overlay for intensive operations
-function showDownloadOverlay(title, details = '') {
-    const overlay = document.createElement('div');
-    overlay.className = 'download-overlay active';
-    
-    const spinner = document.createElement('div');
-    spinner.className = 'loading-spinner';
-    spinner.style.width = '40px';
-    spinner.style.height = '40px';
-    spinner.style.borderWidth = '4px';
-    
-    const info = document.createElement('div');
-    info.className = 'download-info';
-    
-    const titleEl = document.createElement('div');
-    titleEl.className = 'download-title';
-    titleEl.textContent = title;
-    
-    const detailEl = document.createElement('div');
-    detailEl.className = 'download-detail';
-    detailEl.textContent = details;
-    
-    info.appendChild(titleEl);
-    if (details) info.appendChild(detailEl);
-    
-    overlay.appendChild(spinner);
-    overlay.appendChild(info);
-    
-    // Add to main container
-    const mainContainer = document.querySelector('.mainContainer');
-    if (mainContainer) {
-        mainContainer.style.position = 'relative';
-        mainContainer.appendChild(overlay);
-    }
-    
-    return {
-        updateTitle: (newTitle) => titleEl.textContent = newTitle,
-        updateDetails: (newDetails) => detailEl.textContent = newDetails,
-        remove: () => {
-            overlay.classList.remove('active');
-            setTimeout(() => overlay.remove(), 300);
-        }
-    };
-}
-
-// === TAB SYSTEM ENHANCEMENTS ===
-
-// Enhanced tab switching with animations
-function switchTab(targetTabId) {
-    const tabs = document.querySelectorAll('.tab-button');
-    const contents = document.querySelectorAll('.tab-content');
-    
-    // Remove active states
-    tabs.forEach(tab => tab.classList.remove('active'));
-    contents.forEach(content => {
-        content.classList.remove('active');
-        content.style.opacity = '0';
-    });
-    
-    // Activate target tab
-    const targetTab = document.querySelector(`[data-tab="${targetTabId}"]`);
-    const targetContent = document.querySelector(`[data-content="${targetTabId}"]`);
-    
-    if (targetTab && targetContent) {
-        targetTab.classList.add('active');
-        setTimeout(() => {
-            targetContent.classList.add('active');
-            targetContent.style.opacity = '1';
-        }, 150);
-        
-        showStatusFeedback(`${targetTabId} tab selected`, 'info', 1500);
-    }
-}
-
-// === UTILITY FUNCTIONS ===
-
-// Enhanced notification system
-function hideNotification(delay = 2500) {
     setTimeout(() => {
-        const popup = document.querySelector('.notification-popup');
-        if (popup) {
-            popup.classList.add('hidden');
-            popup.classList.remove('visible');
-        }
-    }, delay);
+        notificationPopup.classList.remove('visible');
+        notificationPopup.classList.add('hidden');
+    }, duration);
 }
-
-// Debounce utility for performance
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Initialize enhanced interactions when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Add click handlers for toggle buttons
-    document.querySelectorAll('.toggle-button').forEach(button => {
-        button.addEventListener('click', debounce(function(e) {
-            const isActive = this.classList.toggle('active');
-            showStatusFeedback(
-                `${this.textContent} ${isActive ? 'selected' : 'deselected'}`,
-                'info',
-                1500
-            );
-        }, 100));
-    });
-    
-    // Add enhanced tab functionality
-    document.querySelectorAll('.tab-button').forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            const tabId = this.textContent.toLowerCase();
-            switchTab(tabId);
-        });
-    });
-    
-    console.log('Enhanced ScarySingleDocs widgets initialized');
-});
